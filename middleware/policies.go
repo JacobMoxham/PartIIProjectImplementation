@@ -1,4 +1,4 @@
-package policies
+package middleware
 
 import "net/http"
 
