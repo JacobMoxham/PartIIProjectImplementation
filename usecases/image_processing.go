@@ -11,27 +11,21 @@ import (
 	"time"
 )
 
-// Simple example of another middleware to show this can build on top of other things
-func enforceGETHandler(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Check that request has method GET
-		if r.Method != "GET" {
-			http.Error(w, "Must be a GET request", 200)
-		}
-
-		next.ServeHTTP(w, r)
-	})
+func imageProcessingHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("PamRequest Received")
+	w.Write([]byte("Processed Image Goes Here"))
 }
 
-func basicServer() {
+func imServer() {
 	// Create actual function to run
-	finalHandler := http.HandlerFunc(basicFinal)
+	finalHandler := http.HandlerFunc(imageProcessingHandler)
 
 	// Define computation policy
-	computationPolicy := &middleware.StaticComputationPolicy{}
+	computationPolicy := middleware.NewStaticComputationPolicy()
+	computationPolicy.Register("/", middleware.CanCompute)
 
 	// Chain together "other" middlewares
-	handlers := alice.New(middleware.PrivacyAwareHandler(computationPolicy), enforceGETHandler).Then(finalHandler)
+	handlers := alice.New(middleware.PrivacyAwareHandler(computationPolicy)).Then(finalHandler)
 
 	// Register the composite handler at '/' on port 3000
 	http.Handle("/", handlers)
@@ -39,9 +33,13 @@ func basicServer() {
 	http.ListenAndServe(":3000", nil)
 }
 
-func basicClient() {
+func imClient() {
 	for i := 0; i < 10; i++ {
-		policy := middleware.RequestPolicy{}
+		policy := middleware.RequestPolicy{
+			ID: "client1",
+			PreferredProcessingLocation: middleware.Remote,
+			HasAllRequiredData:          true,
+		}
 		httpRequest, _ := http.NewRequest("GET", "http://127.0.0.1:3000/", nil)
 		req := middleware.PamRequest{
 			Policy:      &policy,
@@ -67,14 +65,8 @@ func basicClient() {
 func main() {
 	var wg sync.WaitGroup
 	wg.Add(2)
-	go basicServer()
+	go imServer()
 	time.Sleep(50)
-	go basicClient()
+	go imClient()
 	wg.Wait()
-}
-
-// Simply write OK back
-func basicFinal(w http.ResponseWriter, r *http.Request) {
-	log.Println("PamRequest Received")
-	w.Write([]byte("Hello World"))
 }
