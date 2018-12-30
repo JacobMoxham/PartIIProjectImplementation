@@ -39,7 +39,7 @@ func (r *PamRequest) Send() (*http.Response, error) {
 	return resp, nil
 }
 
-// Example of a very simple go middleware which takes a DataTransform and returns its default handler
+// Example of a very simple go middleware which takes a Transforms and returns its default handler
 // TODO: see if we can get this to fit the Handler interface
 func PrivacyAwareHandler(policy ComputationPolicy) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {

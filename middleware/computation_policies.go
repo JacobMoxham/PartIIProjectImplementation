@@ -1,23 +1,6 @@
 package middleware
 
-import (
-	"net/url"
-)
-
-// DataTransform is a map from PrivacyGroups to functions which must be applied to data before returning
-type DataTransform map[PrivacyGroup]func(interface{}) interface{}
-
-// PrivacyGroup is an interface for structs which contain a data structure of ID's which we can add to and remove from
-type PrivacyGroup interface {
-	Add(string)
-	Remove(string) error
-}
-
-// DataPolicy allow us to get a function which must be applied to data before returning for a given identifier
-type DataPolicy interface {
-	// resolve takes an indentififer and returns the function to be applied to data before returning
-	resolve(string) func(interface{}) interface{}
-}
+import "net/url"
 
 type ComputationCapability int
 
@@ -82,7 +65,7 @@ type RequestPolicy struct {
 
 // AddToParams adds each of its fields as a parameter in the passed Values struct
 func (p *RequestPolicy) AddToParams(params *url.Values) {
-	// TODO
+	// TODO add more params as required
 	preferredProcessingLocation := string(p.PreferredProcessingLocation)
 	params.Set("preferred_processing_location", preferredProcessingLocation)
 	return
