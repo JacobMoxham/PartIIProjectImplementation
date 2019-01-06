@@ -4,6 +4,11 @@
     <list default="true" id="e28621a1-efb5-4cd6-86fd-b9d0c04829bd" name="Default Changelist" comment="Basic client and server working">
       <change beforePath="$PROJECT_DIR$/../PartIIProjectImplementation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PartIIProjectImplementation/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PartIIProjectImplementation/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../PartIIProjectImplementation/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/aggregate_power_consumption.go" beforeDir="false" afterPath="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/aggregate_power_consumption.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/basic.go" beforeDir="false" afterPath="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/basic.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/image_processing.go" beforeDir="false" afterPath="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/image_processing.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../PartIIProjectImplementation/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,6 +37,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/basic.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="16" selection-start-column="8" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file:///usr/local/go/src/context/context.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="544">
@@ -49,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/Dockerfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="16" selection-start-column="16" selection-end-column="16" />
+            <state relative-caret-position="54">
+              <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -61,8 +75,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/aggregate_power_consumption.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+            <state relative-caret-position="236">
+              <caret line="138" column="14" selection-start-line="138" selection-start-column="14" selection-end-line="138" selection-end-column="14" />
+              <folding>
+                <element signature="e#14#184#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,17 +87,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="49" column="12" selection-start-line="49" selection-start-column="7" selection-end-line="49" selection-end-column="12" />
+            <state>
+              <caret column="16" selection-start-column="16" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/main.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/main.go">
+        <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/image_processing.go">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="12" selection-start-column="12" selection-end-column="12" />
+              <caret column="16" selection-start-column="8" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -163,8 +189,12 @@
         <option value="$PROJECT_DIR$/usecases/test.go" />
         <option value="$PROJECT_DIR$/Dockerfile" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption.go" />
-        <option value="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/aggregate_power_consumption.go" />
         <option value="$PROJECT_DIR$/../PartIIProjectImplementation/Dockerfile" />
+        <option value="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/image_processing.go" />
+        <option value="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/test.go" />
+        <option value="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/basic.go" />
+        <option value="$PROJECT_DIR$/../PartIIProjectImplementation/usecases/aggregate_power_consumption.go" />
+        <option value="$PROJECT_DIR$/../PartIIProjectImplementation/main.go" />
       </list>
     </option>
   </component>
@@ -197,6 +227,10 @@
               <item name="PartIIProjectImplementation" type="462c0819:PsiDirectoryNode" />
               <item name="usecases" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="PartIIProjectImplentation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -221,6 +255,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../PartIIProjectImplementation" />
       <recent name="$PROJECT_DIR$/middleware" />
     </key>
   </component>
@@ -236,7 +271,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.basic">
+  <component name="RunManager" selected="Docker.PartIIProjectImplementation/Dockerfile">
     <configuration name="Image Processing" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="PartIIProjectImplentation" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -291,18 +326,6 @@
       <output_directory value="$PROJECT_DIR$/../../../../bin" />
       <method v="2" />
     </configuration>
-    <configuration name="TestMySqlPrivateDatabase_ConnectAndClose in github.com/JacobMoxham/partiiproject/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="PartIIProjectImplentation" />
-      <working_directory value="$PROJECT_DIR$/middleware" />
-      <go_parameters value="-i" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/JacobMoxham/partiiproject/middleware" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestMySqlPrivateDatabase_ConnectAndClose$" />
-      <method v="2" />
-    </configuration>
     <configuration name="TestMySqlPrivateDatabase_Query in github.com/JacobMoxham/partiiproject/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="PartIIProjectImplentation" />
       <working_directory value="$PROJECT_DIR$/middleware" />
@@ -346,22 +369,30 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="PartIIProjectImplementation/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="../PartIIProjectImplementation/Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Go Build.basic" />
       <item itemvalue="Go Build.Image Processing" />
       <item itemvalue="Go Build.go build test.go" />
-      <item itemvalue="Go Test.TestMySqlPrivateDatabase_ConnectAndClose in github.com/JacobMoxham/partiiproject/middleware" />
       <item itemvalue="Go Test.TestMySqlPrivateDatabase_Query in github.com/JacobMoxham/partiiproject/middleware" />
       <item itemvalue="Go Build.go build aggregate_thermometer_data.go" />
       <item itemvalue="Docker.Dockerfile" />
+      <item itemvalue="Docker.PartIIProjectImplementation/Dockerfile" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.PartIIProjectImplementation/Dockerfile" />
         <item itemvalue="Docker.Dockerfile" />
         <item itemvalue="Go Build.go build aggregate_thermometer_data.go" />
         <item itemvalue="Go Build.go build test.go" />
         <item itemvalue="Go Test.TestMySqlPrivateDatabase_Query in github.com/JacobMoxham/partiiproject/middleware" />
-        <item itemvalue="Go Test.TestMySqlPrivateDatabase_ConnectAndClose in github.com/JacobMoxham/partiiproject/middleware" />
       </list>
     </recent_temporary>
   </component>
@@ -399,9 +430,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="26" width="1853" height="1048" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49702382" visible="true" weight="0.14775872" />
-      <window_info id="Structure" order="1" sideWeight="0.5029762" side_tool="true" visible="true" weight="0.14775872" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7615132" visible="true" weight="0.14775872" />
+      <window_info id="Structure" order="1" sideWeight="0.23848684" side_tool="true" visible="true" weight="0.14775872" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32991803" />
       <window_info anchor="bottom" id="Message" order="1" />
@@ -410,7 +442,7 @@
       <window_info anchor="bottom" id="Debug" order="4" weight="0.3713355" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Docker" order="7" visible="true" weight="0.63517916" />
+      <window_info anchor="bottom" id="Docker" order="7" visible="true" weight="0.33984798" />
       <window_info anchor="bottom" id="TODO" order="8" weight="0.07581967" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32991803" />
@@ -809,37 +841,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/image_processing.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="64" column="20" selection-start-line="64" selection-start-column="20" selection-end-line="64" selection-end-column="20" />
-          <folding>
-            <element signature="e#14#159#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="49" column="12" selection-start-line="49" selection-start-column="7" selection-end-line="49" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/middleware/private_database.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="44" column="34" selection-start-line="44" selection-start-column="34" selection-end-line="44" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/basic.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="66" column="15" selection-start-line="66" selection-start-column="15" selection-end-line="66" selection-end-column="15" />
-          <folding>
-            <element signature="e#14#159#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -857,24 +862,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/aggregate_power_consumption.go">
+    <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/Dockerfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+        <state relative-caret-position="54">
+          <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/main.go">
+    <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/image_processing.go">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="12" selection-start-column="12" selection-end-column="12" />
+          <caret column="16" selection-start-column="8" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/Dockerfile">
+    <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="16" selection-start-column="16" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/basic.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="16" selection-start-column="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/usecases/aggregate_power_consumption.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="138" column="14" selection-start-line="138" selection-start-column="14" selection-end-line="138" selection-end-column="14" />
+          <folding>
+            <element signature="e#14#184#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../PartIIProjectImplementation/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
         </state>
       </provider>
     </entry>

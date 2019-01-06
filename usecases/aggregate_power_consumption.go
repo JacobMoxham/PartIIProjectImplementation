@@ -1,4 +1,4 @@
-package main
+package usecases
 
 import (
 	"bufio"
@@ -136,7 +136,7 @@ func thermometerDevice() {
 	http.ListenAndServe(":3001", nil)
 }
 
-func power_main() {
+func PowerMain() {
 	var wg sync.WaitGroup
 	wg.Add(2)
 	// TODO run many using docker each with different ips which the central server can be assumed to know
