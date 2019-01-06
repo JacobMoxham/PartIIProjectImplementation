@@ -126,9 +126,6 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 	)
 	var colsToCopy []string
 
-	// Create arguments of the correct types to scan values into
-	var scanArgs []interface{}
-
 	for columnNames.Next() {
 		err := columnNames.Scan(&colName, &colType)
 		if err != nil {
@@ -145,15 +142,15 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 	// TODO: deal with primary keys and auto increments etc. - I think this is sorted by using LIKE
 	columnString := strings.Join(colsToCopy, ", ")
 
-	// Drop the table if it already exists
-	err = mspd.dropTableIfExists(transformedTableName)
-	if err != nil {
-		return err
-	}
-
 	if columnString == "" {
 		return errors.New("all columns are excluded, cannot create transformed table")
 	} else {
+		// Drop the table if it already exists
+		err = mspd.dropTableIfExists(transformedTableName)
+		if err != nil {
+			return err
+		}
+
 		// Copy table
 		createTableString := fmt.Sprintf("CREATE TABLE %s LIKE %s;", transformedTableName, tableName)
 		_, err = mspd.database.Exec(createTableString)
@@ -180,6 +177,10 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 		//	scanArgs[i] = reflect.New(scanArg).Interface()
 		//}
 
+		// Create arguments of the correct types to scan values into
+		var vals []interface{}
+
+		// Create scan variables of the correct underlying type
 		colTypes, err := rows.ColumnTypes()
 		if err != nil {
 			return err
@@ -189,10 +190,16 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 			// TODO add this in
 			//nullable, ok := ct.Nullable()
 			//args, ok := ct.DecimalSize()
-			appendCorrectArgumentType(&scanArgs, databaseTypeName)
+			appendCorrectArgumentType(&vals, databaseTypeName)
 		}
 
-		vals := make([]interface{}, len(colsToCopy))
+		scanArgs := make([]interface{}, len(vals))
+		// Make the scan args point at the values
+		for i := range vals {
+			scanArgs[i] = &vals[i]
+		}
+
+		//vals := make([]interface{}, len(colsToCopy))
 
 		var rowArguments []interface{}
 		rowCount := 0
@@ -204,7 +211,7 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 				return err
 			}
 			// Apply transforms to rows
-			for i, val := range scanArgs {
+			for i, val := range vals {
 				currentCol := colsToCopy[i]
 				transform, ok := transforms[currentCol]
 				if ok {
@@ -213,8 +220,6 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 						return err
 					}
 					vals[i] = transformedVal
-				} else {
-					vals[i] = val
 				}
 			}
 
@@ -273,32 +278,32 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 //	return slice1
 //}
 
-func appendCorrectArgumentType(scanArgs *[]interface{}, colType string) {
+func appendCorrectArgumentType(vals *[]interface{}, colType string) {
 	// TODO: this very much needs testing and debugging as well as use of the flags and nullable fields
 	switch colType {
 	case "tinyint":
 		// TODO consider flags for unsigned and nullable
-		*scanArgs = append(*scanArgs, new(int8))
+		*vals = append(*vals, *new(int8))
 	case "smallint":
 		fallthrough
 	case "year":
 		// TODO consider flags for unsigned and nullable
-		*scanArgs = append(*scanArgs, new(int16))
+		*vals = append(*vals, *new(int16))
 	case "mediumint":
 		fallthrough
 	case "int":
 		fallthrough
 	case "integer":
 		// TODO consider flags for unsigned and nullable
-		*scanArgs = append(*scanArgs, new(int32))
+		*vals = append(*vals, *new(int32))
 	case "bigint":
 		// TODO consider flags for unsigned and nullable
 		// TODO SERIAL is an alias for BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE
-		*scanArgs = append(*scanArgs, new(int64))
+		*vals = append(*vals, *new(int64))
 	case "float":
-		*scanArgs = append(*scanArgs, new(float32))
+		*vals = append(*vals, *new(float32))
 	case "double":
-		*scanArgs = append(*scanArgs, new(float64))
+		*vals = append(*vals, *new(float64))
 	case "varchar":
 		fallthrough
 	case "text":
@@ -320,7 +325,7 @@ func appendCorrectArgumentType(scanArgs *[]interface{}, colType string) {
 	case "longblob":
 		fallthrough
 	case "varbinary":
-		*scanArgs = append(*scanArgs, new(string))
+		*vals = append(*vals, *new(string))
 	case "date":
 		fallthrough
 	case "datetime":
@@ -328,9 +333,9 @@ func appendCorrectArgumentType(scanArgs *[]interface{}, colType string) {
 	case "timestamp":
 		fallthrough
 	case "time":
-		*scanArgs = append(*scanArgs, new(time.Time))
+		*vals = append(*vals, *new(time.Time))
 	default:
 		log.Println(fmt.Sprintf("Could not find corresponding GO type for %s, using interface{}", colType))
-		*scanArgs = append(*scanArgs, new(interface{}))
+		*vals = append(*vals, *new(interface{}))
 	}
 }

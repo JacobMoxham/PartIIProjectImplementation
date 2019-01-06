@@ -63,7 +63,7 @@ func createThermoDataHandler() (func(http.ResponseWriter, *http.Request), *middl
 			//queryString := `SELECT datetime, global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3 AS active_energy_per_minute from household_power_consumption`
 			rows, err := db.Query(`SELECT datetime, global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3 AS active_energy_per_minute FROM household_power_consumption`, requestPolicy)
 			if err != nil {
-				http.Error(w, err.Error(), 500)
+				http.Error(w, err.Error(), 200)
 			}
 
 			var (
@@ -72,17 +72,17 @@ func createThermoDataHandler() (func(http.ResponseWriter, *http.Request), *middl
 			)
 			_, err = w.Write([]byte("Datetime		GlobalActivePower\n"))
 			if err != nil {
-				http.Error(w, err.Error(), 500)
+				http.Error(w, err.Error(), 200)
 			}
 			for rows.Next() {
 				err = rows.Scan(&datetime, &activeEnergyPerMinute)
 				if err != nil {
-					http.Error(w, err.Error(), 500)
+					http.Error(w, err.Error(), 200)
 				}
 
 				_, err = w.Write([]byte(fmt.Sprintf("%s	%f\n", datetime.Format("2006-01-02 15:04:05"), activeEnergyPerMinute)))
 				if err != nil {
-					http.Error(w, err.Error(), 500)
+					http.Error(w, err.Error(), 200)
 				}
 			}
 			rows.Close()
