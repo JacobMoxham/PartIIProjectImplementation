@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	"github.com/JacobMoxham/partiiproject/middleware"
+	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
 	"github.com/justinas/alice"
 	"io/ioutil"
 	"log"
@@ -136,7 +136,7 @@ func thermometerDevice() {
 	http.ListenAndServe(":3001", nil)
 }
 
-func main() {
+func power_main() {
 	var wg sync.WaitGroup
 	wg.Add(2)
 	// TODO run many using docker each with different ips which the central server can be assumed to know

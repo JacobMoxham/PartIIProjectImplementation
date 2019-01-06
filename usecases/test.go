@@ -3,11 +3,11 @@ package main
 import (
 	"errors"
 	"fmt"
-	"github.com/JacobMoxham/partiiproject/middleware"
+	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
 	"time"
 )
 
-func main() {
+func test_main() {
 	funcMap := make(map[string]func(interface{}) (interface{}, error))
 	funcMap["dob"] = func(arg interface{}) (interface{}, error) {
 		date, ok := arg.(*time.Time)
@@ -47,5 +47,5 @@ func main() {
 	}
 	db.Connect("demouser", "demopassword", "store1")
 
-	db.Query("SELECT * from people", &middleware.PamContext{"jacob"})
+	db.Query("SELECT * from people", &middleware.RequestPolicy{"jacob", middleware.Local, true})
 }

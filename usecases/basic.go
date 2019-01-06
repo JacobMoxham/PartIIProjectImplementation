@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/JacobMoxham/partiiproject/middleware"
+	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
 	"github.com/justinas/alice"
 	"io/ioutil"
 	"log"
@@ -64,7 +64,7 @@ func basicClient() {
 	}
 }
 
-func main() {
+func basic_main() {
 	var wg sync.WaitGroup
 	wg.Add(2)
 	go basicServer()
