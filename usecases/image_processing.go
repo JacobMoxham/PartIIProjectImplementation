@@ -36,7 +36,7 @@ func imServer() {
 func imClient() {
 	for i := 0; i < 10; i++ {
 		policy := middleware.RequestPolicy{
-			ID: "client1",
+			RequesterID:                 "client1",
 			PreferredProcessingLocation: middleware.Remote,
 			HasAllRequiredData:          true,
 		}

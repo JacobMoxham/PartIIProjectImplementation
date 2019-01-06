@@ -45,7 +45,7 @@ func main() {
 			Transforms:    middleware.DataTransforms{group: &middleware.TableOperations{funcMap, colMap}},
 		},
 	}
-	db.Connect()
+	db.Connect("demouser", "demopassword", "store1")
 
-	db.Query("SELECT * from people", &middleware.PrivacyAwareMiddlewareContext{"jacob"})
+	db.Query("SELECT * from people", &middleware.PamContext{"jacob"})
 }

@@ -10,7 +10,7 @@ import (
 
 func TestMySqlPrivateDatabase_ConnectAndClose(t *testing.T) {
 	db := MySqlPrivateDatabase{}
-	err := db.Connect()
+	err := db.Connect("demouser", "demopassword", "store1")
 	t.Name()
 	require.NoError(t, err)
 
@@ -61,9 +61,9 @@ func TestMySqlPrivateDatabase_Query(t *testing.T) {
 			Transforms:    DataTransforms{group: &TableOperations{funcMap, colMap}},
 		},
 	}
-	db.Connect()
+	db.Connect("demouser", "demopassword", "store1")
 
-	db.Query("SELECT * from people", &PrivacyAwareMiddlewareContext{"jacob"})
+	db.Query("SELECT * from people", &PamContext{"jacob"})
 }
 
 // TODO: add a test for batching

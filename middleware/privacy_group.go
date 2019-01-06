@@ -1,6 +1,6 @@
 package middleware
 
-// PrivacyGroup a struct which contain a data structure of ID's which we can add to and remove from
+// PrivacyGroup a struct which contain a data structure of RequesterID's which we can add to and remove from
 type PrivacyGroup struct {
 	Name    string
 	Members map[string]bool

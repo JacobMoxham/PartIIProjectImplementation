@@ -16,9 +16,9 @@ const batchSize = 1000
 
 // PrivateRelationalDatabase wraps an SQL database and edits queries so that they operate over tables adjusted to match privacy policies
 type PrivateRelationalDatabase interface {
-	Connect() error
+	Connect(string, string, string) error
 	Close() error
-	Query(string *PrivacyAwareMiddlewareContext) (*sql.Rows, error)
+	Query(string *RequestPolicy) (*sql.Rows, error)
 	// TODO: consider how updates are handled? Perhaps edit update query and check for excluded rows? Perhaps just consider read only
 }
 
@@ -27,9 +27,9 @@ type MySqlPrivateDatabase struct {
 	database         *sql.DB
 }
 
-func (mspd *MySqlPrivateDatabase) Connect() error {
+func (mspd *MySqlPrivateDatabase) Connect(user string, password string, databaseName string) error {
 	// TODO consider getting the time.Time location from somewhere
-	db, err := sql.Open("mysql", "demouser:demopassword@/store1?parseTime=true&loc=UTC")
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@/%s?parseTime=true&loc=UTC", user, password, databaseName))
 	if err != nil {
 		return err
 	}
@@ -42,7 +42,7 @@ func (mspd *MySqlPrivateDatabase) Close() error {
 	return err
 }
 
-func (mspd *MySqlPrivateDatabase) Query(query string, context *PrivacyAwareMiddlewareContext) (*sql.Rows, error) {
+func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*sql.Rows, error) {
 	// Parse query
 	// Parse query
 	stmt, err := sqlparser.Parse(query)
@@ -77,6 +77,8 @@ func (mspd *MySqlPrivateDatabase) Query(query string, context *PrivacyAwareMiddl
 		}
 		err = mspd.transformRows(tableName, transformedTableName, tableOperations.TableTransforms, tableOperations.ExcludedCols)
 		if err != nil {
+			// TODO: remove log
+			//  log.Fatal(err)
 			return nil, err
 		}
 
@@ -112,6 +114,7 @@ func (mspd *MySqlPrivateDatabase) dropTableIfExists(table string) error {
 func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTableName string,
 	transforms map[string]func(interface{}) (interface{}, error), excludedColumns map[string][]string) error {
 	// Get the column types
+	// TODO: see if we can do this better - we almost certainly can
 	columnNamesString := fmt.Sprintf("SELECT column_name, data_type FROM information_schema.columns WHERE table_name='%s';", tableName)
 	columnNames, err := mspd.database.Query(columnNamesString)
 	if err != nil {
@@ -133,8 +136,6 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 		}
 		if !contains(excludedColumns[tableName], colName) {
 			colsToCopy = append(colsToCopy, colName)
-			// TODO: remove if the below works
-			//appendCorrectArgumentType(&scanArgs, colType)
 		}
 
 	}
@@ -151,7 +152,7 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 	}
 
 	if columnString == "" {
-		return errors.New("all columns are exluded, cannot create transformed table")
+		return errors.New("all columns are excluded, cannot create transformed table")
 	} else {
 		// Copy table
 		createTableString := fmt.Sprintf("CREATE TABLE %s LIKE %s;", transformedTableName, tableName)
@@ -184,11 +185,10 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 			return err
 		}
 		for _, ct := range colTypes {
-			databaseTypeName := ct.DatabaseTypeName()
+			databaseTypeName := strings.ToLower(ct.DatabaseTypeName())
 			// TODO add this in
 			//nullable, ok := ct.Nullable()
 			//args, ok := ct.DecimalSize()
-			// TODO test when I can connect to mysql to see the results
 			appendCorrectArgumentType(&scanArgs, databaseTypeName)
 		}
 
@@ -200,6 +200,9 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 		for rows.Next() {
 			// Read rows into variables
 			err = rows.Scan(scanArgs...)
+			if err != nil {
+				return err
+			}
 			// Apply transforms to rows
 			for i, val := range scanArgs {
 				currentCol := colsToCopy[i]
@@ -240,20 +243,35 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 				// Reset accumulators
 				rowCount = 0
 				rowsToWrite = ""
+				rowArguments = rowArguments[:0]
 			}
 		}
-		// Remove the last comma and space
-		rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
+		if rowCount > 0 {
+			// Remove the last comma and space
+			rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
 
-		// Write rows to transformed table
-		insertString := fmt.Sprintf("INSERT INTO %s VALUES %s", transformedTableName, rowsToWrite)
-		_, err = mspd.database.Exec(insertString, rowArguments...)
-		if err != nil {
-			return err
+			// Write rows to transformed table
+			insertString := fmt.Sprintf("INSERT INTO %s VALUES %s", transformedTableName, rowsToWrite)
+			_, err = mspd.database.Exec(insertString, rowArguments...)
+			if err != nil {
+				return err
+			}
 		}
 	}
 	return nil
 }
+
+//// appendSliceWithoutAliasing copies the values from the second slice into the first. This solves the problem of go
+//// reusing the underlying array of the first slice if it can do in the built in append function
+//func appendSliceWithoutAliasing(slice1 []interface{}, slice2 []interface{}) []interface{} {
+//	// Extend the first slice so we can copy in the values from the second slice
+//	oldLen := len(slice1)
+//	slice1 = append(slice1, make([]interface{}, len(slice2))...)
+//	for i, val := range slice2 {
+//		slice1[oldLen+i] = val
+//	}
+//	return slice1
+//}
 
 func appendCorrectArgumentType(scanArgs *[]interface{}, colType string) {
 	// TODO: this very much needs testing and debugging as well as use of the flags and nullable fields
@@ -311,5 +329,8 @@ func appendCorrectArgumentType(scanArgs *[]interface{}, colType string) {
 		fallthrough
 	case "time":
 		*scanArgs = append(*scanArgs, new(time.Time))
+	default:
+		log.Println(fmt.Sprintf("Could not find corresponding GO type for %s, using interface{}", colType))
+		*scanArgs = append(*scanArgs, new(interface{}))
 	}
 }

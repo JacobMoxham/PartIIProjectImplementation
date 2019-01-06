@@ -55,13 +55,13 @@ func PrivacyAwareHandler(policy ComputationPolicy) func(http.Handler) http.Handl
 				log.Print("Partially serving request as we can only provide raw data")
 				next.ServeHTTP(w, r)
 			case CanCompute:
-				preferred_location := r.URL.Query().Get("preferred_processing_location")
-				if preferred_location == "remote" {
-					log.Printf("Serving request as preferred location is %s and we can compute", preferred_location)
+				preferredLocation := r.URL.Query().Get("preferred_processing_location")
+				if preferredLocation == "remote" {
+					log.Printf("Serving request as preferred location is %s and we can compute", preferredLocation)
 					next.ServeHTTP(w, r)
 				} else {
 					// TODO: do as RawData if preferred is local (or allow user to specify)
-					log.Printf("Partially serving request as preferred location is %s and we can compute", preferred_location)
+					log.Printf("Partially serving request as preferred location is %s and we can compute", preferredLocation)
 					next.ServeHTTP(w, r)
 				}
 			default:
