@@ -1,7 +1,11 @@
 package main
 
-import "github.com/JacobMoxham/PartIIProjectImplementation/usecases"
+import (
+	"github.com/JacobMoxham/PartIIProjectImplementation/usecases"
+	"log"
+)
 
 func main() {
-	usecases.PowerMain()
+	log.Println("I did change yaaaay")
+	usecases.PowerClient()
 }

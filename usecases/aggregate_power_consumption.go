@@ -117,7 +117,7 @@ func centralServer() {
 	log.Println(fmt.Sprintf("%s", body))
 }
 
-func thermometerDevice() {
+func powerDevice() {
 	// Create actual function to run
 	thermoDataHandler, db := createThermoDataHandler()
 	defer db.Close()
@@ -140,10 +140,14 @@ func PowerMain() {
 	var wg sync.WaitGroup
 	wg.Add(2)
 	// TODO run many using docker each with different ips which the central server can be assumed to know
-	go thermometerDevice()
+	go powerDevice()
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Press a key to send start central server: ")
+	fmt.Println("Press a key to send start central server: ")
 	reader.ReadString('\n')
 	go centralServer()
 	wg.Wait()
+}
+
+func PowerClient() {
+	powerDevice()
 }
