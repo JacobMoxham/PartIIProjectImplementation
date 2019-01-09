@@ -48,7 +48,7 @@ func createThermoDataHandler() (func(http.ResponseWriter, *http.Request), *middl
 			Transforms:    middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}},
 		},
 	}
-	db.Connect("demouser", "demopassword", "power_consumption")
+	db.Connect("demouser", "demopassword", "power_consumption", "database", 33060)
 
 	return func(w http.ResponseWriter, r *http.Request) {
 			log.Println("PamRequest Received")
