@@ -7,7 +7,7 @@
   name = "github.com/JacobMoxham/PartIIProjectImplementation"
   packages = ["middleware"]
   pruneopts = "UT"
-  revision = "ec717b445637c3328fdf01ac65d6b2cb521ba586"
+  revision = "9ba9f6901cc66ece517818079a49d04a2aaac200"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"
