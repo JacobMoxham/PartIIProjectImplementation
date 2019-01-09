@@ -29,7 +29,7 @@ type MySqlPrivateDatabase struct {
 
 func (mspd *MySqlPrivateDatabase) Connect(user string, password string, databaseName string, uri string, port int) error {
 	// TODO consider getting the time.Time location from somewhere
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true&loc=UTC", user, password, databaseName, uri, port))
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=UTC", user, password, uri, port, databaseName))
 	if err != nil {
 		return err
 	}

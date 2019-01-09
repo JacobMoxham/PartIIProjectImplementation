@@ -77,12 +77,14 @@ func createThermoDataHandler() (func(http.ResponseWriter, *http.Request), *middl
 				err = rows.Scan(&datetime, &activeEnergyPerMinute)
 				if err != nil {
 					http.Error(w, err.Error(), 200)
+					rows.Close()
 					return
 				}
 
 				_, err = w.Write([]byte(fmt.Sprintf("%s	%f\n", datetime.Format("2006-01-02 15:04:05"), activeEnergyPerMinute)))
 				if err != nil {
 					http.Error(w, err.Error(), 200)
+					rows.Close()
 					return
 				}
 			}
