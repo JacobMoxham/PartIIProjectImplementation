@@ -33,6 +33,7 @@ func (mspd *MySqlPrivateDatabase) Connect(user string, password string, database
 	if err != nil {
 		return err
 	}
+	db.SetMaxIdleConns(0)
 	mspd.database = db
 	return nil
 }
@@ -164,6 +165,7 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 		if err != nil {
 			return err
 		}
+		defer rows.Close()
 
 		//// TODO: see if this works
 		//colTypes, err := rows.ColumnTypes()

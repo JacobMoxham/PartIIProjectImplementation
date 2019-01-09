@@ -10,7 +10,7 @@ import (
 
 func TestMySqlPrivateDatabase_ConnectAndClose(t *testing.T) {
 	db := MySqlPrivateDatabase{}
-	err := db.Connect("demouser", "demopassword", "store1")
+	err := db.Connect("demouser", "demopassword", "store1", "localhost", 33060)
 	t.Name()
 	require.NoError(t, err)
 

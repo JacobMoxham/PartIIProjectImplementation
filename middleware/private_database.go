@@ -34,6 +34,7 @@ func (mspd *MySqlPrivateDatabase) Connect(user string, password string, database
 		return err
 	}
 	db.SetMaxIdleConns(0)
+	db.SetConnMaxLifetime(time.Second * 20)
 	mspd.database = db
 	return nil
 }

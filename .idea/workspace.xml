@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e28621a1-efb5-4cd6-86fd-b9d0c04829bd" name="Default Changelist" comment="Basic client and server working">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/middleware/private_database.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/private_database.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/private_database_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/private_database_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption/data-client/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption/data-client/Gopkg.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption/data-client/data_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption/data-client/data_client.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+            <state relative-caret-position="306">
+              <caret line="36" column="40" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -79,15 +78,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file:///usr/local/go/src/fmt/print.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="281">
@@ -99,8 +89,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/middleware/private_database_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+            <state relative-caret-position="162">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
@@ -174,7 +164,6 @@
         <option value="$PROJECT_DIR$/middleware/privacy_group.go" />
         <option value="$PROJECT_DIR$/middleware/data_policies.go" />
         <option value="$PROJECT_DIR$/middleware/policies.go" />
-        <option value="$PROJECT_DIR$/middleware/private_database_test.go" />
         <option value="$PROJECT_DIR$/middleware/context.go" />
         <option value="$PROJECT_DIR$/middleware/computation_policies.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_thermometer_data.go" />
@@ -202,6 +191,7 @@
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption/import.sh" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption/docker-compose.yml" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption/data-client/data_client.go" />
+        <option value="$PROJECT_DIR$/middleware/private_database_test.go" />
         <option value="$PROJECT_DIR$/middleware/private_database.go" />
       </list>
     </option>
@@ -469,8 +459,8 @@
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.70430905" visible="true" weight="0.15257049" />
-      <window_info id="Structure" order="1" sideWeight="0.29569092" side_tool="true" visible="true" weight="0.15257049" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.70353985" visible="true" weight="0.15257049" />
+      <window_info id="Structure" order="1" sideWeight="0.29646018" side_tool="true" visible="true" weight="0.15257049" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32991803" />
       <window_info anchor="bottom" id="Message" order="1" />
@@ -479,7 +469,7 @@
       <window_info anchor="bottom" id="Debug" order="4" weight="0.37095088" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.4997236" visible="true" weight="0.2967607" />
+      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.4997236" visible="true" weight="0.5276907" />
       <window_info anchor="bottom" id="TODO" order="8" weight="0.07581967" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32991803" />
@@ -535,52 +525,52 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
-          <line>165</line>
+          <line>166</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
-          <line>212</line>
+          <line>213</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
-          <line>221</line>
+          <line>222</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
-          <line>246</line>
+          <line>247</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
-          <line>263</line>
+          <line>264</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
-          <line>158</line>
+          <line>159</line>
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
-          <line>260</line>
+          <line>261</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
-          <line>277</line>
+          <line>278</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
-          <line>274</line>
+          <line>275</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
-          <line>151</line>
+          <line>152</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -591,7 +581,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
-          <line>187</line>
+          <line>188</line>
           <properties />
           <option name="timeStamp" value="41" />
         </line-breakpoint>
@@ -842,23 +832,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/private_database_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption/requesting-client/requesting_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
-          <folding>
-            <element signature="e#14#128#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption/data-client/Gopkg.lock">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -904,10 +877,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption/requesting-client/requesting_client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+          <folding>
+            <element signature="e#14#128#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/private_database_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+        <state relative-caret-position="306">
+          <caret line="36" column="40" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
         </state>
       </provider>
     </entry>
