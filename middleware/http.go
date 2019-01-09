@@ -55,6 +55,7 @@ func PrivacyAwareHandler(policy ComputationPolicy) func(http.Handler) http.Handl
 				log.Print("Partially serving request as we can only provide raw data")
 				next.ServeHTTP(w, r)
 			case CanCompute:
+				// TODO: use the PamRequest build command
 				preferredLocation := r.URL.Query().Get("preferred_processing_location")
 				if preferredLocation == "remote" {
 					log.Printf("Serving request as preferred location is %s and we can compute", preferredLocation)

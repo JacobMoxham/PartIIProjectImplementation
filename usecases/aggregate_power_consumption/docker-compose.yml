@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  data-client:
+    build: './data-client'
+    ports:
+      - "3001:3001"
+  database:
+    image: mysql
+    container_name: database.dev
+    command: mysqld --user=root --verbose
+    volumes:
+      - ./dbcreation.sql:/tmp/dbcreation.sql
+      - ./import.sh:/tmp/import.sh
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "power_consumption"
+      MYSQL_USER: "demouser"
+      MYSQL_PASSWORD: "demopassword"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  requesting-client:
+    build: './requesting-client'
+  server:
+    build: './server'
+    ports:
+      - "3002:3002"
