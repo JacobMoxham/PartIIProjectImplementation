@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func createThermoDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase) {
+func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
 	transformsForEntities := make(map[string]func(interface{}) (interface{}, error))
 	transformsForEntities["dob"] = func(arg interface{}) (interface{}, error) {
 		date, ok := arg.(*time.Time)
@@ -48,7 +48,10 @@ func createThermoDataHandler() (func(http.ResponseWriter, *http.Request), *middl
 			Transforms:    middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}},
 		},
 	}
-	db.Connect("demouser", "demopassword", "power_consumption", "database", 33060)
+	err := db.Connect("demouser", "demopassword", "power_consumption", "database", 3306)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
 			log.Println("PamRequest Received")
@@ -58,16 +61,18 @@ func createThermoDataHandler() (func(http.ResponseWriter, *http.Request), *middl
 				return
 			}
 			//queryString := `SELECT datetime, global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3 AS active_energy_per_minute from household_power_consumption`
-			rows, err := db.Query(`SELECT datetime, global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3 AS active_energy_per_minute FROM household_power_consumption`, requestPolicy)
+			rows, err := db.Query(`SELECT datetime, global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3 AS active_energy_per_minute FROM household_power_consumption LIMIT 10`, requestPolicy)
 			if err != nil {
 				http.Error(w, err.Error(), 200)
 				return
 			}
+			defer rows.Close()
 
 			var (
 				datetime              time.Time
 				activeEnergyPerMinute float32
 			)
+			// TODO: write in a better format i.e. JSON
 			_, err = w.Write([]byte("Datetime		GlobalActivePower\n"))
 			if err != nil {
 				http.Error(w, err.Error(), 200)
@@ -77,27 +82,28 @@ func createThermoDataHandler() (func(http.ResponseWriter, *http.Request), *middl
 				err = rows.Scan(&datetime, &activeEnergyPerMinute)
 				if err != nil {
 					http.Error(w, err.Error(), 200)
-					rows.Close()
 					return
 				}
 
 				_, err = w.Write([]byte(fmt.Sprintf("%s	%f\n", datetime.Format("2006-01-02 15:04:05"), activeEnergyPerMinute)))
 				if err != nil {
 					http.Error(w, err.Error(), 200)
-					rows.Close()
 					return
 				}
 			}
-			rows.Close()
+			log.Println("Handler Complete")
 		},
-		&db
+		&db, nil
 }
 
 func main() {
 	// Create actual function to run
-	thermoDataHandler, db := createThermoDataHandler()
+	powerConsumptionHandler, db, err := createPowerConsumptionDataHandler()
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer db.Close()
-	finalHandler := http.HandlerFunc(thermoDataHandler)
+	finalHandler := http.HandlerFunc(powerConsumptionHandler)
 
 	// Define computation policy
 	computationPolicy := middleware.NewStaticComputationPolicy()
@@ -109,7 +115,7 @@ func main() {
 	// Register the composite handler at '/' on port 3001
 	http.Handle("/", handlers)
 	log.Println("Listening...")
-	err := http.ListenAndServe(":3001", nil)
+	err = http.ListenAndServe(":3001", nil)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -3,11 +3,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:02941098550ab36b287841353107d2fe7b62fb3b9cfc2be289add6e58a3dad63"
+  digest = "1:89bd4aa21e83b00aa6d89d50a250fa9d973f771d9e2bae9c169aa1c0e38c143b"
   name = "github.com/JacobMoxham/PartIIProjectImplementation"
   packages = ["middleware"]
   pruneopts = "UT"
-  revision = "35df10a46eb68f627f4d37d5f33e1c0aaaf21da9"
+  revision = "b9591080c6f8170581d7a76dddc6ccb6c14576f6"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"
@@ -16,6 +16,14 @@
   pruneopts = "UT"
   revision = "72cd26f257d44c1114970e19afddcd812016007e"
   version = "v1.4.1"
+
+[[projects]]
+  branch = "master"
+  digest = "1:e74fa8e635591eb1ad79e8e711bff8bea4e12e9737563daf12af325c6ea206e4"
+  name = "github.com/justinas/alice"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "03f45bd4b7dad4734bc4620e46a35789349abb20"
 
 [[projects]]
   branch = "master"
@@ -42,6 +50,9 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/JacobMoxham/PartIIProjectImplementation/middleware"]
+  input-imports = [
+    "github.com/JacobMoxham/PartIIProjectImplementation/middleware",
+    "github.com/justinas/alice",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

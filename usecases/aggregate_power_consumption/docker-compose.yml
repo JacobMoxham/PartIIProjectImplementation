@@ -5,24 +5,28 @@ services:
     build: './data-client'
     ports:
       - "3001:3001"
+  # We must run `docker exec database.dev bash /tmp/import.sh` in this container for setup
   database:
     image: mysql
     container_name: database.dev
     command: mysqld --user=root --verbose
     volumes:
-      - ./dbcreation.sql:/tmp/dbcreation.sql
-      - ./import.sh:/tmp/import.sh
+      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
+#      - ./mysql-init/import.sh:/tmp/import.sh
+      - ./mysql-init:/docker-entrypoint-initdb.d
     ports:
-      - "33060:33060"
+      - "3306:3306"
     environment:
-      MYSQL_DATABASE: "power_consumption"
+      MYSQL_DATABASE: power_consumption
       MYSQL_USER: "demouser"
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-#  requesting-client:
-#    build: './requesting-client'
-#  server:
-#    build: './server'
-#    ports:
-#      - "3002:3002"
+  requesting-client:
+    build: './requesting-client'
+    ports:
+      - "4000:4000"
+  server:
+    build: './server'
+    ports:
+      - "3002:3002"

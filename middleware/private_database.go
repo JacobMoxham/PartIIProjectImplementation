@@ -46,7 +46,6 @@ func (mspd *MySqlPrivateDatabase) Close() error {
 
 func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*sql.Rows, error) {
 	// Parse query
-	// Parse query
 	stmt, err := sqlparser.Parse(query)
 	if err != nil {
 		return nil, err

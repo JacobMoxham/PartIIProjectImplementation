@@ -27,12 +27,14 @@ type MySqlPrivateDatabase struct {
 	database         *sql.DB
 }
 
-func (mspd *MySqlPrivateDatabase) Connect(user string, password string, databaseName string) error {
+func (mspd *MySqlPrivateDatabase) Connect(user string, password string, databaseName string, uri string, port int) error {
 	// TODO consider getting the time.Time location from somewhere
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@/%s?parseTime=true&loc=UTC", user, password, databaseName))
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=UTC", user, password, uri, port, databaseName))
 	if err != nil {
 		return err
 	}
+	db.SetMaxIdleConns(0)
+	db.SetConnMaxLifetime(time.Second * 20)
 	mspd.database = db
 	return nil
 }
@@ -164,6 +166,7 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 		if err != nil {
 			return err
 		}
+		defer rows.Close()
 
 		//// TODO: see if this works
 		//colTypes, err := rows.ColumnTypes()
