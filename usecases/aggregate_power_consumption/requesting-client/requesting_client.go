@@ -30,7 +30,8 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 		endDate := requestParams.Get("endDate")
 
 		// Add date interval to request to send
-		req.
+		req.AddParam("startDate", startDate)
+		req.AddParam("endDate", endDate)
 
 		resp, err := req.Send()
 		if err != nil {
