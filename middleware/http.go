@@ -63,6 +63,18 @@ func (r *PamRequest) SetParam(key string, value string) {
 	params.Set(key, value)
 }
 
+func BuildPamRequest(req *http.Request) (*PamRequest, error) {
+	policy, err := BuildRequestPolicy(req)
+	if err != nil {
+		return nil, err
+	}
+	pamRequest := PamRequest{
+		HttpRequest: req,
+		Policy:      policy,
+	}
+	return &pamRequest, nil
+}
+
 // Example of a very simple go middleware which takes a Transforms and returns its default handler
 // TODO: see if we can get this to fit the Handler interface
 func PrivacyAwareHandler(policy ComputationPolicy) func(http.Handler) http.Handler {

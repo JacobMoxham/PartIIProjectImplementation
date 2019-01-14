@@ -21,7 +21,8 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Println("PamRequest Received")
-		startDate :=
+		pamRequest, err := middleware.Build()
+		startDate := r.
 
 		returnString := ""
 		for _, client := range clients {
