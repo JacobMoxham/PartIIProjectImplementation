@@ -50,19 +50,38 @@ func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Reques
 		},
 	}
 	err := db.Connect("demouser", "demopassword", "power_consumption", "database", 3306)
+	//err := db.Connect("demouser", "demopassword", "power_consumption", "localhost", 3306)
+
 	if err != nil {
 		return nil, nil, err
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-			log.Println("PamRequest Received")
-			requestPolicy, err := middleware.BuildRequestPolicy(r)
+			pamRequest, err := middleware.BuildPamRequest(r)
+			startDate := pamRequest.GetParam("startDate")
+			endDate := pamRequest.GetParam("endDate")
+			requestPolicy := pamRequest.Policy
+
+			// Parse as time for validation purposes
+			startTime, err := time.Parse("2006-01-02", startDate)
+			if err != nil {
+				http.Error(w, err.Error(), 200)
+			}
+			endTime, err := time.Parse("2006-01-02", endDate)
+			if err != nil {
+				http.Error(w, err.Error(), 200)
+			}
+
 			if err != nil {
 				http.Error(w, err.Error(), 200)
 				return
 			}
-			//queryString := `SELECT datetime, global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3 AS active_energy_per_minute from household_power_consumption`
-			rows, err := db.Query(`SELECT datetime, global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3 AS active_energy_per_minute FROM household_power_consumption LIMIT 10`, requestPolicy)
+			queryString := fmt.Sprintf("SELECT datetime, "+
+				"global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3"+
+				"AS active_energy_per_minute "+
+				"FROM household_power_consumption "+
+				"WHERE datetime BETWEEN \"%s\" AND \"%s\" ", startTime.Format("2006-01-02"), endTime.Format("2006-01-02"))
+			rows, err := db.Query(queryString, requestPolicy)
 			if err != nil {
 				http.Error(w, err.Error(), 200)
 				return
@@ -92,7 +111,6 @@ func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Reques
 					return
 				}
 			}
-			log.Println("Handler Complete")
 		},
 		&db, nil
 }

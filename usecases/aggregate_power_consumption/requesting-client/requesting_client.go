@@ -19,6 +19,8 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 			HasAllRequiredData:          false,
 		}
 		httpRequest, _ := http.NewRequest("GET", "http://server:3002/get-average-power-consumption", nil)
+		//httpRequest, _ := http.NewRequest("GET", "http://127.0.0.1:3002/get-average-power-consumption", nil)
+
 		req := middleware.PamRequest{
 			Policy:      &policy,
 			HttpRequest: httpRequest,
@@ -30,8 +32,8 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 		endDate := requestParams.Get("endDate")
 
 		// Add date interval to request to send
-		req.AddParam("startDate", startDate)
-		req.AddParam("endDate", endDate)
+		req.SetParam("startDate", startDate)
+		req.SetParam("endDate", endDate)
 
 		resp, err := req.Send()
 		if err != nil {
