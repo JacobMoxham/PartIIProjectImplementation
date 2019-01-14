@@ -7,6 +7,7 @@ import (
 	"github.com/justinas/alice"
 	"log"
 	"net/http"
+	_ "net/http/pprof"
 	"time"
 )
 

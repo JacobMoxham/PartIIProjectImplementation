@@ -39,6 +39,12 @@ func (r *PamRequest) Send() (*http.Response, error) {
 	return resp, nil
 }
 
+func (r *PamRequest) AddParam(key string, value string) {
+	httpRequest := r.HttpRequest
+	params := httpRequest.URL.Query()
+	params.Add(key, value)
+}
+
 // Example of a very simple go middleware which takes a Transforms and returns its default handler
 // TODO: see if we can get this to fit the Handler interface
 func PrivacyAwareHandler(policy ComputationPolicy) func(http.Handler) http.Handler {
