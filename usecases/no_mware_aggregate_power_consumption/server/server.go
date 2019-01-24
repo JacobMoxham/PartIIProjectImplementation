@@ -1,34 +1,37 @@
 package main
 
 import (
+	"bytes"
+	"encoding/csv"
 	"fmt"
-	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
-	"github.com/justinas/alice"
 	"io/ioutil"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
+	"strconv"
 )
 
-var clients = []string{"data-client"}
+var clients = []string{"no-mware-data-client"}
 
 func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Request), error) {
-	policy := middleware.RequestPolicy{
-		RequesterID:                 "server",
-		PreferredProcessingLocation: middleware.Remote,
-		HasAllRequiredData:          false,
-	}
-
 	return func(w http.ResponseWriter, r *http.Request) {
-		log.Println("PamRequest Received")
-		returnString := ""
+		// Get date interval from received request
+		requestParams := r.URL.Query()
+		startDate := requestParams.Get("startDate")
+		endDate := requestParams.Get("endDate")
+
+		averageActiveEnergyPerMinuteFromAllClients := 0.0
 		for _, client := range clients {
 			httpRequest, _ := http.NewRequest("GET", fmt.Sprintf("http://%s:3001/", client), nil)
-			req := middleware.PamRequest{
-				Policy:      &policy,
-				HttpRequest: httpRequest,
-			}
-			resp, err := req.Send()
+			// Add date interval to request to send
+			params := httpRequest.URL.Query()
+			params.Set("startDate", startDate)
+			httpRequest.URL.RawQuery = params.Encode()
+			params.Set("endDate", endDate)
+			httpRequest.URL.RawQuery = params.Encode()
+
+			client := http.Client{}
+			resp, err := client.Do(httpRequest)
 			if err != nil {
 				log.Println("Error:", err)
 				return
@@ -40,15 +43,38 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 				log.Fatal("Error reading body of response.", err)
 			}
 			resp.Body.Close()
-			// TODO: parse a better format and do some averaging
-			returnString += string(body)
+			reader := csv.NewReader(bytes.NewBuffer(body))
+			lines, err := reader.ReadAll()
+			if err != nil {
+				log.Println("Error:", err)
+				http.Error(w, err.Error(), 200)
+				return
+			}
+			totalActiveEnergyPerMinute := 0.0
+			for i, line := range lines {
+				// Skip header
+				if i > 0 {
+					// Average the active energy per minute from all clients
+					activeEnergyPerMinute, err := strconv.ParseFloat(line[1], 64)
+					if err != nil {
+						log.Println("Error:", err)
+						http.Error(w, err.Error(), 200)
+						return
+					}
+					totalActiveEnergyPerMinute += activeEnergyPerMinute
+				}
+			}
+			// Do a division here to keep numbers smaller
+			averageActiveEnergyPerMinute := totalActiveEnergyPerMinute / float64(len(lines))
+			averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
 		}
-		_, err := w.Write([]byte(returnString))
+		averageActiveEnergyPerMinuteFromAllClients /= float64(len(clients))
+		_, err := w.Write([]byte(fmt.Sprintf("%.2f", averageActiveEnergyPerMinuteFromAllClients)))
 		if err != nil {
+			log.Println("Error:", err)
 			http.Error(w, err.Error(), 200)
 			return
 		}
-		log.Println("Handler Complete")
 	}, nil
 }
 
@@ -58,17 +84,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	finalHandler := http.HandlerFunc(getAveragePowerConsumptionHandler)
-
-	// Define computation policy
-	computationPolicy := middleware.NewStaticComputationPolicy()
-	computationPolicy.Register("/get-average-power-consumption", middleware.CanCompute)
-
-	// Chain together "other" middlewares
-	handlers := alice.New(middleware.PrivacyAwareHandler(computationPolicy)).Then(finalHandler)
+	handler := http.HandlerFunc(getAveragePowerConsumptionHandler)
 
 	// Register the composite handler at '/get-average-power-consumption' on port 3002
-	http.Handle("/get-average-power-consumption", handlers)
+	http.Handle("/get-average-power-consumption", handler)
 	log.Println("Listening...")
 	err = http.ListenAndServe(":3002", nil)
 	if err != nil {

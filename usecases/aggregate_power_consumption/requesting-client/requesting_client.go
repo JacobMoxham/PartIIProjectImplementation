@@ -8,7 +8,10 @@ import (
 	"log"
 	"net/http"
 	_ "net/http/pprof"
+	"time"
 )
+
+const DOCKER = false
 
 func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -18,8 +21,13 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 			PreferredProcessingLocation: middleware.Remote,
 			HasAllRequiredData:          false,
 		}
-		httpRequest, _ := http.NewRequest("GET", "http://server:3002/get-average-power-consumption", nil)
-		//httpRequest, _ := http.NewRequest("GET", "http://127.0.0.1:3002/get-average-power-consumption", nil)
+
+		var httpRequest *http.Request
+		if DOCKER {
+			httpRequest, _ = http.NewRequest("GET", "http://server:3002/get-average-power-consumption", nil)
+		} else {
+			httpRequest, _ = http.NewRequest("GET", "http://127.0.0.1:3002/get-average-power-consumption", nil)
+		}
 
 		req := middleware.PamRequest{
 			Policy:      &policy,
@@ -35,11 +43,14 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 		req.SetParam("startDate", startDate)
 		req.SetParam("endDate", endDate)
 
+		start := time.Now()
 		resp, err := req.Send()
 		if err != nil {
 			log.Println("Error:", err)
 			return
 		}
+		latency := time.Since(start)
+		log.Printf("Request took: %d (ms)\n", latency.Nanoseconds()/1000)
 
 		// Read response
 		body, err := ioutil.ReadAll(resp.Body)
@@ -48,10 +59,10 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 		}
 		resp.Body.Close()
 
-		log.Println(fmt.Sprintf("%s", body))
+		log.Println(fmt.Sprintf("Code: %d Result: %s", resp.StatusCode, body))
 		_, err = w.Write([]byte(body))
 		if err != nil {
-			http.Error(w, err.Error(), 200)
+			http.Error(w, err.Error(), 500)
 			return
 		}
 		log.Println("Handler Complete")

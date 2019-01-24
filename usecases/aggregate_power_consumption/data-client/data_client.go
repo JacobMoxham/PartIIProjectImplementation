@@ -4,12 +4,15 @@ import (
 	"errors"
 	"fmt"
 	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
+	"github.com/joho/sqltocsv"
 	"github.com/justinas/alice"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
 	"time"
 )
+
+const DOCKER = false
 
 func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
 	transformsForEntities := make(map[string]func(interface{}) (interface{}, error))
@@ -49,8 +52,12 @@ func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Reques
 			Transforms:    middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}},
 		},
 	}
-	err := db.Connect("demouser", "demopassword", "power_consumption", "database", 3306)
-	//err := db.Connect("demouser", "demopassword", "power_consumption", "localhost", 3306)
+	var err error
+	if DOCKER {
+		err = db.Connect("demouser", "demopassword", "power_consumption", "database", 3306)
+	} else {
+		err = db.Connect("demouser", "demopassword", "power_consumption", "localhost", 3306)
+	}
 
 	if err != nil {
 		return nil, nil, err
@@ -65,51 +72,86 @@ func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Reques
 			// Parse as time for validation purposes
 			startTime, err := time.Parse("2006-01-02", startDate)
 			if err != nil {
-				http.Error(w, err.Error(), 200)
+				http.Error(w, err.Error(), 400)
+				log.Println(err.Error())
+				return
 			}
 			endTime, err := time.Parse("2006-01-02", endDate)
 			if err != nil {
-				http.Error(w, err.Error(), 200)
-			}
-
-			if err != nil {
-				http.Error(w, err.Error(), 200)
+				http.Error(w, err.Error(), 400)
+				log.Println(err.Error())
 				return
 			}
+
 			queryString := fmt.Sprintf("SELECT datetime, "+
-				"global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3"+
+				"global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3 "+
 				"AS active_energy_per_minute "+
 				"FROM household_power_consumption "+
 				"WHERE datetime BETWEEN \"%s\" AND \"%s\" ", startTime.Format("2006-01-02"), endTime.Format("2006-01-02"))
 			rows, err := db.Query(queryString, requestPolicy)
 			if err != nil {
-				http.Error(w, err.Error(), 200)
+				http.Error(w, err.Error(), 500)
+				log.Println(err.Error())
 				return
 			}
+
 			defer rows.Close()
 
+			//var (
+			//	datetime              time.Time
+			//	activeEnergyPerMinute float32
+			//)
+			//// TODO: write in a better format i.e. JSON
+			//_, err = w.Write([]byte("Datetime		GlobalActivePower\n"))
+			//if err != nil {
+			//	http.Error(w, err.Error(), 200)
+			//	return
+			//}
+			//for rows.Next() {
+			//	err = rows.Scan(&datetime, &activeEnergyPerMinute)
+			//	if err != nil {
+			//		http.Error(w, err.Error(), 200)
+			//		return
+			//	}
+			//
+			//	_, err = w.Write([]byte(fmt.Sprintf("%s	%f\n", datetime.Format("2006-01-02 15:04:05"), activeEnergyPerMinute)))
+			//	if err != nil {
+			//		http.Error(w, err.Error(), 200)
+			//		return
+			//	}
+			//}
+
+			// DEBUGGING
 			var (
 				datetime              time.Time
 				activeEnergyPerMinute float32
 			)
-			// TODO: write in a better format i.e. JSON
-			_, err = w.Write([]byte("Datetime		GlobalActivePower\n"))
-			if err != nil {
-				http.Error(w, err.Error(), 200)
-				return
-			}
+			i := 0
+			printString := "Results: "
 			for rows.Next() {
 				err = rows.Scan(&datetime, &activeEnergyPerMinute)
 				if err != nil {
-					http.Error(w, err.Error(), 200)
-					return
+					panic(err)
 				}
+				if i < 100 {
+					printString += fmt.Sprintf("%f ", activeEnergyPerMinute)
+				}
+				i += 1
+			}
+			log.Print(printString)
+			// END DEBUGGING
 
-				_, err = w.Write([]byte(fmt.Sprintf("%s	%f\n", datetime.Format("2006-01-02 15:04:05"), activeEnergyPerMinute)))
-				if err != nil {
-					http.Error(w, err.Error(), 200)
-					return
-				}
+			resultString, err := sqltocsv.WriteString(rows)
+			if err != nil {
+				http.Error(w, err.Error(), 500)
+				log.Println(err.Error())
+				return
+			}
+			_, err = w.Write([]byte(resultString))
+			if err != nil {
+				http.Error(w, err.Error(), 500)
+				log.Println(err.Error())
+				return
 			}
 		},
 		&db, nil

@@ -43,12 +43,14 @@ func (r *PamRequest) AddParam(key string, value string) {
 	httpRequest := r.HttpRequest
 	params := httpRequest.URL.Query()
 	params.Add(key, value)
+	httpRequest.URL.RawQuery = params.Encode()
 }
 
 func (r *PamRequest) DelParam(key string) {
 	httpRequest := r.HttpRequest
 	params := httpRequest.URL.Query()
 	params.Del(key)
+	httpRequest.URL.RawQuery = params.Encode()
 }
 
 func (r *PamRequest) GetParam(key string) string {
@@ -61,14 +63,27 @@ func (r *PamRequest) SetParam(key string, value string) {
 	httpRequest := r.HttpRequest
 	params := httpRequest.URL.Query()
 	params.Set(key, value)
+	httpRequest.URL.RawQuery = params.Encode()
 }
 
-// Example of a very simple go middleware which takes a Transforms and returns its default handler
-// TODO: see if we can get this to fit the Handler interface
+func BuildPamRequest(req *http.Request) (*PamRequest, error) {
+	policy, err := BuildRequestPolicy(req)
+	if err != nil {
+		return nil, err
+	}
+	pamRequest := PamRequest{
+		HttpRequest: req,
+		Policy:      policy,
+	}
+	return &pamRequest, nil
+}
+
+// PrivacyAwareHandler returns a http.Handler based on the passed
+// ComputationPolicy. It also performs some basic logging of requests received.
 func PrivacyAwareHandler(policy ComputationPolicy) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			log.Print("Handling path: ", r.URL.Path)
+			log.Println("PAM: handling path: ", r.URL.Path)
 			capability := policy.Resolve(r.URL.Path)
 			switch capability {
 			case NoComputation:
@@ -92,6 +107,7 @@ func PrivacyAwareHandler(policy ComputationPolicy) func(http.Handler) http.Handl
 			default:
 				next.ServeHTTP(w, r)
 			}
+			log.Println("PAM: finished serving: ", r.URL.Path)
 		})
 	}
 }

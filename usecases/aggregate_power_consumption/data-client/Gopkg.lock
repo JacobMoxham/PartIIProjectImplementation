@@ -3,11 +3,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:e58b3a02c68efbdb9c3e5827395ae37908774e3815778457fc3ad3a095c915e4"
+  digest = "1:96758780f5fe2bd754eb4105ac445adabfc9ef3ded7041f9808e4561f47317b4"
   name = "github.com/JacobMoxham/PartIIProjectImplementation"
   packages = ["middleware"]
   pruneopts = "UT"
-  revision = "969f7392e9fde493b61a0c38085c421bfdc5683f"
+  revision = "a086aec76343d291125df422e0d971527bb3903f"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"
@@ -16,6 +16,14 @@
   pruneopts = "UT"
   revision = "72cd26f257d44c1114970e19afddcd812016007e"
   version = "v1.4.1"
+
+[[projects]]
+  branch = "master"
+  digest = "1:36b6a19dd304863ca560e36868d791278ee7b221156f000aa52cbf4144c301c5"
+  name = "github.com/joho/sqltocsv"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "b24deec2b806318a8a3707c8a7bd24a57fc29e74"
 
 [[projects]]
   branch = "master"
@@ -52,6 +60,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/JacobMoxham/PartIIProjectImplementation/middleware",
+    "github.com/joho/sqltocsv",
     "github.com/justinas/alice",
   ]
   solver-name = "gps-cdcl"

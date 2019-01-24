@@ -3,6 +3,8 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/joho/sqltocsv"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
@@ -10,47 +12,62 @@ import (
 )
 
 func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Request), *sql.DB, error) {
-
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=UTC", "demouser", "demopassword", "database", 3306, "power_consumption"))
+	db, err := sql.Open("mysql",
+		fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=UTC",
+			"demouser", "demopassword", "no-mware-database", 3306, "power_consumption"))
 	if err != nil {
 		return nil, nil, err
 	}
 	db.SetMaxIdleConns(0)
 	db.SetConnMaxLifetime(time.Second * 20)
 
+	if err != nil {
+		return nil, nil, err
+	}
+
 	return func(w http.ResponseWriter, r *http.Request) {
-			log.Println("Request Received")
-			rows, err := db.Query(`SELECT datetime, global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3 AS active_energy_per_minute FROM household_power_consumption LIMIT 10`)
+			// Get date interval from received request
+			requestParams := r.URL.Query()
+			startDate := requestParams.Get("startDate")
+			endDate := requestParams.Get("endDate")
+
+			// Parse as time for validation purposes
+			startTime, err := time.Parse("2006-01-02", startDate)
+			if err != nil {
+				http.Error(w, err.Error(), 200)
+			}
+			endTime, err := time.Parse("2006-01-02", endDate)
+			if err != nil {
+				http.Error(w, err.Error(), 200)
+			}
+
 			if err != nil {
 				http.Error(w, err.Error(), 200)
 				return
 			}
+			queryString := fmt.Sprintf("SELECT datetime, "+
+				"global_active_power*1000/60 - sub_metering_1 - sub_metering_2 - sub_metering_3 "+
+				"AS active_energy_per_minute "+
+				"FROM household_power_consumption "+
+				"WHERE datetime BETWEEN \"%s\" AND \"%s\" ", startTime.Format("2006-01-02"), endTime.Format("2006-01-02"))
+			rows, err := db.Query(queryString)
+			if err != nil {
+				http.Error(w, err.Error(), 200)
+				return
+			}
+
 			defer rows.Close()
 
-			var (
-				datetime              time.Time
-				activeEnergyPerMinute float32
-			)
-			// TODO: write in a better format i.e. JSON
-			_, err = w.Write([]byte("Datetime		GlobalActivePower\n"))
+			resultString, err := sqltocsv.WriteString(rows)
 			if err != nil {
 				http.Error(w, err.Error(), 200)
 				return
 			}
-			for rows.Next() {
-				err = rows.Scan(&datetime, &activeEnergyPerMinute)
-				if err != nil {
-					http.Error(w, err.Error(), 200)
-					return
-				}
-
-				_, err = w.Write([]byte(fmt.Sprintf("%s	%f\n", datetime.Format("2006-01-02 15:04:05"), activeEnergyPerMinute)))
-				if err != nil {
-					http.Error(w, err.Error(), 200)
-					return
-				}
+			_, err = w.Write([]byte(resultString))
+			if err != nil {
+				http.Error(w, err.Error(), 200)
+				return
 			}
-			log.Println("Handler Complete")
 		},
 		db, nil
 }

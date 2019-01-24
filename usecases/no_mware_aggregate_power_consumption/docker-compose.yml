@@ -1,32 +1,35 @@
 version: '3'
 
 services:
-  data-client:
+  no-mware-data-client:
+    container_name: no-mware-data-client
     build: './data-client'
     ports:
       - "3001:3001"
-  database:
+  no-mware-database:
     image: mysql
-    container_name: database.dev
+    container_name: no-mware-database.dev
     command: mysqld --user=root --verbose
     volumes:
       - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
 #      - ./mysql-init/import.sh:/tmp/import.sh
       - ./mysql-init:/docker-entrypoint-initdb.d
     ports:
-      - "3306:3306"
+      - "3307:3307"
     environment:
       MYSQL_DATABASE: power_consumption
       MYSQL_USER: "demouser"
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-  requesting-client:
+  no-mware-requesting-client:
+    container_name: no-mware-requesting-client
     build: './requesting-client'
     ports:
       - "4000:4000"
       - "6060:6060"
-  server:
+  no-mware-server:
+    container_name: no-mware-server
     build: './server'
     ports:
       - "3002:3002"

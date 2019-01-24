@@ -3,7 +3,6 @@ package main
 import (
 	_ "expvar"
 	"fmt"
-	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -12,19 +11,23 @@ import (
 
 func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Request Received")
-		policy := middleware.RequestPolicy{
-			RequesterID:                 "client1",
-			PreferredProcessingLocation: middleware.Remote,
-			HasAllRequiredData:          false,
-		}
-		httpRequest, _ := http.NewRequest("GET", "http://server:3002/get-average-power-consumption", nil)
-		req := middleware.PamRequest{
-			Policy:      &policy,
-			HttpRequest: httpRequest,
-		}
-		// TODO: add params for date interval to average over
-		resp, err := req.Send()
+		httpRequest, _ := http.NewRequest("GET", "http://no-mware-server:3002/get-average-power-consumption", nil)
+		//httpRequest, _ := http.NewRequest("GET", "http://127.0.0.1:3002/get-average-power-consumption", nil)
+
+		// Get date interval from received request
+		requestParams := r.URL.Query()
+		startDate := requestParams.Get("startDate")
+		endDate := requestParams.Get("endDate")
+
+		// Add date interval to request to send
+		params := httpRequest.URL.Query()
+		params.Set("startDate", startDate)
+		httpRequest.URL.RawQuery = params.Encode()
+		params.Set("endDate", endDate)
+		httpRequest.URL.RawQuery = params.Encode()
+
+		client := http.Client{}
+		resp, err := client.Do(httpRequest)
 		if err != nil {
 			log.Println("Error:", err)
 			return
