@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-const DOCKER = false
+const DOCKER = true
 
 func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
 	transformsForEntities := make(map[string]func(interface{}) (interface{}, error))
@@ -96,50 +96,6 @@ func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Reques
 			}
 
 			defer rows.Close()
-
-			//var (
-			//	datetime              time.Time
-			//	activeEnergyPerMinute float32
-			//)
-			//// TODO: write in a better format i.e. JSON
-			//_, err = w.Write([]byte("Datetime		GlobalActivePower\n"))
-			//if err != nil {
-			//	http.Error(w, err.Error(), 200)
-			//	return
-			//}
-			//for rows.Next() {
-			//	err = rows.Scan(&datetime, &activeEnergyPerMinute)
-			//	if err != nil {
-			//		http.Error(w, err.Error(), 200)
-			//		return
-			//	}
-			//
-			//	_, err = w.Write([]byte(fmt.Sprintf("%s	%f\n", datetime.Format("2006-01-02 15:04:05"), activeEnergyPerMinute)))
-			//	if err != nil {
-			//		http.Error(w, err.Error(), 200)
-			//		return
-			//	}
-			//}
-
-			// DEBUGGING
-			var (
-				datetime              time.Time
-				activeEnergyPerMinute float32
-			)
-			i := 0
-			printString := "Results: "
-			for rows.Next() {
-				err = rows.Scan(&datetime, &activeEnergyPerMinute)
-				if err != nil {
-					panic(err)
-				}
-				if i < 100 {
-					printString += fmt.Sprintf("%f ", activeEnergyPerMinute)
-				}
-				i += 1
-			}
-			log.Print(printString)
-			// END DEBUGGING
 
 			resultString, err := sqltocsv.WriteString(rows)
 			if err != nil {

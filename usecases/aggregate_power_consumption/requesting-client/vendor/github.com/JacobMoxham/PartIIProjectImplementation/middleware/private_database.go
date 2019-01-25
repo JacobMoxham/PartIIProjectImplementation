@@ -7,6 +7,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/xwb1989/sqlparser"
 	"log"
+	"math/rand"
 	"regexp"
 	"strings"
 	"time"
@@ -68,7 +69,7 @@ func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*
 		return nil, err
 	}
 
-	groupPrefix := fmt.Sprintf("transformed_%s_", context.RequesterID)
+	groupPrefix := fmt.Sprintf("transformed_%s_%d_", context.RequesterID, rand.Intn(99999))
 	for _, tableName := range tableNames {
 		// Create a version of the table with the privacy policy applied
 		transformedTableName := groupPrefix + tableName
@@ -78,8 +79,6 @@ func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*
 		}
 		err = mspd.transformRows(tableName, transformedTableName, tableOperations.TableTransforms, tableOperations.ExcludedCols)
 		if err != nil {
-			// TODO: remove log
-			//  log.Fatal(err)
 			return nil, err
 		}
 

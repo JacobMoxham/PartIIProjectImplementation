@@ -8,10 +8,9 @@ import (
 	"log"
 	"net/http"
 	_ "net/http/pprof"
-	"time"
 )
 
-const DOCKER = false
+const DOCKER = true
 
 func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -43,14 +42,11 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 		req.SetParam("startDate", startDate)
 		req.SetParam("endDate", endDate)
 
-		start := time.Now()
 		resp, err := req.Send()
 		if err != nil {
 			log.Println("Error:", err)
 			return
 		}
-		latency := time.Since(start)
-		log.Printf("Request took: %d (ms)\n", latency.Nanoseconds()/1000)
 
 		// Read response
 		body, err := ioutil.ReadAll(resp.Body)
@@ -65,7 +61,6 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 			http.Error(w, err.Error(), 500)
 			return
 		}
-		log.Println("Handler Complete")
 	}
 }
 

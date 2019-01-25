@@ -13,7 +13,7 @@ import (
 	"strconv"
 )
 
-const DOCKER = false
+const DOCKER = true
 
 func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Request), error) {
 	policy := middleware.RequestPolicy{
@@ -88,7 +88,6 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 			averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
 		}
 		averageActiveEnergyPerMinuteFromAllClients /= float64(len(clients))
-		log.Printf("Average Active Energy Per Minute: %.2f\n", averageActiveEnergyPerMinuteFromAllClients)
 		_, err = w.Write([]byte(fmt.Sprintf("%.2f", averageActiveEnergyPerMinuteFromAllClients)))
 		if err != nil {
 			log.Println("Error:", err)
