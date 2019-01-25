@@ -27,7 +27,7 @@ type MySqlPrivateDatabase struct {
 	StaticDataPolicy *StaticDataPolicy
 	database         *sql.DB
 	databaseName     string
-	cacheTables      bool
+	CacheTables      bool
 }
 
 func (mspd *MySqlPrivateDatabase) Connect(user string, password string, databaseName string, uri string, port int) error {
