@@ -177,7 +177,7 @@ func (mspd *MySqlPrivateDatabase) isTransformedTableValid(tableName string, tran
 func (mspd *MySqlPrivateDatabase) transformTable(tableName string, transformedTableName string,
 	transforms map[string]func(interface{}) (interface{}, error), excludedColumns map[string][]string) error {
 
-	if mspd.cacheTables {
+	if mspd.CacheTables {
 		// TODO: take out lock
 		transformValid, err := mspd.isTransformedTableValid(tableName, transformedTableName)
 		if err != nil {
