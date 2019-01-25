@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-const DOCKER = true
+const DOCKER = false
 
 func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
 	transformsForEntities := make(map[string]func(interface{}) (interface{}, error))
@@ -51,6 +51,7 @@ func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Reques
 			PrivacyGroups: []*middleware.PrivacyGroup{group},
 			Transforms:    middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}},
 		},
+		CacheTables: true,
 	}
 	var err error
 	if DOCKER {

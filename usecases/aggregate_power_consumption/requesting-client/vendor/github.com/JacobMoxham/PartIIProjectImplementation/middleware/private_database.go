@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/go-sql-driver/mysql"
 	"github.com/xwb1989/sqlparser"
 	"log"
 	"math/rand"
@@ -26,6 +26,8 @@ type PrivateRelationalDatabase interface {
 type MySqlPrivateDatabase struct {
 	StaticDataPolicy *StaticDataPolicy
 	database         *sql.DB
+	databaseName     string
+	cacheTables      bool
 }
 
 func (mspd *MySqlPrivateDatabase) Connect(user string, password string, databaseName string, uri string, port int) error {
@@ -37,6 +39,7 @@ func (mspd *MySqlPrivateDatabase) Connect(user string, password string, database
 	db.SetMaxIdleConns(0)
 	db.SetConnMaxLifetime(time.Second * 20)
 	mspd.database = db
+	mspd.databaseName = databaseName
 	return nil
 }
 
@@ -69,7 +72,7 @@ func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*
 		return nil, err
 	}
 
-	groupPrefix := fmt.Sprintf("transformed_%s_%d_", context.RequesterID, rand.Intn(99999))
+	groupPrefix := fmt.Sprintf("transformed_%s", context.RequesterID)
 	for _, tableName := range tableNames {
 		// Create a version of the table with the privacy policy applied
 		transformedTableName := groupPrefix + tableName
@@ -77,7 +80,7 @@ func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*
 		if err != nil {
 			return nil, err
 		}
-		err = mspd.transformRows(tableName, transformedTableName, tableOperations.TableTransforms, tableOperations.ExcludedCols)
+		err = mspd.transformTable(tableName, transformedTableName, tableOperations.TableTransforms, tableOperations.ExcludedCols)
 		if err != nil {
 			return nil, err
 		}
@@ -111,8 +114,84 @@ func (mspd *MySqlPrivateDatabase) dropTableIfExists(table string) error {
 	return err
 }
 
-func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTableName string,
+func (mspd *MySqlPrivateDatabase) isTransformedTableValid(tableName string, transformedTableName string) (bool, error) {
+	// Check when the table was last updated
+	// TODO: check when the security policy was last changed
+	timeOfLastUpdateRow := mspd.database.QueryRow(
+		`SELECT create_time, update_time FROM information_schema.tables WHERE table_schema = ? AND table_name = ?`,
+		mspd.databaseName, tableName)
+
+	var (
+		timeOfLastUpdate     time.Time
+		nullCreateTime       mysql.NullTime
+		nullTimeOfLastUpdate mysql.NullTime
+	)
+	switch err := timeOfLastUpdateRow.Scan(&nullTimeOfLastUpdate, &nullCreateTime); err {
+	case nil:
+		if nullTimeOfLastUpdate.Valid {
+			timeOfLastUpdate = nullTimeOfLastUpdate.Time
+		} else if nullCreateTime.Valid {
+			// use the creation time
+			timeOfLastUpdate = nullCreateTime.Time
+		} else {
+			// Can't find a create or updated time
+			return false, fmt.Errorf("no creation or last updated time could be found for %s", tableName)
+		}
+	case sql.ErrNoRows:
+		// Table doesn't exist
+		return false, fmt.Errorf("table %s doesn't exist", tableName)
+	default:
+		return false, fmt.Errorf("error reading table %s", tableName)
+	}
+
+	// Check when the transform was created
+	timeOfTransformCreationRow := mspd.database.QueryRow(
+		`SELECT create_time FROM information_schema.tables WHERE table_schema = ? AND table_name = ?`,
+		mspd.databaseName, transformedTableName)
+
+	var (
+		nullTimeOfTransformCreation mysql.NullTime
+		timeOfTransformCreation     time.Time
+	)
+
+	switch err := timeOfTransformCreationRow.Scan(&nullTimeOfTransformCreation); err {
+	case nil:
+		if nullTimeOfTransformCreation.Valid {
+			timeOfTransformCreation = nullTimeOfTransformCreation.Time
+		} else {
+			// Continue and recreate table but log it
+			log.Printf("malformed table entry %s, recreating", transformedTableName)
+		}
+	case sql.ErrNoRows:
+		// No transform has been built so we can continue
+		log.Printf("No transform found, creating table %s", transformedTableName)
+	default:
+		// Create the table anyway but log the errors
+		log.Printf(err.Error())
+	}
+
+	// Work out whether the transform is valid
+	return timeOfTransformCreation.After(timeOfLastUpdate), nil
+}
+
+func (mspd *MySqlPrivateDatabase) transformTable(tableName string, transformedTableName string,
 	transforms map[string]func(interface{}) (interface{}, error), excludedColumns map[string][]string) error {
+
+	if mspd.cacheTables {
+		// TODO: take out lock
+		transformValid, err := mspd.isTransformedTableValid(tableName, transformedTableName)
+		if err != nil {
+			return err
+		}
+		if transformValid {
+			// Do not recreate the transform if it is valid
+			// TODO: release lock
+			return nil
+		}
+	} else {
+		// Add a random ID to the table name to avoid clashes with concurrent requests
+		transformedTableName += fmt.Sprintf("%d", rand.Intn(99999))
+	}
 	// Get the column types
 	// TODO: see if we can do this better - we almost certainly can
 	columnNamesString := fmt.Sprintf("SELECT column_name, data_type FROM information_schema.columns WHERE table_name='%s';", tableName)
@@ -145,7 +224,7 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 	if columnString == "" {
 		return errors.New("all columns are excluded, cannot create transformed table")
 	} else {
-		// Drop the table if it already exists
+		// Drop the table if it already exists - it should not exist at this point
 		err = mspd.dropTableIfExists(transformedTableName)
 		if err != nil {
 			return err
@@ -199,8 +278,6 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 		for i := range vals {
 			scanArgs[i] = &vals[i]
 		}
-
-		//vals := make([]interface{}, len(colsToCopy))
 
 		var rowArguments []interface{}
 		rowCount := 0
@@ -264,6 +341,15 @@ func (mspd *MySqlPrivateDatabase) transformRows(tableName string, transformedTab
 			}
 		}
 	}
+
+	if !mspd.cacheTables {
+		// Drop the table we created
+		err = mspd.dropTableIfExists(transformedTableName)
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 

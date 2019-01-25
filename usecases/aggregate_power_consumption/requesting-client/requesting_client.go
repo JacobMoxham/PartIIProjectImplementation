@@ -10,7 +10,7 @@ import (
 	_ "net/http/pprof"
 )
 
-const DOCKER = true
+const DOCKER = false
 
 func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {

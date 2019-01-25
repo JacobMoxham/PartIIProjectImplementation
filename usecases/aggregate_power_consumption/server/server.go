@@ -13,7 +13,7 @@ import (
 	"strconv"
 )
 
-const DOCKER = true
+const DOCKER = false
 
 func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Request), error) {
 	policy := middleware.RequestPolicy{
