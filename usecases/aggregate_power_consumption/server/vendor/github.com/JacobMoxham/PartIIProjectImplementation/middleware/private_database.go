@@ -10,6 +10,7 @@ import (
 	"math/rand"
 	"regexp"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -23,11 +24,28 @@ type PrivateRelationalDatabase interface {
 	// TODO: consider how updates are handled? Perhaps edit update query and check for excluded rows? Perhaps just consider read only
 }
 
+type mutexMap struct {
+	sync.Mutex
+	rawMutexMap map[string]*sync.Mutex
+}
+
+func (m *mutexMap) GetMutex(key string) *sync.Mutex {
+	m.Lock()
+	defer m.Unlock()
+	mutex, ok := m.rawMutexMap[key]
+	if !ok {
+		mutex = &sync.Mutex{}
+		m.rawMutexMap[key] = mutex
+	}
+	return mutex
+}
+
 type MySqlPrivateDatabase struct {
 	StaticDataPolicy *StaticDataPolicy
+	CacheTables      bool
 	database         *sql.DB
 	databaseName     string
-	CacheTables      bool
+	tableMutexes     mutexMap
 }
 
 func (mspd *MySqlPrivateDatabase) Connect(user string, password string, databaseName string, uri string, port int) error {
@@ -72,7 +90,7 @@ func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*
 		return nil, err
 	}
 
-	groupPrefix := fmt.Sprintf("transformed_%s", context.RequesterID)
+	groupPrefix := fmt.Sprintf("transformed_%s_", context.RequesterID)
 	for _, tableName := range tableNames {
 		// Create a version of the table with the privacy policy applied
 		transformedTableName := groupPrefix + tableName
@@ -178,14 +196,18 @@ func (mspd *MySqlPrivateDatabase) transformTable(tableName string, transformedTa
 	transforms map[string]func(interface{}) (interface{}, error), excludedColumns map[string][]string) error {
 
 	if mspd.CacheTables {
-		// TODO: take out lock
+		// Take out table lock
+		mutex := mspd.tableMutexes.GetMutex(tableName)
+		mutex.Lock()
+		defer mutex.Unlock()
+
+		// Check if transform is valid
 		transformValid, err := mspd.isTransformedTableValid(tableName, transformedTableName)
 		if err != nil {
 			return err
 		}
 		if transformValid {
 			// Do not recreate the transform if it is valid
-			// TODO: release lock
 			return nil
 		}
 	} else {

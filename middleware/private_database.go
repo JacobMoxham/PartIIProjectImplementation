@@ -32,6 +32,13 @@ type mutexMap struct {
 func (m *mutexMap) GetMutex(key string) *sync.Mutex {
 	m.Lock()
 	defer m.Unlock()
+
+	// Lazily initialise map
+	if m.rawMutexMap == nil {
+		m.rawMutexMap = make(map[string]*sync.Mutex)
+	}
+
+	// Try to get a mutex for the table and if not, create one
 	mutex, ok := m.rawMutexMap[key]
 	if !ok {
 		mutex = &sync.Mutex{}
