@@ -342,7 +342,7 @@ func (mspd *MySqlPrivateDatabase) transformTable(tableName string, transformedTa
 		}
 	}
 
-	if !mspd.cacheTables {
+	if !mspd.CacheTables {
 		// Drop the table we created
 		err = mspd.dropTableIfExists(transformedTableName)
 		if err != nil {
