@@ -22,13 +22,13 @@ func imServer() {
 
 	// Define computation policy
 	computationPolicy := middleware.NewStaticComputationPolicy()
-	computationPolicy.Register("/", middleware.CanCompute)
+	computationPolicy.Register("/", middleware.CanCompute, finalHandler)
 
 	// Chain together "other" middlewares
-	handlers := alice.New(middleware.PrivacyAwareHandler(computationPolicy)).Then(finalHandler)
+	handler := middleware.PrivacyAwareHandler(computationPolicy)
 
 	// Register the composite handler at '/' on port 3000
-	http.Handle("/", handlers)
+	http.Handle("/", handler)
 	log.Println("Listening...")
 	http.ListenAndServe(":3000", nil)
 }

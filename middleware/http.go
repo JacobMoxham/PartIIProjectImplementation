@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"errors"
 	"log"
 	"net/http"
 )
@@ -10,17 +11,8 @@ type PamRequest struct {
 	HttpRequest *http.Request
 }
 
-type PamResponse struct {
-	PartialResult bool // TODO: Consider extending to a configurable enum
-	HttpResponse  http.Response
-}
-
-func (r *PamRequest) Send() (*http.Response, error) {
-	// TODO: populate client fields - this should maybe be a func of a client rather than a request itself we will see
-
+func (r *PamRequest) Send() (PamResponse, error) {
 	// TODO: consider whether to copy requests before sending as we need to edit the body - probably fine without
-	//request := *r.HttpRequest
-
 	httpRequest := r.HttpRequest
 
 	// Add the query params from the policy
@@ -28,15 +20,16 @@ func (r *PamRequest) Send() (*http.Response, error) {
 	r.Policy.AddToParams(&params)
 	httpRequest.URL.RawQuery = params.Encode()
 
+	// TODO: only use one client
 	client := http.Client{}
 	resp, err := client.Do(httpRequest)
 	if err != nil {
-		return nil, err
+		return PamResponse{}, err
 	}
 
-	// TODO: handle middleware only fields either here or at the next level up
-
-	return resp, nil
+	// TODO: consider whether there should be sender config which says whether or not we can use partial results/full
+	// results, it could possibly fit into the same framework
+	return BuildPamResponse(resp)
 }
 
 func (r *PamRequest) AddParam(key string, value string) {
@@ -78,36 +71,62 @@ func BuildPamRequest(req *http.Request) (*PamRequest, error) {
 	return &pamRequest, nil
 }
 
+type PamResponse struct {
+	ComputationLevel ComputationLevel
+	HttpResponse     *http.Response
+}
+
+func BuildPamResponse(resp *http.Response) (PamResponse, error) {
+	// Query response to see if this is a partial result
+	computationLevelString := resp.Header.Get("computation_level")
+	if computationLevelString == "" {
+		// TODO: consider what to do if the other end does not use the middleware
+		return PamResponse{}, errors.New("the response did not specify a computation level")
+	}
+
+	computationLevel, err := computationLevelFromString(computationLevelString)
+	if err != nil {
+		return PamResponse{}, err
+	}
+
+	return PamResponse{
+		ComputationLevel: computationLevel,
+		HttpResponse:     resp,
+	}, nil
+}
+
 // PrivacyAwareHandler returns a http.Handler based on the passed
 // ComputationPolicy. It also performs some basic logging of requests received.
-func PrivacyAwareHandler(policy ComputationPolicy) func(http.Handler) http.Handler {
-	return func(next http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			log.Println("PAM: handling path: ", r.URL.Path)
-			capability := policy.Resolve(r.URL.Path)
-			switch capability {
-			case NoComputation:
-				// TODO: correct error codes
-				http.Error(w, "Cannot compute result", 200)
-			case RawData:
-				// TODO handler choosing correct handler
-				log.Print("Partially serving request as we can only provide raw data")
-				next.ServeHTTP(w, r)
-			case CanCompute:
-				// TODO: use the PamRequest build command
-				preferredLocation := r.URL.Query().Get("preferred_processing_location")
-				if preferredLocation == "remote" {
-					log.Printf("Serving request as preferred location is %s and we can compute", preferredLocation)
-					next.ServeHTTP(w, r)
-				} else {
-					// TODO: do as RawData if preferred is local (or allow user to specify)
-					log.Printf("Partially serving request as preferred location is %s and we can compute", preferredLocation)
-					next.ServeHTTP(w, r)
-				}
-			default:
-				next.ServeHTTP(w, r)
-			}
-			log.Println("PAM: finished serving: ", r.URL.Path)
-		})
-	}
+func PrivacyAwareHandler(policy ComputationPolicy) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Println("PAM: handling path: ", r.URL.Path)
+
+		// Get preferred processing location
+		pamRequest, err := BuildPamRequest(r)
+		if err != nil {
+			log.Println(err.Error())
+			http.Error(w, err.Error(), 500)
+		}
+		preferredLocation := pamRequest.Policy.PreferredProcessingLocation
+
+		// Get the handler the policy specifies for this path and preferred processing location
+		computationLevel, handler := policy.Resolve(r.URL.Path, preferredLocation)
+
+		switch computationLevel {
+		case NoComputation:
+			//// Return 403: FORBIDDEN as we are currently refusing to compute this result
+			//// 404: NOT FOUND may be better in some cases as this is what you get for an unregistered path
+			//http.Error(w, "Cannot compute result", 403)
+			w.Header().Set("computation_level", "NoComputation")
+		case CanCompute:
+			w.Header().Set("computation_level", "CanCompute")
+
+			(*handler).ServeHTTP(w, r)
+		case RawData:
+			(*handler).ServeHTTP(w, r)
+			w.Header().Set("computation_level", "RawData")
+		}
+		log.Println("PAM: finished serving: ", r.URL.Path)
+	})
+
 }

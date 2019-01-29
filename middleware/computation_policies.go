@@ -3,23 +3,23 @@ package middleware
 import (
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 )
 
-type ComputationCapability int
+type ComputationLevel int
 
 const (
-	// TODO: consider keep a list of these or adding in CanComputeOrRawData - seems worse though
-	NoComputation ComputationCapability = iota
-	RawData       ComputationCapability = iota
-	CanCompute    ComputationCapability = iota
+	NoComputation ComputationLevel = iota
+	RawData       ComputationLevel = iota
+	CanCompute    ComputationLevel = iota
 )
 
-func computationCapabilityFromString(capability string) (ComputationCapability, error) {
-	switch strings.ToLower(capability) {
+func computationLevelFromString(level string) (ComputationLevel, error) {
+	switch strings.ToLower(level) {
 	case strings.ToLower("NoComputation"):
 		return NoComputation, nil
 	case strings.ToLower("RawData"):
@@ -27,15 +27,18 @@ func computationCapabilityFromString(capability string) (ComputationCapability, 
 	case strings.ToLower("CanCompute"):
 		return CanCompute, nil
 	default:
-		return 0, fmt.Errorf("cannot parse %s as a computation capability", capability)
+		return 0, fmt.Errorf("cannot parse %s as a computation level", level)
 	}
 }
 
+type ComputationCapability map[ComputationLevel]*http.Handler
+
 // ComputationPolicy stores computation capabilities of a node
 type ComputationPolicy interface {
-	Register(string, ComputationCapability)
-	Unregister(string)
-	Resolve(string) ComputationCapability
+	Register(string, ComputationLevel, *http.Handler)
+	UnregisterAll(string)
+	UnregisterOne(string, ComputationLevel)
+	Resolve(string, ProcessingLocation) (ComputationLevel, *http.Handler)
 }
 
 // StaticComputationPolicy holds a set of computation capabilities for paths, these must be set manually
@@ -50,22 +53,64 @@ func NewStaticComputationPolicy() *StaticComputationPolicy {
 	}
 }
 
-func (p *StaticComputationPolicy) Register(handler string, capability ComputationCapability) {
-	p.capabilities[handler] = capability
-}
-
-func (p *StaticComputationPolicy) Unregister(handler string) {
-	delete(p.capabilities, handler)
-}
-
-func (p *StaticComputationPolicy) Resolve(handler string) ComputationCapability {
-	c, ok := p.capabilities[handler]
-	if ok {
-		return c
-	} else {
-		// Default to no capabilities
-		return NoComputation
+func (p *StaticComputationPolicy) Register(path string, level ComputationLevel, handler *http.Handler) {
+	if p.capabilities[path] == nil {
+		p.capabilities[path] = make(ComputationCapability)
 	}
+	p.capabilities[path][level] = handler
+}
+
+func (p *StaticComputationPolicy) UnregisterAll(path string) {
+	delete(p.capabilities, path)
+}
+
+func (p *StaticComputationPolicy) UnregisterOne(path string, level ComputationLevel) {
+	capability, ok := p.capabilities[path]
+	if ok {
+		delete(capability, level)
+	}
+}
+
+func (p *StaticComputationPolicy) Resolve(path string, preferredLocation ProcessingLocation) (ComputationLevel, *http.Handler) {
+
+	capability, ok := p.capabilities[path]
+	if ok {
+		rawDataHandler, hasRawDataHandler := capability[RawData]
+		canComputehandler, hasCanComputeHandler := capability[CanCompute]
+
+		// TODO: in dynamic version we may have a "valid" tag?
+		if hasCanComputeHandler {
+			if hasRawDataHandler {
+				if preferredLocation == Remote {
+					log.Println("Serving request as preferred location is remote and we can compute")
+					return CanCompute, canComputehandler
+				} else {
+					log.Println("Partially serving request as preferred location is local and we can compute")
+					return RawData, rawDataHandler
+				}
+			} else {
+				if preferredLocation == Local {
+					log.Println("Preferred location is local but we can only compute full result")
+				} else {
+					log.Println("Serving request as we can compute full result")
+				}
+				return CanCompute, canComputehandler
+			}
+		} else {
+			if hasRawDataHandler {
+				if preferredLocation == Local {
+					log.Println("Partially serving request as preferred location is local and we can compute")
+				} else {
+					// TODO: ensure receivers handle this correctly
+					log.Println("Preferred location is remote but we can only partially compute, returning anyway")
+				}
+				return RawData, rawDataHandler
+			}
+		}
+
+	}
+	// Default to no capabilities (and so nil function reference)
+	return NoComputation, nil
 }
 
 type ProcessingLocation string

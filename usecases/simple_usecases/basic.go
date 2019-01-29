@@ -1,4 +1,4 @@
-package usecases
+package main
 
 import (
 	"fmt"
@@ -28,30 +28,37 @@ func basicServer() {
 	finalHandler := http.HandlerFunc(basicFinal)
 
 	// Define computation policy
-	computationPolicy := &middleware.StaticComputationPolicy{}
+	computationPolicy := middleware.NewStaticComputationPolicy()
 
-	// Chain together "other" middlewares
-	handlers := alice.New(middleware.PrivacyAwareHandler(computationPolicy), enforceGETHandler).Then(finalHandler)
+	handlers := alice.New(enforceGETHandler).Then(finalHandler)
+
+	computationPolicy.Register("/", middleware.CanCompute, &handlers)
 
 	// Register the composite handler at '/' on port 3000
-	http.Handle("/", handlers)
+	http.Handle("/", middleware.PrivacyAwareHandler(computationPolicy))
 	log.Println("Listening...")
 	http.ListenAndServe(":3000", nil)
 }
 
 func basicClient() {
 	for i := 0; i < 10; i++ {
-		policy := middleware.RequestPolicy{}
+		policy := middleware.RequestPolicy{
+			RequesterID:                 "basic",
+			HasAllRequiredData:          false,
+			PreferredProcessingLocation: middleware.Remote,
+		}
 		httpRequest, _ := http.NewRequest("GET", "http://127.0.0.1:3000/", nil)
 		req := middleware.PamRequest{
 			Policy:      &policy,
 			HttpRequest: httpRequest,
 		}
-		resp, err := req.Send()
+		pamResp, err := req.Send()
 		if err != nil {
 			log.Println("Error:", err)
 			continue
 		}
+
+		resp := pamResp.HttpResponse
 
 		// Read response
 		body, err := ioutil.ReadAll(resp.Body)
@@ -64,7 +71,7 @@ func basicClient() {
 	}
 }
 
-func basic_main() {
+func main() {
 	var wg sync.WaitGroup
 	wg.Add(2)
 	go basicServer()
