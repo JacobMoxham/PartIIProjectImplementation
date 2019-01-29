@@ -32,7 +32,7 @@ func basicServer() {
 
 	handlers := alice.New(enforceGETHandler).Then(finalHandler)
 
-	computationPolicy.Register("/", middleware.CanCompute, &handlers)
+	computationPolicy.Register("/", middleware.CanCompute, handlers)
 
 	// Register the composite handler at '/' on port 3000
 	http.Handle("/", middleware.PrivacyAwareHandler(computationPolicy))

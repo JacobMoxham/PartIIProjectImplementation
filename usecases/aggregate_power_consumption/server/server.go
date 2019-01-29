@@ -44,13 +44,15 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 			req.SetParam("startDate", startDate)
 			req.SetParam("endDate", endDate)
 
-			resp, err := req.Send()
+			pamResp, err := req.Send()
 			// TODO: check if the database failed to connect and error properly
 			if err != nil {
 				log.Println("Error:", err)
 				http.Error(w, err.Error(), 500)
 				return
 			}
+
+			resp := pamResp.HttpResponse
 
 			// Read response
 			body, err := ioutil.ReadAll(resp.Body)
@@ -103,7 +105,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	finalHandler := http.HandlerFunc(getAveragePowerConsumptionHandler)
+	finalHandler := http.HandlerFunc(getAveragePowerConsumptionHandler).(http.Handler)
 
 	// Define computation policy
 	computationPolicy := middleware.NewStaticComputationPolicy()

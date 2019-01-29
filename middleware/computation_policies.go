@@ -31,14 +31,14 @@ func computationLevelFromString(level string) (ComputationLevel, error) {
 	}
 }
 
-type ComputationCapability map[ComputationLevel]*http.Handler
+type ComputationCapability map[ComputationLevel]http.Handler
 
 // ComputationPolicy stores computation capabilities of a node
 type ComputationPolicy interface {
-	Register(string, ComputationLevel, *http.Handler)
+	Register(string, ComputationLevel, http.Handler)
 	UnregisterAll(string)
 	UnregisterOne(string, ComputationLevel)
-	Resolve(string, ProcessingLocation) (ComputationLevel, *http.Handler)
+	Resolve(string, ProcessingLocation) (ComputationLevel, http.Handler)
 }
 
 // StaticComputationPolicy holds a set of computation capabilities for paths, these must be set manually
@@ -53,7 +53,7 @@ func NewStaticComputationPolicy() *StaticComputationPolicy {
 	}
 }
 
-func (p *StaticComputationPolicy) Register(path string, level ComputationLevel, handler *http.Handler) {
+func (p *StaticComputationPolicy) Register(path string, level ComputationLevel, handler http.Handler) {
 	if p.capabilities[path] == nil {
 		p.capabilities[path] = make(ComputationCapability)
 	}
@@ -71,7 +71,7 @@ func (p *StaticComputationPolicy) UnregisterOne(path string, level ComputationLe
 	}
 }
 
-func (p *StaticComputationPolicy) Resolve(path string, preferredLocation ProcessingLocation) (ComputationLevel, *http.Handler) {
+func (p *StaticComputationPolicy) Resolve(path string, preferredLocation ProcessingLocation) (ComputationLevel, http.Handler) {
 
 	capability, ok := p.capabilities[path]
 	if ok {
