@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  data-client-raw-data:
+    build: './data-client-raw-data'
+    ports:
+      - "3001:3001"
+  data-client-can-compute:
+    build: './data-client-can-compute'
+    ports:
+      - "3001:3001"
+  data-client-both:
+    build: './data-client-both'
+    ports:
+      - "3001:3001"
+  data-client-no-computation:
+    build: './data-client-no-computation'
+    ports:
+      - "3001:3001"
+  database:
+    image: mysql
+    container_name: database.dev
+    command: mysqld --user=root --verbose
+    volumes:
+      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
+#      - ./mysql-init/import.sh:/tmp/import.sh
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: power_consumption
+      MYSQL_USER: "demouser"
+      MYSQL_PASSWORD: "demopassword"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  requesting-client:
+    build: './requesting-client'
+    ports:
+      - "4000:4000"
+      - "6060:6060"
+  server:
+    build: './server'
+    ports:
+      - "3002:3002"

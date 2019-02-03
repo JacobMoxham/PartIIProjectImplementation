@@ -2,8 +2,8 @@ version: '3'
 
 services:
   no-mware-data-client:
-    container_name: no-mware-data-client
-    build: './data-client'
+    container_name: no-mware-data-client-raw-data
+    build: './data-client-raw-data'
     ports:
       - "3001:3001"
   no-mware-database:

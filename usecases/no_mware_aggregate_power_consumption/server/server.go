@@ -11,7 +11,7 @@ import (
 	"strconv"
 )
 
-var clients = []string{"no-mware-data-client"}
+var clients = []string{"no-mware-data-client-raw-data"}
 
 func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Request), error) {
 	return func(w http.ResponseWriter, r *http.Request) {
