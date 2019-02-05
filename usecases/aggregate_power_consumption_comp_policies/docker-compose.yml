@@ -3,20 +3,20 @@ version: '3'
 services:
   data-client-raw-data:
     build: './data-client-raw-data'
-    ports:
-      - "3001:3001"
+#    ports:
+#      - "3001:3001"
   data-client-can-compute:
     build: './data-client-can-compute'
-    ports:
-      - "3001:3001"
+#    ports:
+#      - "3001:3001"
   data-client-both:
     build: './data-client-both'
-    ports:
-      - "3001:3001"
+#    ports:
+#      - "3001:3001"
   data-client-no-computation:
     build: './data-client-no-computation'
-    ports:
-      - "3001:3001"
+#    ports:
+#      - "3001:3001"
   database:
     image: mysql
     container_name: database.dev

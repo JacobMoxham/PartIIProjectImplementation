@@ -120,11 +120,10 @@ func PrivacyAwareHandler(policy ComputationPolicy) http.Handler {
 			w.Header().Set("computation_level", "NoComputation")
 		case CanCompute:
 			w.Header().Set("computation_level", "CanCompute")
-
 			handler.ServeHTTP(w, r)
 		case RawData:
-			handler.ServeHTTP(w, r)
 			w.Header().Set("computation_level", "RawData")
+			handler.ServeHTTP(w, r)
 		}
 		log.Println("PAM: finished serving: ", r.URL.Path)
 	})

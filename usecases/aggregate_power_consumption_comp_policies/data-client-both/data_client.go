@@ -233,7 +233,7 @@ func main() {
 	defer db.Close()
 	rawDataHandler := http.HandlerFunc(powerConsumptionRawDataHandler)
 
-	averagePowerConsumptionHandler, db, err := createPowerConsumptionRawDataHandler()
+	averagePowerConsumptionHandler, db, err := createAveragePowerConsumptionHandler()
 	if err != nil {
 		log.Fatal(err)
 	}

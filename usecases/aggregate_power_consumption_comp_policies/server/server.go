@@ -23,7 +23,7 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 
 	var clients []string
 	if DOCKER {
-		clients = []string{"data-client-raw-data, data-client-raw-data, data-client-both, data-client-no-computation"}
+		clients = []string{"data-client-raw-data", "data-client-raw-data", "data-client-both", "data-client-no-computation"}
 	} else {
 		clients = []string{"127.0.0.1"}
 	}
@@ -34,12 +34,21 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 		endDate := pamRequest.GetParam("endDate")
 
 		averageActiveEnergyPerMinuteFromAllClients := 0.0
+		respondingClientCount := 0
 		for _, client := range clients {
-			httpRequest, _ := http.NewRequest("GET", fmt.Sprintf("http://%s:3001/", client), nil)
+			log.Printf("Requesting data from %s", client)
+			httpRequest, err := http.NewRequest("GET", fmt.Sprintf("http://%s:3001/", client), nil)
+			if err != nil {
+				log.Println("Error:", err)
+				http.Error(w, err.Error(), 500)
+				return
+			}
+
 			req := middleware.PamRequest{
 				Policy:      &policy,
 				HttpRequest: httpRequest,
 			}
+
 			req.SetParam("startDate", startDate)
 			req.SetParam("endDate", endDate)
 
@@ -60,9 +69,6 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 			}
 			resp.Body.Close()
 
-			// logging
-			log.Println(fmt.Sprintf("Code: %d Body: %s", resp.StatusCode, body[:100]))
-
 			switch pamResp.ComputationLevel {
 			case middleware.CanCompute:
 				averageActiveEnergyPerMinute, err := strconv.ParseFloat(string(body), 64)
@@ -73,6 +79,7 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 					return
 				}
 				averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
+				respondingClientCount += 1
 			case middleware.RawData:
 				reader := csv.NewReader(bytes.NewBuffer(body))
 				lines, err := reader.ReadAll()
@@ -99,12 +106,17 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 				// Do a division here to keep numbers smaller
 				averageActiveEnergyPerMinute := totalActiveEnergyPerMinute / float64(len(lines))
 				averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
+				respondingClientCount += 1
 			case middleware.NoComputation:
-				log.Printf("client: %s could not compute a result")
+				log.Printf("client: %s could not compute a result", client)
 			}
 
 		}
-		averageActiveEnergyPerMinuteFromAllClients /= float64(len(clients))
+
+		// Don't divide by 0
+		if respondingClientCount > 0 {
+			averageActiveEnergyPerMinuteFromAllClients /= float64(respondingClientCount)
+		}
 		_, err = w.Write([]byte(fmt.Sprintf("%.2f", averageActiveEnergyPerMinuteFromAllClients)))
 		if err != nil {
 			log.Println("Error:", err)
