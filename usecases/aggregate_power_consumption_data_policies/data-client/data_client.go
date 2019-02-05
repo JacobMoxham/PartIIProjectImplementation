@@ -14,34 +14,18 @@ import (
 const DOCKER = false
 
 func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
-	transformsForEntities := make(map[string]func(interface{}) (interface{}, error))
-	transformsForEntities["dob"] = func(arg interface{}) (interface{}, error) {
+	transformsForEntities := make(map[string]map[string]func(interface{}) (interface{}, error))
+	// TODO: do something realistic with this
+	transformsForEntities["household_power_consumption"]["datetime"] = func(arg interface{}) (interface{}, error) {
 		date, ok := arg.(*time.Time)
 
 		if !ok {
 			return nil, errors.New("argument could not be asserted as time.Time")
 		}
-		onlyYear := time.Date(date.Year(), 1, 1, 0, 0, 0, 0, time.UTC)
+		onlyYear := time.Date(date.Year(), date.Month(), 1, 0, 0, 0, 0, time.UTC)
 		return onlyYear, nil
 	}
-	transformsForEntities["name"] = func(arg interface{}) (interface{}, error) {
-		name, ok := arg.(*string)
-
-		if !ok {
-			return nil, errors.New("argument could not be asserted as string")
-		}
-
-		hiddenName := ""
-		for i, c := range *name {
-			if i > 2 {
-				hiddenName += "*"
-			} else {
-				hiddenName += fmt.Sprintf("%c", c)
-			}
-		}
-		return hiddenName, nil
-	}
-	removedColumnsForEntities := map[string][]string{"CentralServer": []string{}}
+	removedColumnsForEntities := map[string][]string{"CentralServer": {}}
 
 	group := &middleware.PrivacyGroup{Name: "CentralServer", Members: map[string]bool{"server": true}}
 

@@ -3,11 +3,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:4e4c36bd92a7651cbfd7ccffb523b50ccec9f9b724820eb4430acf2220a2bc73"
+  digest = "1:4a1a62d4d038a1eab7aaad975c11e3db58c6f3d50460d49f70632aa340f14b7f"
   name = "github.com/JacobMoxham/PartIIProjectImplementation"
   packages = ["middleware"]
   pruneopts = "UT"
-  revision = "283eb6bca421db22e088b16e315e1f4038c5166a"
+  revision = "464aa06f3d65b8b5dab28c134ddf6b1bc297a346"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"

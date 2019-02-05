@@ -105,7 +105,7 @@ func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*
 		if err != nil {
 			return nil, err
 		}
-		err = mspd.transformTable(tableName, transformedTableName, tableOperations.TableTransforms, tableOperations.ExcludedCols)
+		err = mspd.transformTable(tableName, transformedTableName, tableOperations.TableTransforms[tableName], tableOperations.ExcludedCols[tableName])
 		if err != nil {
 			return nil, err
 		}
@@ -122,15 +122,6 @@ func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*
 		return nil, err
 	}
 	return rows, nil
-}
-
-func contains(stringList []string, element string) bool {
-	for _, el := range stringList {
-		if el == element {
-			return true
-		}
-	}
-	return false
 }
 
 func (mspd *MySqlPrivateDatabase) dropTableIfExists(table string) error {
@@ -200,7 +191,7 @@ func (mspd *MySqlPrivateDatabase) isTransformedTableValid(tableName string, tran
 }
 
 func (mspd *MySqlPrivateDatabase) transformTable(tableName string, transformedTableName string,
-	transforms map[string]func(interface{}) (interface{}, error), excludedColumns map[string][]string) error {
+	transforms map[string]func(interface{}) (interface{}, error), excludedColumns []string) error {
 
 	if mspd.CacheTables {
 		// Take out table lock
@@ -239,7 +230,7 @@ func (mspd *MySqlPrivateDatabase) transformTable(tableName string, transformedTa
 		if err != nil {
 			log.Fatal(err)
 		}
-		if !contains(excludedColumns[tableName], colName) {
+		if !contains(excludedColumns, colName) {
 			colsToCopy = append(colsToCopy, colName)
 		}
 
