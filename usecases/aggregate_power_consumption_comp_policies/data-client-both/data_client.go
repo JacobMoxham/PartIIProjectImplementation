@@ -38,7 +38,7 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 	}
 	var err error
 	if DOCKER {
-		err = db.Connect("demouser", "demopassword", "power_consumption", "database", 3306)
+		err = db.Connect("demouser", "demopassword", "power_consumption", "database-both", 3306)
 	} else {
 		err = db.Connect("demouser", "demopassword", "power_consumption", "localhost", 3306)
 	}
