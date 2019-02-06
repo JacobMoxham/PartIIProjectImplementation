@@ -3,7 +3,6 @@ package usecases
 import (
 	"fmt"
 	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
-	"github.com/justinas/alice"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -50,13 +49,17 @@ func imClient() {
 			log.Println("Error:", err)
 			continue
 		}
+		if resp.HttpResponse.StatusCode < 200 || resp.HttpResponse.StatusCode >= 300 {
+			log.Printf("Request produced a none 2xx status code: %s", resp.HttpResponse.Status)
+			continue
+		}
 
 		// Read response
-		body, err := ioutil.ReadAll(resp.Body)
+		body, err := ioutil.ReadAll(resp.HttpResponse.Body)
 		if err != nil {
 			log.Fatal("Error reading body of response.", err)
 		}
-		resp.Body.Close()
+		resp.HttpResponse.Body.Close()
 
 		log.Println(fmt.Sprintf("%d: %s", i, body))
 	}

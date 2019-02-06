@@ -16,7 +16,7 @@ const DOCKER = true
 func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
 	transformsForEntities := make(map[string]map[string]func(interface{}) (interface{}, error))
 	// TODO: do something realistic with this
-	transformsForEntities["household_power_consumption"]["datetime"] = func(arg interface{}) (interface{}, error) {
+	transformsForEntities["household_power_consumption"] = map[string]func(arg interface{}) (interface{}, error){"datetime": func(arg interface{}) (interface{}, error) {
 		date, ok := arg.(*time.Time)
 
 		if !ok {
@@ -24,7 +24,7 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 		}
 		onlyYear := time.Date(date.Year(), date.Month(), 1, 0, 0, 0, 0, time.UTC)
 		return onlyYear, nil
-	}
+	}}
 	removedColumnsForEntities := map[string][]string{"CentralServer": {}}
 
 	group := &middleware.PrivacyGroup{Name: "CentralServer", Members: map[string]bool{"server": true}}
@@ -38,7 +38,7 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 	}
 	var err error
 	if DOCKER {
-		err = db.Connect("demouser", "demopassword", "power_consumption", "database", 3306)
+		err = db.Connect("demouser", "demopassword", "power_consumption", "database-raw-data", 3306)
 	} else {
 		err = db.Connect("demouser", "demopassword", "power_consumption", "localhost", 3306)
 	}

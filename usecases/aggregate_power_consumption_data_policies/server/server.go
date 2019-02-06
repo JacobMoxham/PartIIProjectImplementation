@@ -50,6 +50,11 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 				http.Error(w, err.Error(), 500)
 				return
 			}
+			if pamResp.HttpResponse.StatusCode < 200 || pamResp.HttpResponse.StatusCode >= 300 {
+				log.Printf("Request to %s produced a none 2xx status code: %s", client, pamResp.HttpResponse.Status)
+				continue
+			}
+
 			// TODO: check that computation level is correct
 
 			resp := pamResp.HttpResponse

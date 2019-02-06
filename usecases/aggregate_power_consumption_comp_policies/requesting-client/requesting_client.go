@@ -47,6 +47,11 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 			log.Println("Error:", err)
 			return
 		}
+		if pamResp.HttpResponse.StatusCode < 200 || pamResp.HttpResponse.StatusCode >= 300 {
+			log.Printf("Request produced a none 2xx status code: %s", pamResp.HttpResponse.Status)
+			return
+		}
+
 		// TODO: check that computation level is correct
 
 		resp := pamResp.HttpResponse

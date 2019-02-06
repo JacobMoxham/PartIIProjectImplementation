@@ -53,11 +53,22 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 			req.SetParam("endDate", endDate)
 
 			pamResp, err := req.Send()
-			// TODO: check if the database failed to connect and error properly
+			// TODO: check if the database failed to connect and error properly, might now be fixed
 			if err != nil {
-				log.Println("Error:", err)
-				http.Error(w, err.Error(), 500)
-				return
+				log.Printf("Request to %s produced an error: %s", client, err.Error())
+				continue
+			}
+			if pamResp.HttpResponse.StatusCode < 200 || pamResp.HttpResponse.StatusCode >= 300 {
+				// Read response
+				resp := pamResp.HttpResponse
+				body, err := ioutil.ReadAll(resp.Body)
+				if err != nil {
+					log.Fatal("Error reading body of response.", err)
+				}
+				resp.Body.Close()
+
+				log.Printf("Request to %s produced a none 2xx status code: %s, %s", client, pamResp.HttpResponse.Status, body)
+				continue
 			}
 
 			resp := pamResp.HttpResponse
@@ -65,18 +76,17 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 			// Read response
 			body, err := ioutil.ReadAll(resp.Body)
 			if err != nil {
-				log.Fatal("Error reading body of response.", err)
+				log.Println("Error reading body of response:", err)
+				resp.Body.Close()
+				continue
 			}
-			resp.Body.Close()
 
 			switch pamResp.ComputationLevel {
 			case middleware.CanCompute:
 				averageActiveEnergyPerMinute, err := strconv.ParseFloat(string(body), 64)
 				if err != nil {
-					log.Println("Error:", err)
-					// TODO: consider continuing
-					http.Error(w, err.Error(), 500)
-					return
+					log.Printf("%s returned a value which could not be parsed as a float, error: %s", client, err)
+					continue
 				}
 				averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
 				respondingClientCount += 1
@@ -107,6 +117,7 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 				averageActiveEnergyPerMinute := totalActiveEnergyPerMinute / float64(len(lines))
 				averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
 				respondingClientCount += 1
+				log.Printf("%s gave value %f", client, averageActiveEnergyPerMinute)
 			case middleware.NoComputation:
 				log.Printf("client: %s could not compute a result", client)
 			}
@@ -116,6 +127,9 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 		// Don't divide by 0
 		if respondingClientCount > 0 {
 			averageActiveEnergyPerMinuteFromAllClients /= float64(respondingClientCount)
+		} else {
+			http.Error(w, "No data could be found", 500)
+			return
 		}
 		_, err = w.Write([]byte(fmt.Sprintf("%.2f", averageActiveEnergyPerMinuteFromAllClients)))
 		if err != nil {

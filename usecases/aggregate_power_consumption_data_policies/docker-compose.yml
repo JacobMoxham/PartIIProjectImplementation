@@ -11,7 +11,6 @@ services:
     command: mysqld --user=root --verbose
     volumes:
       - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
-#      - ./mysql-init/import.sh:/tmp/import.sh
       - ./mysql-init:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
