@@ -157,7 +157,7 @@ func (mspd *MySqlPrivateDatabase) isTransformedTableValid(tableName string, tran
 		// Table doesn't exist
 		return false, fmt.Errorf("table %s doesn't exist", tableName)
 	default:
-		return false, fmt.Errorf("error reading table %s: %s", tableName, err.Error())
+		return false, fmt.Errorf("error reading table %s", tableName)
 	}
 
 	// Check when the transform was created

@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
-	"github.com/joho/sqltocsv"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
@@ -13,7 +12,7 @@ import (
 
 const DOCKER = true
 
-func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
+func createAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
 	transformsForEntities := make(map[string]map[string]func(interface{}) (interface{}, error))
 	// TODO: do something realistic with this
 	transformsForEntities["household_power_consumption"] = map[string]func(arg interface{}) (interface{}, error){"datetime": func(arg interface{}) (interface{}, error) {
@@ -25,7 +24,6 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 		onlyYear := time.Date(date.Year(), date.Month(), 1, 0, 0, 0, 0, time.UTC)
 		return onlyYear, nil
 	}}
-
 	removedColumnsForEntities := map[string][]string{"CentralServer": {}}
 
 	group := &middleware.PrivacyGroup{Name: "CentralServer", Members: map[string]bool{"server": true}}
@@ -39,7 +37,7 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 	}
 	var err error
 	if DOCKER {
-		err = db.Connect("demouser", "demopassword", "power_consumption", "database-can-compute", 3306)
+		err = db.Connect("demouser", "demopassword", "power_consumption", "database-both", 3306)
 	} else {
 		err = db.Connect("demouser", "demopassword", "power_consumption", "localhost", 3306)
 	}
@@ -82,16 +80,27 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 
 			defer rows.Close()
 
-			resultString, err := sqltocsv.WriteString(rows)
-			if err != nil {
-				http.Error(w, err.Error(), 500)
-				log.Println(err.Error())
-				return
+			var (
+				datetime              time.Time
+				activeEnergyPerMinute float64
+			)
+			numRows := 0
+			totalActiveEnergyPerMinute := 0.0
+
+			for rows.Next() {
+				numRows += 1
+				// TODO: maybe remove datetime
+				rows.Scan(&datetime, &activeEnergyPerMinute)
+				totalActiveEnergyPerMinute += activeEnergyPerMinute
 			}
-			_, err = w.Write([]byte(resultString))
+			averageActiveEnergyPerMinute := 0.0
+			if numRows > 0 {
+				averageActiveEnergyPerMinute = totalActiveEnergyPerMinute / float64(numRows)
+			}
+			_, err = w.Write([]byte(fmt.Sprintf("%.2f", averageActiveEnergyPerMinute)))
 			if err != nil {
+				log.Println("Error:", err)
 				http.Error(w, err.Error(), 500)
-				log.Println(err.Error())
 				return
 			}
 		},
@@ -100,7 +109,7 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 
 func main() {
 	// Create actual function to run
-	averagePowerConsumptionHandler, db, err := createPowerConsumptionRawDataHandler()
+	averagePowerConsumptionHandler, db, err := createAveragePowerConsumptionHandler()
 	if err != nil {
 		log.Fatal(err)
 	}

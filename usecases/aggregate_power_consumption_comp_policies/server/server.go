@@ -14,6 +14,91 @@ import (
 
 const DOCKER = true
 
+func getAverageForClient(client string, startDate string, endDate string, policy middleware.RequestPolicy, result chan float64) error {
+	log.Printf("Requesting data from %s", client)
+	httpRequest, err := http.NewRequest("GET", fmt.Sprintf("http://%s:3001/", client), nil)
+	if err != nil {
+		return err
+	}
+
+	req := middleware.PamRequest{
+		Policy:      &policy,
+		HttpRequest: httpRequest,
+	}
+
+	req.SetParam("startDate", startDate)
+	req.SetParam("endDate", endDate)
+
+	pamResp, err := req.Send()
+	// TODO: check if the database failed to connect and error properly, might now be fixed
+	if err != nil {
+		log.Printf("Request to %s produced an error: %s", client, err.Error())
+		return err
+	}
+	if pamResp.HttpResponse.StatusCode < 200 || pamResp.HttpResponse.StatusCode >= 300 {
+		// Read response
+		resp := pamResp.HttpResponse
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			log.Fatal("Error reading body of response.", err)
+		}
+		resp.Body.Close()
+
+		log.Printf("Request to %s produced a none 2xx status code: %s, %s", client, pamResp.HttpResponse.Status, body)
+		return err
+	}
+
+	resp := pamResp.HttpResponse
+
+	// Read response
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Println("Error reading body of response:", err)
+		resp.Body.Close()
+		return err
+	}
+
+	switch pamResp.ComputationLevel {
+	case middleware.CanCompute:
+		averageActiveEnergyPerMinute, err := strconv.ParseFloat(string(body), 64)
+		if err != nil {
+			log.Printf("%s returned a value which could not be parsed as a float, error: %s", client, err)
+			return err
+		}
+		log.Printf("%s gave value %f", client, averageActiveEnergyPerMinute)
+
+		result <- averageActiveEnergyPerMinute
+	case middleware.RawData:
+		reader := csv.NewReader(bytes.NewBuffer(body))
+		lines, err := reader.ReadAll()
+		if err != nil {
+			return err
+		}
+
+		totalActiveEnergyPerMinute := 0.0
+		for i, line := range lines {
+			// Skip header
+			if i > 0 {
+				// Average the active energy per minute from all clients
+				activeEnergyPerMinute, err := strconv.ParseFloat(line[1], 64)
+				if err != nil {
+					return err
+				}
+				totalActiveEnergyPerMinute += activeEnergyPerMinute
+			}
+		}
+		// Do a division here to keep numbers smaller
+		averageActiveEnergyPerMinute := totalActiveEnergyPerMinute / float64(len(lines))
+		log.Printf("%s gave value %f", client, averageActiveEnergyPerMinute)
+
+		result <- averageActiveEnergyPerMinute
+	case middleware.NoComputation:
+		log.Printf("client: %s could not compute a result", client)
+	}
+
+	return nil
+}
+
 func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Request), error) {
 	policy := middleware.RequestPolicy{
 		RequesterID:                 "server",
@@ -23,7 +108,7 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 
 	var clients []string
 	if DOCKER {
-		clients = []string{"data-client-raw-data", "data-client-raw-data", "data-client-both", "data-client-no-computation"}
+		clients = []string{"data-client-can-compute", "data-client-raw-data", "data-client-both", "data-client-no-computation"}
 	} else {
 		clients = []string{"127.0.0.1"}
 	}
@@ -34,94 +119,36 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 		endDate := pamRequest.GetParam("endDate")
 
 		averageActiveEnergyPerMinuteFromAllClients := 0.0
-		respondingClientCount := 0
+
+		// Channel for synchronisation
+		done := make(chan bool, len(clients))
+		results := make(chan float64, len(clients))
+
 		for _, client := range clients {
-			log.Printf("Requesting data from %s", client)
-			httpRequest, err := http.NewRequest("GET", fmt.Sprintf("http://%s:3001/", client), nil)
-			if err != nil {
-				log.Println("Error:", err)
-				http.Error(w, err.Error(), 500)
-				return
-			}
+			// Need to take a copy as we close over a reference to the client which will change
+			clientCopy := client
 
-			req := middleware.PamRequest{
-				Policy:      &policy,
-				HttpRequest: httpRequest,
-			}
-
-			req.SetParam("startDate", startDate)
-			req.SetParam("endDate", endDate)
-
-			pamResp, err := req.Send()
-			// TODO: check if the database failed to connect and error properly, might now be fixed
-			if err != nil {
-				log.Printf("Request to %s produced an error: %s", client, err.Error())
-				continue
-			}
-			if pamResp.HttpResponse.StatusCode < 200 || pamResp.HttpResponse.StatusCode >= 300 {
-				// Read response
-				resp := pamResp.HttpResponse
-				body, err := ioutil.ReadAll(resp.Body)
+			// Request an average (and compute one if we get raw data) in parallel
+			go func() {
+				err := getAverageForClient(clientCopy, startDate, endDate, policy, results)
 				if err != nil {
-					log.Fatal("Error reading body of response.", err)
+					log.Printf("Could not get an average for %s, there was an error: %s", client, err.Error())
 				}
-				resp.Body.Close()
+				done <- true
+			}()
+		}
 
-				log.Printf("Request to %s produced a none 2xx status code: %s, %s", client, pamResp.HttpResponse.Status, body)
-				continue
-			}
-
-			resp := pamResp.HttpResponse
-
-			// Read response
-			body, err := ioutil.ReadAll(resp.Body)
-			if err != nil {
-				log.Println("Error reading body of response:", err)
-				resp.Body.Close()
-				continue
-			}
-
-			switch pamResp.ComputationLevel {
-			case middleware.CanCompute:
-				averageActiveEnergyPerMinute, err := strconv.ParseFloat(string(body), 64)
-				if err != nil {
-					log.Printf("%s returned a value which could not be parsed as a float, error: %s", client, err)
-					continue
-				}
-				averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
+		respondingClientCount := 0
+		for i := 0; i < len(clients); i++ {
+			<-done
+			// Take a result, if none exists then continue, this allows there to be less results than clients requested
+			select {
+			case averageActiveEnergyPerMinute := <-results:
 				respondingClientCount += 1
-			case middleware.RawData:
-				reader := csv.NewReader(bytes.NewBuffer(body))
-				lines, err := reader.ReadAll()
-				if err != nil {
-					log.Println("Error:", err)
-					http.Error(w, err.Error(), 500)
-					return
-				}
-
-				totalActiveEnergyPerMinute := 0.0
-				for i, line := range lines {
-					// Skip header
-					if i > 0 {
-						// Average the active energy per minute from all clients
-						activeEnergyPerMinute, err := strconv.ParseFloat(line[1], 64)
-						if err != nil {
-							log.Println("Error:", err)
-							http.Error(w, err.Error(), 500)
-							return
-						}
-						totalActiveEnergyPerMinute += activeEnergyPerMinute
-					}
-				}
-				// Do a division here to keep numbers smaller
-				averageActiveEnergyPerMinute := totalActiveEnergyPerMinute / float64(len(lines))
 				averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
-				respondingClientCount += 1
-				log.Printf("%s gave value %f", client, averageActiveEnergyPerMinute)
-			case middleware.NoComputation:
-				log.Printf("client: %s could not compute a result", client)
+			default:
+				continue
 			}
-
 		}
 
 		// Don't divide by 0
