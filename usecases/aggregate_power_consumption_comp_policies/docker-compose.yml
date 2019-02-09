@@ -4,30 +4,38 @@ services:
   data-client-raw-data:
     build: './data-client-raw-data'
     container_name: data-client-raw-data
-  data-client-can-compute:
-    build: './data-client-can-compute'
-    container_name: data-client-can-compute
-  data-client-both:
-    build: './data-client-both'
-    container_name: data-client-both
-  data-client-no-computation:
-    build: './data-client-no-computation'
-    container_name: data-client-no-computation
-  database-both:
-    image: mysql
-    container_name: database-both
-    command: mysqld --user=root --verbose
-    volumes:
-      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
-      - ./mysql-init:/docker-entrypoint-initdb.d
-#    ports:
-#      - "3306:3306"
-    environment:
-      MYSQL_DATABASE: power_consumption
-      MYSQL_USER: "demouser"
-      MYSQL_PASSWORD: "demopassword"
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+#            memory: 50M
+#  data-client-can-compute:
+#    build: './data-client-can-compute'
+#    container_name: data-client-can-compute
+#  data-client-both:
+#    build: './data-client-both'
+#    container_name: data-client-both
+#  data-client-no-computation:
+#    build: './data-client-no-computation'
+#    container_name: data-client-no-computation
+#  database-both:
+#    image: mysql
+#    container_name: database-both
+#    command: mysqld --user=root --verbose
+#    volumes:
+#      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
+#      - ./mysql-init:/docker-entrypoint-initdb.d
+##    ports:
+##      - "3306:3306"
+#    environment:
+#      MYSQL_DATABASE: power_consumption
+#      MYSQL_USER: "demouser"
+#      MYSQL_PASSWORD: "demopassword"
+#      MYSQL_ROOT_PASSWORD: "root"
+#      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
   database-raw-data:
     image: mysql
     container_name: database-raw-data
@@ -43,21 +51,21 @@ services:
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-  database-can-compute:
-    image: mysql
-    container_name: database-can-compute
-    command: mysqld --user=root --verbose
-    volumes:
-      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
-      - ./mysql-init:/docker-entrypoint-initdb.d
-  #  ports:
-  #    - "3306:3306"
-    environment:
-      MYSQL_DATABASE: power_consumption
-      MYSQL_USER: "demouser"
-      MYSQL_PASSWORD: "demopassword"
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+#  database-can-compute:
+#    image: mysql
+#    container_name: database-can-compute
+#    command: mysqld --user=root --verbose
+#    volumes:
+#      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
+#      - ./mysql-init:/docker-entrypoint-initdb.d
+#  #  ports:
+#  #    - "3306:3306"
+#    environment:
+#      MYSQL_DATABASE: power_consumption
+#      MYSQL_USER: "demouser"
+#      MYSQL_PASSWORD: "demopassword"
+#      MYSQL_ROOT_PASSWORD: "root"
+#      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
   requesting-client:
     build: './requesting-client'
     ports:
