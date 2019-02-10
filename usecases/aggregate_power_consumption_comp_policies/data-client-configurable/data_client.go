@@ -9,7 +9,6 @@ import (
 	"log"
 	"net/http"
 	_ "net/http/pprof"
-	"os"
 	"time"
 )
 
@@ -42,8 +41,8 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 	if DOCKER {
 		dbName := "database-both"
 		// Support database name as command line argument
-		if len(os.Args) > 1 {
-			dbName = os.Args[1]
+		if len(flag.Args()) > 1 {
+			dbName = flag.Args()[1]
 		}
 		err = db.Connect("demouser", "demopassword", "power_consumption", dbName, 3306)
 	} else {
@@ -130,8 +129,8 @@ func createAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Req
 	if DOCKER {
 		dbName := "database-both"
 		// Support database name as command line argument
-		if len(os.Args) > 1 {
-			dbName = os.Args[1]
+		if len(flag.Args()) > 1 {
+			dbName = flag.Args()[1]
 		}
 		err = db.Connect("demouser", "demopassword", "power_consumption", dbName, 3306)
 	} else {

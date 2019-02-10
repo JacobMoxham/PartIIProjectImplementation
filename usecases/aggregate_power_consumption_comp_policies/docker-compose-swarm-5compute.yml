@@ -3,7 +3,7 @@ version: '3'
 services:
   data-client-1:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
-    command: database-1 -can-compute
+    command: -can-compute database-1
     deploy:
       resources:
         limits:
@@ -14,7 +14,7 @@ services:
           memory: 50M
   data-client-2:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
-    command: database-2 -can-compute
+    command: -can-compute database-2
     deploy:
       resources:
         limits:
@@ -25,7 +25,7 @@ services:
           memory: 50M
   data-client-3:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
-    command: database-3 -can-compute
+    command: -can-compute database-3
     deploy:
       resources:
         limits:
@@ -36,7 +36,7 @@ services:
           memory: 50M
   data-client-4:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
-    command: database-4 -can-compute
+    command: -can-compute database-4
     deploy:
       resources:
         limits:
@@ -47,7 +47,7 @@ services:
           memory: 50M
   data-client-5:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
-    command: database-5 -can-compute
+    command: -can-compute database-5
     deploy:
       resources:
         limits:
