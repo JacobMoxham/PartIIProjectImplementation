@@ -1,0 +1,110 @@
+version: '3'
+
+services:
+  data-client-raw-data:
+    image: jacobmoxham2/part_ii_project_implementation:data-raw
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 50M
+  data-client-compute:
+    image: jacobmoxham2/part_ii_project_implementation:data-compute
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 50M
+  data-client-both:
+    image: jacobmoxham2/part_ii_project_implementation:data-both
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 50M
+  data-client-none:
+    image: jacobmoxham2/part_ii_project_implementation:data-none
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 50M
+  database-both:
+    image: mysql
+    command: mysqld --user=root --verbose
+    volumes:
+      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+  #    ports:
+  #      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: power_consumption
+      MYSQL_USER: "demouser"
+      MYSQL_PASSWORD: "demopassword"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  database-raw-data:
+    image: mysql
+    command: mysqld --user=root --verbose
+    volumes:
+      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    #  ports:
+    #    - "3306:3306"
+    environment:
+      MYSQL_DATABASE: power_consumption
+      MYSQL_USER: "demouser"
+      MYSQL_PASSWORD: "demopassword"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  database-can-compute:
+    image: mysql
+    command: mysqld --user=root --verbose
+    volumes:
+      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+  #  ports:
+  #    - "3306:3306"
+    environment:
+      MYSQL_DATABASE: power_consumption
+      MYSQL_USER: "demouser"
+      MYSQL_PASSWORD: "demopassword"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  requesting-client:
+    image: jacobmoxham2/part_ii_project_implementation:requesting
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 50M
+        reservations:
+          cpus: '0.2'
+          memory: 50M
+    ports:
+      - "4000:4000"
+      - "6060:6060"
+  server:
+    image: jacobmoxham2/part_ii_project_implementation:server
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 200M
+        reservations:
+          cpus: '0.5'
+          memory: 200M
+#    ports:
+#      - "3002:3002"

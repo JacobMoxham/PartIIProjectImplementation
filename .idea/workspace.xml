@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e28621a1-efb5-4cd6-86fd-b9d0c04829bd" name="Default Changelist" comment="Basic client and server working">
+      <change afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,11 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+            <state relative-caret-position="234">
+              <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -45,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2844">
-              <caret line="174" column="46" lean-forward="true" selection-start-line="174" selection-start-column="46" selection-end-line="174" selection-end-column="46" />
+              <caret line="174" column="46" selection-start-line="174" selection-start-column="46" selection-end-line="174" selection-end-column="46" />
               <folding>
                 <element signature="n#!!block;n#dropTableIfExists#0" />
               </folding>
@@ -53,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="111" selection-start-line="111" selection-end-line="111" />
+            <state relative-caret-position="342">
+              <caret line="110" column="47" selection-start-line="110" selection-start-column="47" selection-end-line="110" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -80,7 +83,7 @@
         <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/requesting_client.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="18">
-              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -89,7 +92,7 @@
         <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/data_client.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="70">
-              <caret line="98" column="14" lean-forward="true" selection-start-line="98" selection-end-line="192" />
+              <caret line="98" column="14" selection-start-line="98" selection-end-line="192" />
               <folding>
                 <element signature="n#!!block;n#createPowerConsumptionRawDataHandler#0" />
                 <element signature="n#!!block;n#createAveragePowerConsumptionHandler#0" />
@@ -167,7 +170,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Dockerfile" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption.go" />
         <option value="$PROJECT_DIR$/usecases/test.go" />
         <option value="$PROJECT_DIR$/Dockerfile" />
@@ -216,8 +218,9 @@
         <option value="$PROJECT_DIR$/middleware/private_database.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/data_client.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/requesting_client.go" />
-        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml" />
+        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm.yml" />
+        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go" />
       </list>
     </option>
   </component>
@@ -352,7 +355,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build requesting_client.go (1)">
+  <component name="RunManager" selected="Docker.aggregate_power_consumption_comp_policies/docker-compose-swarm.yml: Compose Deployment">
     <configuration name="Image Processing" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="PartIIProjectImplentation" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -470,6 +473,14 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="aggregate_power_consumption_comp_policies/docker-compose-swarm.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration name="aggregate_power_consumption.server: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
@@ -483,15 +494,6 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="server/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
-      <deployment type="dockerfile">
-        <settings>
-          <option name="buildOnly" value="true" />
-          <option name="sourceFilePath" value="usecases/aggregate_power_consumption_comp_policies/server/Dockerfile" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Docker.aggregate_power_consumption.server: Compose Deployment" />
       <item itemvalue="Go Build.aggregate_power_consumption" />
@@ -501,18 +503,18 @@
       <item itemvalue="Go Build.go build requesting_client.go" />
       <item itemvalue="Go Build.go build server.go" />
       <item itemvalue="Docker.aggregate_power_consumption_comp_policies: Compose Deployment" />
-      <item itemvalue="Docker.server/Dockerfile" />
       <item itemvalue="Go Build.go build data_client.go (2)" />
       <item itemvalue="Go Build.go build requesting_client.go (1)" />
       <item itemvalue="Go Build.go build server.go (1)" />
+      <item itemvalue="Docker.aggregate_power_consumption_comp_policies/docker-compose-swarm.yml: Compose Deployment" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.aggregate_power_consumption_comp_policies/docker-compose-swarm.yml: Compose Deployment" />
         <item itemvalue="Docker.aggregate_power_consumption_comp_policies: Compose Deployment" />
         <item itemvalue="Go Build.go build requesting_client.go (1)" />
         <item itemvalue="Go Build.go build server.go (1)" />
         <item itemvalue="Go Build.go build data_client.go (2)" />
-        <item itemvalue="Docker.server/Dockerfile" />
       </list>
     </recent_temporary>
   </component>
@@ -567,11 +569,11 @@
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32991803" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.3876698" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.40856844" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.031347964" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.74190176" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Docker" order="7" sideWeight="0.498618" visible="true" weight="0.22570533" />
+      <window_info active="true" anchor="bottom" id="Docker" order="7" sideWeight="0.498618" visible="true" weight="0.11494253" />
       <window_info anchor="bottom" id="TODO" order="8" weight="0.075235106" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.501382" side_tool="true" weight="0.35005224" />
@@ -693,23 +695,10 @@
           <line>124</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go</url>
-          <line>62</line>
-          <properties />
-          <option name="timeStamp" value="57" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/go/src/sync/map.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -990,13 +979,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/data_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="27" column="47" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/data_client.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -1006,9 +988,6 @@
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file:///usr/local/go/src/net/http/server.go">
       <provider selected="true" editor-type-id="text-editor">
@@ -1020,7 +999,7 @@
     <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/data_client.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="70">
-          <caret line="98" column="14" lean-forward="true" selection-start-line="98" selection-end-line="192" />
+          <caret line="98" column="14" selection-start-line="98" selection-end-line="192" />
           <folding>
             <element signature="n#!!block;n#createPowerConsumptionRawDataHandler#0" />
             <element signature="n#!!block;n#createAveragePowerConsumptionHandler#0" />
@@ -1028,34 +1007,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/requesting_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2844">
-          <caret line="174" column="46" lean-forward="true" selection-start-line="174" selection-start-column="46" selection-end-line="174" selection-end-column="46" />
+          <caret line="174" column="46" selection-start-line="174" selection-start-column="46" selection-end-line="174" selection-end-column="46" />
           <folding>
             <element signature="n#!!block;n#dropTableIfExists#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go">
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="111" selection-start-line="111" selection-end-line="111" />
+        <state relative-caret-position="252">
+          <caret line="14" column="43" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="43" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml">
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+        <state relative-caret-position="234">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/data_client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="27" column="47" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/requesting_client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="110" column="47" selection-start-line="110" selection-start-column="47" selection-end-line="110" selection-end-column="47" />
         </state>
       </provider>
     </entry>

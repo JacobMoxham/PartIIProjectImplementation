@@ -108,7 +108,7 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 
 	var clients []string
 	if DOCKER {
-		clients = []string{"data-client-can-compute", "data-client-raw-data", "data-client-both", "data-client-no-computation"}
+		clients = []string{"data-client-compute", "data-client-raw-data", "data-client-both", "data-client-none"}
 	} else {
 		clients = []string{"127.0.0.1"}
 	}
