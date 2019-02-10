@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	_ "net/http/pprof"
+	"os"
 	"strconv"
 )
 
@@ -108,7 +109,13 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 
 	var clients []string
 	if DOCKER {
-		clients = []string{"data-client-compute", "data-client-raw-data", "data-client-both", "data-client-none"}
+		// Support docker compose command line arguments
+		if len(os.Args) > 1 {
+			log.Printf("Clients: %v", os.Args[1:])
+			clients = os.Args[1:]
+		} else {
+			clients = []string{"data-client-compute", "data-client-raw-data", "data-client-both", "data-client-none"}
+		}
 	} else {
 		clients = []string{"127.0.0.1"}
 	}

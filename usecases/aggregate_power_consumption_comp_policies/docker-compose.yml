@@ -65,5 +65,6 @@ services:
       - "6060:6060"
   server:
     build: './server'
+#    command: data-client-raw-data data-client-no-computation
     ports:
       - "3002:3002"

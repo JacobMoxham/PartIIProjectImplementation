@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	_ "net/http/pprof"
+	"os"
 	"time"
 )
 
@@ -37,7 +38,12 @@ func createAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Req
 	}
 	var err error
 	if DOCKER {
-		err = db.Connect("demouser", "demopassword", "power_consumption", "database-both", 3306)
+		dbName := "database-can-compute"
+		// Support database name as command line argument
+		if len(os.Args) > 1 {
+			dbName = os.Args[1]
+		}
+		err = db.Connect("demouser", "demopassword", "power_consumption", dbName, 3306)
 	} else {
 		err = db.Connect("demouser", "demopassword", "power_consumption", "localhost", 3306)
 	}

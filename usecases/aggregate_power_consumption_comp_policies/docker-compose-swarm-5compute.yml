@@ -1,0 +1,154 @@
+version: '3'
+
+services:
+  data-client-1:
+    image: jacobmoxham2/part_ii_project_implementation:data-compute
+    command: database-1
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 50M
+  data-client-2:
+    image: jacobmoxham2/part_ii_project_implementation:data-compute
+    command: database-2
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 50M
+  data-client-3:
+    image: jacobmoxham2/part_ii_project_implementation:data-compute
+    command: database-3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 50M
+  data-client-4:
+    image: jacobmoxham2/part_ii_project_implementation:data-compute
+    command: database-4
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 50M
+  data-client-5:
+    image: jacobmoxham2/part_ii_project_implementation:data-compute
+    command: database-5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 50M
+  database-1:
+    image: mysql
+    command: mysqld --user=root --verbose
+    volumes:
+      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+  #    ports:
+  #      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: power_consumption
+      MYSQL_USER: "demouser"
+      MYSQL_PASSWORD: "demopassword"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  database-2:
+    image: mysql
+    command: mysqld --user=root --verbose
+    volumes:
+      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    #  ports:
+    #    - "3306:3306"
+    environment:
+      MYSQL_DATABASE: power_consumption
+      MYSQL_USER: "demouser"
+      MYSQL_PASSWORD: "demopassword"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  database-3:
+    image: mysql
+    command: mysqld --user=root --verbose
+    volumes:
+      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+  #  ports:
+  #    - "3306:3306"
+    environment:
+      MYSQL_DATABASE: power_consumption
+      MYSQL_USER: "demouser"
+      MYSQL_PASSWORD: "demopassword"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  database-4:
+    image: mysql
+    command: mysqld --user=root --verbose
+    volumes:
+      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    #  ports:
+    #    - "3306:3306"
+    environment:
+      MYSQL_DATABASE: power_consumption
+      MYSQL_USER: "demouser"
+      MYSQL_PASSWORD: "demopassword"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  database-5:
+    image: mysql
+    command: mysqld --user=root --verbose
+    volumes:
+      - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    #  ports:
+    #    - "3306:3306"
+    environment:
+      MYSQL_DATABASE: power_consumption
+      MYSQL_USER: "demouser"
+      MYSQL_PASSWORD: "demopassword"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  requesting-client:
+    image: jacobmoxham2/part_ii_project_implementation:requesting
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 50M
+        reservations:
+          cpus: '0.2'
+          memory: 50M
+    ports:
+      - "4000:4000"
+      - "6060:6060"
+  server:
+    image: jacobmoxham2/part_ii_project_implementation:server
+    command: data-client-1 data-client-2 data-client-3 data-client-4 data-client-5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 200M
+        reservations:
+          cpus: '0.5'
+          memory: 200M
+#    ports:
+#      - "3002:3002"
