@@ -132,8 +132,11 @@ func createAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Req
 		if len(flag.Args()) > 1 {
 			dbName = flag.Args()[1]
 		}
+		log.Printf("Connecting to database: %s", dbName)
 		err = db.Connect("demouser", "demopassword", "power_consumption", dbName, 3306)
 	} else {
+		log.Printf("Connecting to local database")
+
 		err = db.Connect("demouser", "demopassword", "power_consumption", "localhost", 3306)
 	}
 
