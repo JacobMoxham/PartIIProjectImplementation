@@ -6,13 +6,13 @@ services:
     container_name: data-client-raw-data
   data-client-can-compute:
     build: './data-client-can-compute'
-    container_name: data-client-can-compute
+    container_name: data-client-compute
   data-client-both:
     build: './data-client-both'
     container_name: data-client-both
   data-client-no-computation:
     build: './data-client-no-computation'
-    container_name: data-client-can-compute
+    container_name: data-client-none
   database-both:
     image: mysql
     container_name: database-both
