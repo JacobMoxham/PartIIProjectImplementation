@@ -151,6 +151,7 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 			// Take a result, if none exists then continue, this allows there to be less results than clients requested
 			select {
 			case averageActiveEnergyPerMinute := <-results:
+				// TODO: look at what happens when one client errors and does not respond, possibly just close responses and then range over it
 				respondingClientCount += 1
 				averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
 			default:

@@ -3,59 +3,59 @@ version: '3'
 services:
   data-client-1:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
-    command: -can-compute database-1
+    command: -raw-data database-1
     deploy:
       resources:
         limits:
           cpus: '0.1'
-          memory: 20M
+          memory: 40M
         reservations:
           cpus: '0.1'
-          memory: 20M
+          memory: 40M
   data-client-2:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
-    command: -can-compute database-2
+    command: -raw-data database-2
     deploy:
       resources:
         limits:
           cpus: '0.1'
-          memory: 20M
+          memory: 40M
         reservations:
           cpus: '0.1'
-          memory: 20M
+          memory: 40M
   data-client-3:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
-    command: -can-compute database-3
+    command: -raw-data database-3
     deploy:
       resources:
         limits:
           cpus: '0.1'
-          memory: 20M
+          memory: 40M
         reservations:
           cpus: '0.1'
-          memory: 20M
+          memory: 40M
   data-client-4:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
-    command: -can-compute database-4
+    command: -raw-data database-4
     deploy:
       resources:
         limits:
           cpus: '0.1'
-          memory: 20M
+          memory: 40M
         reservations:
           cpus: '0.1'
-          memory: 20M
+          memory: 40M
   data-client-5:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
-    command: -can-compute database-5
+    command: -raw-data database-5
     deploy:
       resources:
         limits:
           cpus: '0.1'
-          memory: 20M
+          memory: 40M
         reservations:
           cpus: '0.1'
-          memory: 20M
+          memory: 40M
   database-1:
     image: mysql
     command: mysqld --user=root --verbose
@@ -132,10 +132,10 @@ services:
       resources:
         limits:
           cpus: '0.2'
-          memory: 20M
+          memory: 50M
         reservations:
           cpus: '0.2'
-          memory: 20M
+          memory: 50M
     ports:
       - "4000:4000"
       - "6060:6060"
