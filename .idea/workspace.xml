@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e28621a1-efb5-4cd6-86fd-b9d0c04829bd" name="Default Changelist" comment="Basic client and server working">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image_recognition/image-recognition.go" beforeDir="false" afterPath="$PROJECT_DIR$/image_recognition/image-recognition.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/client/Gopkg.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/image_processing/server/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/server/Gopkg.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/image_processing/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/image_recognition/image-recognition.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/image_recognition/image-recognition.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,11 +36,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/image_recognition/image-recognition.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
+            <state relative-caret-position="279">
+              <caret line="129" column="63" lean-forward="true" selection-start-line="129" selection-start-column="63" selection-end-line="129" selection-end-column="63" />
               <folding>
                 <element signature="e#14#52#0" expanded="true" />
               </folding>
@@ -75,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/usecases/image_processing/server/server.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="59" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
+            <state relative-caret-position="252">
+              <caret line="14" column="62" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="62" />
               <folding>
                 <element signature="e#16#241#0" expanded="true" />
               </folding>
@@ -215,8 +215,8 @@
         <option value="$PROJECT_DIR$/usecases/image_processing/server/image_recognition/image-recognition.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/server/app/server.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/server/Dockerfile" />
-        <option value="$PROJECT_DIR$/image_recognition/image-recognition.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/server/server.go" />
+        <option value="$PROJECT_DIR$/image_recognition/image-recognition.go" />
       </list>
     </option>
   </component>
@@ -474,11 +474,11 @@
       <window_info anchor="bottom" id="Debug" order="4" weight="0.37304077" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Docker" order="7" sideWeight="0.498618" visible="true" weight="0.09195402" />
+      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.498618" weight="0.446186" />
       <window_info anchor="bottom" id="TODO" order="8" weight="0.075235106" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.501382" side_tool="true" weight="0.35005224" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3155695" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.3155695" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.32810867" />
       <window_info anchor="bottom" id="Statistic" order="13" weight="0.67189133" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -607,12 +607,6 @@
           <line>178</line>
           <properties />
           <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/usecases/image_processing/server/server.go</url>
-          <line>57</line>
-          <properties />
-          <option name="timeStamp" value="65" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -947,16 +941,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/image_recognition/image-recognition.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
-          <folding>
-            <element signature="e#14#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/usecases/image_processing/docker-compose.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -966,10 +950,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/usecases/image_processing/server/server.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="59" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
+        <state relative-caret-position="252">
+          <caret line="14" column="62" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="62" />
           <folding>
             <element signature="e#16#241#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image_recognition/image-recognition.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="129" column="63" lean-forward="true" selection-start-line="129" selection-start-column="63" selection-end-line="129" selection-end-column="63" />
+          <folding>
+            <element signature="e#14#52#0" expanded="true" />
           </folding>
         </state>
       </provider>

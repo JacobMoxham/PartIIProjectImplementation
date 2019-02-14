@@ -127,7 +127,7 @@ func getTopFiveLabels(labels []string, probabilities []float32) []Label {
 	return resultLabels[:5]
 }
 
-func GetTop5LabelsFromImageReader(reader io.ReadCloser) []Labels {
+func GetTop5LabelsFromImageReader(reader io.ReadCloser) []Label {
 	modelGraph, labels, err := loadModel()
 	if err != nil {
 		log.Fatalf("unable to load model: %v", err)

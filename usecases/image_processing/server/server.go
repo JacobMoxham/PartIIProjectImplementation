@@ -2,21 +2,21 @@ package server
 
 import (
 	"fmt"
-	. "github.com/JacobMoxham/PartIIProjectImplementation/image_recognition"
+	imageProcessing "github.com/JacobMoxham/PartIIProjectImplementation/image_recognition"
 	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
 	"log"
 	"net/http"
 )
 
 func imageProcessingHandler(w http.ResponseWriter, r *http.Request) {
-	getTop5Labels := GetTopFiveLabelsFromImageReader(r.Body)
+	top5Labels := imageProcessing.GetTop5LabelsFromImageReader(r.Body)
 	returnString := ""
-	for _, l := range res {
+	for _, l := range top5Labels {
 		fmt.Printf("label: %s, probability: %.2f%%\n", l.Label, l.Probability*100)
 		returnString += fmt.Sprintf("label: %s, probability: %.2f%%\n", l.Label, l.Probability*100)
 	}
 
-	_, err = w.Write([]byte(returnString))
+	_, err := w.Write([]byte(returnString))
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		log.Println(err.Error())

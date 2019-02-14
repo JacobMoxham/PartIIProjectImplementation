@@ -3,14 +3,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:e915de92ea423b319370921904d63c53b95b56d7b82725304d1b23d90bf1c2e1"
+  digest = "1:565609a5a7372df799de14235f97b15205d3b3e06cfe528a1324b1d877313296"
   name = "github.com/JacobMoxham/PartIIProjectImplementation"
   packages = [
     "image_recognition",
     "middleware",
   ]
   pruneopts = "UT"
-  revision = "efa6879ef96bc7501dc09d56f4e42cc9af8d1e69"
+  revision = "b44114ff14dcf06a7c69ae7ea8c7ef7467fdb302"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"
@@ -59,7 +59,6 @@
   input-imports = [
     "github.com/JacobMoxham/PartIIProjectImplementation/image_recognition",
     "github.com/JacobMoxham/PartIIProjectImplementation/middleware",
-    "github.com/tensorflow/tensorflow/tensorflow/go",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
