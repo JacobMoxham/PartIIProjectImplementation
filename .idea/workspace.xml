@@ -2,17 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e28621a1-efb5-4cd6-86fd-b9d0c04829bd" name="Default Changelist" comment="Basic client and server working">
-      <change afterPath="$PROJECT_DIR$/image_recognition/image-recognition.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usecases/image_processing/client/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usecases/image_processing/client/client.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usecases/image_processing/dep-ensure-all.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usecases/image_processing/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usecases/image_processing/server/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usecases/image_processing/server/server.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5compute.yml" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5compute.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_recognition/image-recognition.go" beforeDir="false" afterPath="$PROJECT_DIR$/image_recognition/image-recognition.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/client/Gopkg.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/server/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/server/Gopkg.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/server/server.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,8 +39,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/image_recognition/image-recognition.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1706">
-              <caret line="6" column="54" selection-start-line="6" selection-start-column="54" selection-end-line="6" selection-end-column="54" />
+            <state relative-caret-position="151">
+              <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
+              <folding>
+                <element signature="e#14#52#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -81,8 +78,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/usecases/image_processing/server/server.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+            <state relative-caret-position="198">
+              <caret line="11" column="59" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
+              <folding>
+                <element signature="e#16#241#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -209,7 +209,6 @@
         <option value="$PROJECT_DIR$/usecases/image_processing/client/Dockerfile" />
         <option value="$PROJECT_DIR$/usecases/image_processing/docker-compose.yml" />
         <option value="$PROJECT_DIR$/usecases/image_processing/server/image_recognition.go" />
-        <option value="$PROJECT_DIR$/usecases/image_processing/server/server.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/client/client.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/dep-ensure-all.sh" />
         <option value="$PROJECT_DIR$/usecases/image_processing/server/image_recognition/image_recognition.go" />
@@ -217,6 +216,7 @@
         <option value="$PROJECT_DIR$/usecases/image_processing/server/app/server.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/server/Dockerfile" />
         <option value="$PROJECT_DIR$/image_recognition/image-recognition.go" />
+        <option value="$PROJECT_DIR$/usecases/image_processing/server/server.go" />
       </list>
     </option>
   </component>
@@ -395,6 +395,7 @@
     <configuration name="server/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
       <deployment type="dockerfile">
         <settings>
+          <option name="buildOnly" value="true" />
           <option name="sourceFilePath" value="usecases/image_processing/server/Dockerfile" />
         </settings>
       </deployment>
@@ -410,9 +411,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.image_processing: Compose Deployment" />
         <item itemvalue="Docker.server/Dockerfile" />
         <item itemvalue="Go Build.go build server.go" />
-        <item itemvalue="Docker.image_processing: Compose Deployment" />
         <item itemvalue="Go Build.go build client.go" />
         <item itemvalue="Go Build.go build server.go image_recognition.go" />
       </list>
@@ -463,21 +464,21 @@
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6962963" visible="true" weight="0.18777293" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6962963" visible="true" weight="0.18777293" />
       <window_info id="Structure" order="1" sideWeight="0.3037037" side_tool="true" weight="0.15588723" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32991803" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.3876698" />
-      <window_info anchor="bottom" id="Run" order="3" visible="true" weight="0.33960292" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.33960292" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.37304077" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.498618" weight="0.48902822" />
+      <window_info active="true" anchor="bottom" id="Docker" order="7" sideWeight="0.498618" visible="true" weight="0.09195402" />
       <window_info anchor="bottom" id="TODO" order="8" weight="0.075235106" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.501382" side_tool="true" weight="0.35005224" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32288402" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3155695" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.32810867" />
       <window_info anchor="bottom" id="Statistic" order="13" weight="0.67189133" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -932,13 +933,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing/docker-compose.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/usecases/image_processing/dep-ensure-all.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -955,15 +949,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/image_recognition/image-recognition.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1706">
-          <caret line="6" column="54" selection-start-line="6" selection-start-column="54" selection-end-line="6" selection-end-column="54" />
+        <state relative-caret-position="151">
+          <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
+          <folding>
+            <element signature="e#14#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/usecases/image_processing/server/server.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        <state relative-caret-position="198">
+          <caret line="11" column="59" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
+          <folding>
+            <element signature="e#16#241#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
