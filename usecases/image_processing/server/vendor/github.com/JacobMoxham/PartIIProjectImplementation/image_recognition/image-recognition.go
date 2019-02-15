@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	graphFile  = "/model/imagenet_comp_graph_label_strings.txt"
+	graphFile  = "/model/tensorflow_inception_graph.pb"
 	labelsFile = "/model/imagenet_comp_graph_label_strings.txt"
 )
 
