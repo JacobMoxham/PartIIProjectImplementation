@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 )
 
 const DOCKER = true
@@ -23,7 +24,12 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 		}
 
 		pwd, _ := os.Getwd()
-		imageFile, err := os.Open(pwd + "/usecases/image_processing/client/images/image1.jpg")
+		filePath := "images/image1.jpg"
+		if !DOCKER {
+			filePath = "usecases/image_processing/client/images/image1.jpg"
+		}
+
+		imageFile, err := os.Open(filepath.Join(pwd, filePath))
 		if err != nil {
 			log.Println("Error:", err)
 			return
