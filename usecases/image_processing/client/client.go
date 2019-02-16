@@ -20,7 +20,6 @@ func imageProcessingHandler(w http.ResponseWriter, r *http.Request) {
 	top5Labels := imageProcessing.GetTop5LabelsFromImageReader(r.Body)
 	returnString := ""
 	for _, l := range top5Labels {
-		fmt.Printf("label: %s, probability: %.2f%%\n", l.Label, l.Probability*100)
 		returnString += fmt.Sprintf("label: %s, probability: %.2f%%\n", l.Label, l.Probability*100)
 	}
 
@@ -32,10 +31,7 @@ func imageProcessingHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
-	computationPolicy := middleware.NewStaticComputationPolicy()
-	computationPolicy.Register("/", middleware.CanCompute, http.HandlerFunc(imageProcessingHandler))
-
+func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) func(http.ResponseWriter, *http.Request) {
 	client := middleware.MakePrivacyAwareClient(computationPolicy)
 
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -121,14 +117,59 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 	}
 }
 
+func createUpdatePolicyHandler(computationPolicy *middleware.DynamicComputationPolicy) func(http.ResponseWriter, *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		requestParams := r.URL.Query()
+		action := requestParams.Get("action")
+		switch action {
+		case "activate":
+			err := computationPolicy.Activate("/", middleware.CanCompute)
+			if err != nil {
+				log.Printf(err.Error())
+				http.Error(w, err.Error(), 500)
+				return
+			}
+		case "deactivate":
+			err := computationPolicy.Deactivate("/", middleware.CanCompute)
+			if err != nil {
+				log.Printf(err.Error())
+				http.Error(w, err.Error(), 500)
+				return
+			}
+		default:
+			log.Println("No action was specified")
+			_, err := w.Write([]byte("No action was specified"))
+			if err != nil {
+				log.Printf(err.Error())
+				http.Error(w, err.Error(), 500)
+				return
+			}
+		}
+
+		_, err := w.Write([]byte("OK"))
+		if err != nil {
+			log.Printf(err.Error())
+			http.Error(w, err.Error(), 500)
+			return
+		}
+	}
+}
+
 func main() {
 	// Logging for performance analysis
 	go func() {
 		log.Println(http.ListenAndServe("0.0.0.0:6060", nil))
 	}()
 
+	computationPolicy := middleware.NewDynamicComputationPolicy()
+	computationPolicy.Register("/", middleware.CanCompute, http.HandlerFunc(imageProcessingHandler))
+
 	// Listen on 4000 for request to start example
-	http.Handle("/request", http.HandlerFunc(createMakeRequestHandler()))
+	http.Handle("/request", http.HandlerFunc(createMakeRequestHandler(computationPolicy)))
+
+	// Listen on 4000 for request to edit the computation policy
+	http.Handle("/update-policy", http.HandlerFunc(createUpdatePolicyHandler(computationPolicy)))
+
 	log.Println("Listening...")
 	err := http.ListenAndServe(":4000", nil)
 	if err != nil {

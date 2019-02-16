@@ -3,7 +3,6 @@ package middleware
 import (
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -43,88 +42,6 @@ func (c ComputationLevel) ToString() string {
 
 	// This will never occur but a return is needed
 	return ""
-}
-
-type ComputationCapability map[ComputationLevel]http.Handler
-
-// ComputationPolicy stores computation capabilities of a node
-type ComputationPolicy interface {
-	Register(string, ComputationLevel, http.Handler)
-	UnregisterAll(string)
-	UnregisterOne(string, ComputationLevel)
-	Resolve(string, ProcessingLocation) (ComputationLevel, http.Handler)
-}
-
-// StaticComputationPolicy holds a set of computation capabilities for paths, these must be set manually
-// TODO: make safe for concurrent use
-type StaticComputationPolicy struct {
-	capabilities map[string]ComputationCapability
-}
-
-func NewStaticComputationPolicy() *StaticComputationPolicy {
-	return &StaticComputationPolicy{
-		make(map[string]ComputationCapability),
-	}
-}
-
-func (p *StaticComputationPolicy) Register(path string, level ComputationLevel, handler http.Handler) {
-	if p.capabilities[path] == nil {
-		p.capabilities[path] = make(ComputationCapability)
-	}
-	p.capabilities[path][level] = handler
-}
-
-func (p *StaticComputationPolicy) UnregisterAll(path string) {
-	delete(p.capabilities, path)
-}
-
-func (p *StaticComputationPolicy) UnregisterOne(path string, level ComputationLevel) {
-	capability, ok := p.capabilities[path]
-	if ok {
-		delete(capability, level)
-	}
-}
-
-func (p *StaticComputationPolicy) Resolve(path string, preferredLocation ProcessingLocation) (ComputationLevel, http.Handler) {
-
-	capability, ok := p.capabilities[path]
-	if ok {
-		rawDataHandler, hasRawDataHandler := capability[RawData]
-		canComputehandler, hasCanComputeHandler := capability[CanCompute]
-
-		// TODO: in dynamic version we may have a "valid" tag?
-		if hasCanComputeHandler {
-			if hasRawDataHandler {
-				if preferredLocation == Remote {
-					log.Println("Serving request as preferred location is remote and we can compute")
-					return CanCompute, canComputehandler
-				} else {
-					log.Println("Partially serving request as preferred location is local and we can compute")
-					return RawData, rawDataHandler
-				}
-			} else {
-				if preferredLocation == Local {
-					log.Println("Preferred location is local but we can only compute full result")
-				} else {
-					log.Println("Serving request as we can compute full result")
-				}
-				return CanCompute, canComputehandler
-			}
-		} else {
-			if hasRawDataHandler {
-				if preferredLocation == Local {
-					log.Println("Partially serving request as preferred location is local and we can compute")
-				} else {
-					// TODO: ensure receivers handle this correctly
-					log.Println("Preferred location is remote but we can only partially compute, returning anyway")
-				}
-				return RawData, rawDataHandler
-			}
-		}
-
-	}
-	// Default to no capabilities (and so nil function reference)
-	return NoComputation, nil
 }
 
 type ProcessingLocation string
@@ -193,4 +110,12 @@ func BuildRequestPolicy(req *http.Request) (*RequestPolicy, error) {
 		PreferredProcessingLocation: preferredProcessingLocationEnum,
 		HasAllRequiredData:          hasAllRequiredDataBool,
 	}, nil
+}
+
+// ComputationPolicy stores computation capabilities of a node
+type ComputationPolicy interface {
+	Register(string, ComputationLevel, http.Handler)
+	UnregisterAll(string)
+	UnregisterOne(string, ComputationLevel)
+	Resolve(string, ProcessingLocation) (ComputationLevel, http.Handler)
 }

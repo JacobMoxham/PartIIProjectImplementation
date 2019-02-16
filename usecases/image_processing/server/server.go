@@ -12,7 +12,6 @@ func imageProcessingHandler(w http.ResponseWriter, r *http.Request) {
 	top5Labels := imageProcessing.GetTop5LabelsFromImageReader(r.Body)
 	returnString := ""
 	for _, l := range top5Labels {
-		fmt.Printf("label: %s, probability: %.2f%%\n", l.Label, l.Probability*100)
 		returnString += fmt.Sprintf("label: %s, probability: %.2f%%\n", l.Label, l.Probability*100)
 	}
 
