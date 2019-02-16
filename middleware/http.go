@@ -63,7 +63,7 @@ func BuildPamResponse(resp *http.Response) (PamResponse, error) {
 		return PamResponse{}, errors.New("the response did not specify a computation level")
 	}
 
-	computationLevel, err := computationLevelFromString(computationLevelString)
+	computationLevel, err := ComputationLevelFromString(computationLevelString)
 	if err != nil {
 		return PamResponse{}, err
 	}

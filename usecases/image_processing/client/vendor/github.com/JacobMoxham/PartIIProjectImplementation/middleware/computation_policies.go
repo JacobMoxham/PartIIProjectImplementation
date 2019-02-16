@@ -18,7 +18,7 @@ const (
 	CanCompute    ComputationLevel = iota
 )
 
-func computationLevelFromString(level string) (ComputationLevel, error) {
+func ComputationLevelFromString(level string) (ComputationLevel, error) {
 	switch strings.ToLower(level) {
 	case strings.ToLower("NoComputation"):
 		return NoComputation, nil
@@ -122,7 +122,7 @@ const (
 	Remote ProcessingLocation = "remote"
 )
 
-func processingLocationFromString(loc string) (ProcessingLocation, error) {
+func ProcessingLocationFromString(loc string) (ProcessingLocation, error) {
 	switch strings.ToLower(loc) {
 	case "local":
 		return Local, nil

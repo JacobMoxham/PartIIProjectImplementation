@@ -3,12 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="e28621a1-efb5-4cd6-86fd-b9d0c04829bd" name="Default Changelist" comment="Basic client and server working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/computation_policies.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/computation_policies.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/http.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/client/Gopkg.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/client/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/image_processing/server/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/server/Gopkg.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/image_processing/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,10 +68,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/middleware/http.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="209">
+              <caret line="65" column="30" selection-start-line="65" selection-start-column="30" selection-end-line="65" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/client.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="48" column="58" selection-start-line="48" selection-start-column="58" selection-end-line="48" selection-end-column="58" />
+            <state relative-caret-position="179">
+              <caret line="47" column="18" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -241,12 +250,12 @@
         <option value="$PROJECT_DIR$/usecases/image_processing/client/Dockerfile" />
         <option value="$PROJECT_DIR$/image_recognition/image-recognition.go" />
         <option value="$PROJECT_DIR$/middleware/privacy_aware_mux.go" />
-        <option value="$PROJECT_DIR$/middleware/http.go" />
         <option value="$PROJECT_DIR$/usecases/simple_usecases/basic.go" />
         <option value="$PROJECT_DIR$/middleware/privacy_aware_client_test.go" />
         <option value="$PROJECT_DIR$/middleware/privacy_aware_client.go" />
         <option value="$PROJECT_DIR$/middleware/computation_policies.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/client/client.go" />
+        <option value="$PROJECT_DIR$/middleware/http.go" />
       </list>
     </option>
   </component>
@@ -509,7 +518,7 @@
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6962963" visible="true" weight="0.18777293" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6962963" visible="true" weight="0.18777293" />
       <window_info id="Structure" order="1" sideWeight="0.3037037" side_tool="true" weight="0.15588723" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32991803" />
@@ -519,7 +528,7 @@
       <window_info anchor="bottom" id="Debug" order="4" weight="0.37304077" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.498618" visible="true" weight="0.19435737" />
+      <window_info active="true" anchor="bottom" id="Docker" order="7" sideWeight="0.498618" visible="true" weight="0.31452456" />
       <window_info anchor="bottom" id="TODO" order="8" weight="0.075235106" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.501382" side_tool="true" weight="0.35005224" />
@@ -906,13 +915,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/http.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
@@ -951,20 +953,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/privacy_aware_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
-          <caret line="62" column="5" lean-forward="true" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
-          <folding>
-            <element signature="e#20#53#0" expanded="true" />
-            <marker date="1550330416088" expanded="true" signature="1681:1908" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing/docker-compose.yml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/requesting-client/requesting_client.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
@@ -994,8 +982,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/client.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="48" column="58" selection-start-line="48" selection-start-column="58" selection-end-line="48" selection-end-column="58" />
+        <state relative-caret-position="179">
+          <caret line="47" column="18" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/privacy_aware_client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="586">
+          <caret line="62" column="5" lean-forward="true" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
+          <folding>
+            <element signature="e#20#53#0" expanded="true" />
+            <marker date="1550330416088" expanded="true" signature="1681:1908" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/http.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="65" column="30" selection-start-line="65" selection-start-column="30" selection-end-line="65" selection-end-column="30" />
         </state>
       </provider>
     </entry>
