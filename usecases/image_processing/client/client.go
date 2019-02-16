@@ -39,9 +39,14 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 	client := middleware.MakePrivacyAwareClient(computationPolicy)
 
 	return func(w http.ResponseWriter, r *http.Request) {
+		// Get local/remote preference from request
+		requestParams := r.URL.Query()
+		preferredLocationString := requestParams.Get("preferredLocation")
+		preferredLocation := ProcessingLocationFromString(preferredLocationString)
+
 		policy := middleware.RequestPolicy{
 			RequesterID:                 "client1",
-			PreferredProcessingLocation: middleware.Remote,
+			PreferredProcessingLocation: preferredLocation,
 			HasAllRequiredData:          true,
 		}
 
@@ -49,7 +54,7 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 		filePath := "images/image1.jpg"
 		if !DOCKER {
 			filePath = "usecases/image_processing/client/images/image1.jpg"
-		}
+		}c
 
 		imageFile, err := os.Open(filepath.Join(pwd, filePath))
 		if err != nil {

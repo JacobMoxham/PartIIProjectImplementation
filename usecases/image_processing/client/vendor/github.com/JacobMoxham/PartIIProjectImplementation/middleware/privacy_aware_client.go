@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"net/http"
-	"strings"
+	"net/http/httptest"
 )
 
 type PrivacyAwareClient struct {
@@ -38,19 +38,28 @@ func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
 	// Check if we can process this request locally
 	requestPath := req.HttpRequest.URL.Path
 	computationPolicy := c.computationPolicy
-	computationLevel, _ := computationPolicy.Resolve(requestPath, Local)
+	computationLevel, localHandler := computationPolicy.Resolve(requestPath, Local)
 
 	// Check if we have all of the required data to process this locally within the request
 	allRequiredData := req.Policy.HasAllRequiredData
 
-	// Change the host to be 127.0.0.1 (localhost) if we can process locally
 	if preferLocal && computationLevel != NoComputation && allRequiredData {
-		hostAndPort := httpRequest.URL.Host
-		hostAndPortSplit := strings.Split(hostAndPort, ":")
-		hostAndPortSplit[0] = "127.0.0.1"
-		hostAndPort = strings.Join(hostAndPortSplit, ":")
+		//// Change the host to be 127.0.0.1 (localhost) if we can process locally
+		//hostAndPort := httpRequest.URL.Host
+		//hostAndPortSplit := strings.Split(hostAndPort, ":")
+		//hostAndPortSplit[0] = "127.0.0.1"
+		//hostAndPort = strings.Join(hostAndPortSplit, ":")
+		//
+		//httpRequest.URL.Host = hostAndPort
 
-		httpRequest.URL.Host = hostAndPort
+		// TODO: consider whether its good practice to use a testing library in this way
+		// Use the httptest ResponseRecorder to get the result locally
+		responseRecorder := httptest.NewRecorder()
+		localHandler.ServeHTTP(responseRecorder, httpRequest)
+
+		// Copy from the recorded response into a normal response
+		resp := responseRecorder.Result()
+		return BuildPamResponse(resp)
 	}
 
 	resp, err := c.client.Do(httpRequest)
