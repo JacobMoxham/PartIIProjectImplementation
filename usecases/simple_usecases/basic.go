@@ -87,7 +87,6 @@ func main() {
 	wg.Wait()
 }
 
-// Simply write OK back
 func basicFinal(w http.ResponseWriter, r *http.Request) {
 	log.Println("PamRequest Received")
 	w.Write([]byte("Hello World"))
