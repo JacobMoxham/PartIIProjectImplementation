@@ -162,7 +162,7 @@ func BuildRequestPolicy(req *http.Request) (*RequestPolicy, error) {
 	if requesterID == "" {
 		return nil, errors.New("a context cannot be parsed from the request as there is no preferred processing location")
 	}
-	preferredProcessingLocationEnum, err := processingLocationFromString(preferredProcessingLocation)
+	preferredProcessingLocationEnum, err := ProcessingLocationFromString(preferredProcessingLocation)
 	if err != nil {
 		return nil, fmt.Errorf("%s cannot be parsed as a processing location", preferredProcessingLocation)
 	}
