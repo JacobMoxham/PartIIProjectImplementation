@@ -31,6 +31,17 @@ func ComputationLevelFromString(level string) (ComputationLevel, error) {
 	}
 }
 
+func (c ComputationLevel) ToString() string {
+	switch c {
+	case NoComputation:
+		return "NoComputation"
+	case RawData:
+		return "RawData"
+	case CanCompute:
+		return "CanCompute"
+	}
+}
+
 type ComputationCapability map[ComputationLevel]http.Handler
 
 // ComputationPolicy stores computation capabilities of a node

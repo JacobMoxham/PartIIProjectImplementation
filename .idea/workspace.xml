@@ -3,11 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="e28621a1-efb5-4cd6-86fd-b9d0c04829bd" name="Default Changelist" comment="Basic client and server working">
       <change beforePath="$PROJECT_DIR$/middleware/computation_policies.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/computation_policies.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/privacy_aware_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/privacy_aware_client.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/client/Gopkg.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/image_processing/server/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/server/Gopkg.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usecases/image_processing/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,11 +58,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/middleware/computation_policies.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="33" column="8" lean-forward="true" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+            <state relative-caret-position="305">
+              <caret line="43" column="51" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -110,11 +111,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/middleware/privacy_aware_client.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="568">
-              <caret line="61" column="72" selection-start-line="61" selection-start-column="72" selection-end-line="61" selection-end-column="72" />
+            <state relative-caret-position="265">
+              <caret line="63" column="5" lean-forward="true" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
               <folding>
                 <element signature="e#20#53#0" expanded="true" />
                 <marker date="1550332605117" expanded="true" signature="1681:1908" ph="..." />
@@ -253,8 +254,8 @@
         <option value="$PROJECT_DIR$/middleware/privacy_aware_client_test.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/client/client.go" />
         <option value="$PROJECT_DIR$/middleware/http.go" />
-        <option value="$PROJECT_DIR$/middleware/computation_policies.go" />
         <option value="$PROJECT_DIR$/middleware/privacy_aware_client.go" />
+        <option value="$PROJECT_DIR$/middleware/computation_policies.go" />
       </list>
     </option>
   </component>
@@ -517,7 +518,7 @@
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6962963" visible="true" weight="0.18777293" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6962963" visible="true" weight="0.18777293" />
       <window_info id="Structure" order="1" sideWeight="0.3037037" side_tool="true" weight="0.15588723" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32991803" />
@@ -527,7 +528,7 @@
       <window_info anchor="bottom" id="Debug" order="4" weight="0.37304077" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.498618" visible="true" weight="0.031347964" />
+      <window_info active="true" anchor="bottom" id="Docker" order="7" sideWeight="0.498618" visible="true" weight="0.5893417" />
       <window_info anchor="bottom" id="TODO" order="8" weight="0.075235106" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.501382" side_tool="true" weight="0.35005224" />
@@ -995,21 +996,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/computation_policies.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="33" column="8" lean-forward="true" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/middleware/privacy_aware_client.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="61" column="72" selection-start-line="61" selection-start-column="72" selection-end-line="61" selection-end-column="72" />
+        <state relative-caret-position="265">
+          <caret line="63" column="5" lean-forward="true" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
           <folding>
             <element signature="e#20#53#0" expanded="true" />
             <marker date="1550332605117" expanded="true" signature="1681:1908" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/computation_policies.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="43" column="51" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="51" />
         </state>
       </provider>
     </entry>

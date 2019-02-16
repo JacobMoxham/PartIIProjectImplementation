@@ -59,6 +59,7 @@ func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
 
 		// Copy from the recorded response into a normal response
 		resp := responseRecorder.Result()
+		resp.Header.Set("computation_level", computationLevel.ToString())
 		return BuildPamResponse(resp)
 	}
 
