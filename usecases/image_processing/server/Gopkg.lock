@@ -3,14 +3,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:ed14420f56dc1d158a1487087c9fff918120cc871aa41f13ba985b48a7ff2037"
+  digest = "1:1515cd1cf9c05a09cd50d1bfe3b7ec2dd0e408b245bc7388cfe00bdf22c953c7"
   name = "github.com/JacobMoxham/PartIIProjectImplementation"
   packages = [
     "image_recognition",
     "middleware",
   ]
   pruneopts = "UT"
-  revision = "17badffaf18c777153143854b0ab1704c43405ce"
+  revision = "ebbf07c0b52aea8369ec37ba8758843ee1ecb0b6"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"
