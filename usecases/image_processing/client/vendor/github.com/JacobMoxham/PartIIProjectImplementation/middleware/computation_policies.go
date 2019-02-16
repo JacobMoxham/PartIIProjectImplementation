@@ -40,6 +40,9 @@ func (c ComputationLevel) ToString() string {
 	case CanCompute:
 		return "CanCompute"
 	}
+
+	// This will never occur but a return is needed
+	return ""
 }
 
 type ComputationCapability map[ComputationLevel]http.Handler
