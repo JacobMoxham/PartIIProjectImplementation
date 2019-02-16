@@ -44,14 +44,6 @@ func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
 	allRequiredData := req.Policy.HasAllRequiredData
 
 	if preferLocal && computationLevel != NoComputation && allRequiredData {
-		//// Change the host to be 127.0.0.1 (localhost) if we can process locally
-		//hostAndPort := httpRequest.URL.Host
-		//hostAndPortSplit := strings.Split(hostAndPort, ":")
-		//hostAndPortSplit[0] = "127.0.0.1"
-		//hostAndPort = strings.Join(hostAndPortSplit, ":")
-		//
-		//httpRequest.URL.Host = hostAndPort
-
 		// TODO: consider whether its good practice to use a testing library in this way
 		// Use the httptest ResponseRecorder to get the result locally
 		responseRecorder := httptest.NewRecorder()

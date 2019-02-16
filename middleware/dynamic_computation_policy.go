@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"sync"
 )
@@ -109,27 +108,15 @@ func (p *DynamicComputationPolicy) Resolve(path string, preferredLocation Proces
 		if hasCanComputeHandler {
 			if hasRawDataHandler {
 				if preferredLocation == Remote {
-					log.Println("Serving request as preferred location is remote and we can compute")
 					return CanCompute, canComputeHandler
 				} else {
-					log.Println("Partially serving request as preferred location is local and we can compute")
 					return RawData, rawDataHandler
 				}
 			} else {
-				if preferredLocation == Local {
-					log.Println("Preferred location is local but we can only compute full result")
-				} else {
-					log.Println("Serving request as we can compute full result")
-				}
 				return CanCompute, canComputeHandler
 			}
 		} else {
 			if hasRawDataHandler {
-				if preferredLocation == Local {
-					log.Println("Partially serving request as preferred location is local and we can compute")
-				} else {
-					log.Println("Preferred location is remote but we can only partially compute, returning anyway")
-				}
 				return RawData, rawDataHandler
 			}
 		}

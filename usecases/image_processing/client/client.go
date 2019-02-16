@@ -14,7 +14,7 @@ import (
 	"path/filepath"
 )
 
-const DOCKER = true
+const DOCKER = false
 
 func imageProcessingHandler(w http.ResponseWriter, r *http.Request) {
 	top5Labels := imageProcessing.GetTop5LabelsFromImageReader(r.Body)
@@ -42,12 +42,6 @@ func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) fu
 		if err != nil {
 			log.Println("Error:", err)
 			return
-		}
-
-		policy := middleware.RequestPolicy{
-			RequesterID:                 "client1",
-			PreferredProcessingLocation: preferredLocation,
-			HasAllRequiredData:          true,
 		}
 
 		pwd, _ := os.Getwd()
@@ -80,6 +74,12 @@ func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) fu
 		} else {
 			httpRequest, _ = http.NewRequest("PUT", "http://127.0.0.1:3000/", bytes.NewReader(body))
 
+		}
+
+		policy := middleware.RequestPolicy{
+			RequesterID:                 "client1",
+			PreferredProcessingLocation: preferredLocation,
+			HasAllRequiredData:          true,
 		}
 
 		req := middleware.PamRequest{

@@ -101,13 +101,11 @@ func (p *DynamicComputationPolicy) Activate(path string, level ComputationLevel)
 }
 
 func (p *DynamicComputationPolicy) Resolve(path string, preferredLocation ProcessingLocation) (ComputationLevel, http.Handler) {
-
 	capability, ok := p.capabilities[path]
 	if ok {
 		rawDataHandler, hasRawDataHandler := capability.Get(RawData)
 		canComputeHandler, hasCanComputeHandler := capability.Get(CanCompute)
 
-		// TODO: in dynamic version we may have a "valid" tag?
 		if hasCanComputeHandler {
 			if hasRawDataHandler {
 				if preferredLocation == Remote {
@@ -130,13 +128,11 @@ func (p *DynamicComputationPolicy) Resolve(path string, preferredLocation Proces
 				if preferredLocation == Local {
 					log.Println("Partially serving request as preferred location is local and we can compute")
 				} else {
-					// TODO: ensure receivers handle this correctly
 					log.Println("Preferred location is remote but we can only partially compute, returning anyway")
 				}
 				return RawData, rawDataHandler
 			}
 		}
-
 	}
 	// Default to no capabilities (and so nil function reference)
 	return NoComputation, nil
