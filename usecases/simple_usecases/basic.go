@@ -41,6 +41,8 @@ func basicServer() {
 }
 
 func basicClient() {
+	client := middleware.MakePrivacyAwareClient(middleware.NewStaticComputationPolicy())
+
 	for i := 0; i < 10; i++ {
 		policy := middleware.RequestPolicy{
 			RequesterID:                 "basic",
@@ -52,7 +54,8 @@ func basicClient() {
 			Policy:      &policy,
 			HttpRequest: httpRequest,
 		}
-		pamResp, err := req.Send()
+
+		pamResp, err := client.Send(req)
 		if err != nil {
 			log.Println("Error:", err)
 			continue
