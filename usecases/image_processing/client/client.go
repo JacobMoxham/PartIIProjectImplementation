@@ -33,6 +33,11 @@ func imageProcessingHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
+	computationPolicy := middleware.NewStaticComputationPolicy()
+	computationPolicy.Register("/", middleware.CanCompute, http.HandlerFunc(imageProcessingHandler))
+
+	client := middleware.MakePrivacyAwareClient(computationPolicy)
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		policy := middleware.RequestPolicy{
 			RequesterID:                 "client1",
@@ -77,7 +82,7 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 			HttpRequest: httpRequest,
 		}
 
-		pamResp, err := req.Send()
+		pamResp, err := client.Send(req)
 		if err != nil {
 			log.Println("Error:", err)
 			return

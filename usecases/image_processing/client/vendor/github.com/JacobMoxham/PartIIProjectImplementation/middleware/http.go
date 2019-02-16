@@ -11,27 +11,6 @@ type PamRequest struct {
 	HttpRequest *http.Request
 }
 
-func (r *PamRequest) Send() (PamResponse, error) {
-	// TODO: consider whether to copy requests before sending as we need to edit the body - probably fine without
-	httpRequest := r.HttpRequest
-
-	// Add the query params from the policy
-	params := httpRequest.URL.Query()
-	r.Policy.AddToParams(&params)
-	httpRequest.URL.RawQuery = params.Encode()
-
-	// TODO: only use one client
-	client := http.Client{}
-	resp, err := client.Do(httpRequest)
-	if err != nil {
-		return PamResponse{}, err
-	}
-
-	// TODO: consider whether there should be sender config which says whether or not we can use partial results/full
-	// results, it could possibly fit into the same framework
-	return BuildPamResponse(resp)
-}
-
 func (r *PamRequest) AddParam(key string, value string) {
 	httpRequest := r.HttpRequest
 	params := httpRequest.URL.Query()
@@ -127,5 +106,4 @@ func PrivacyAwareHandler(policy ComputationPolicy) http.Handler {
 		}
 		log.Println("PAM: finished serving: ", r.URL.Path)
 	})
-
 }

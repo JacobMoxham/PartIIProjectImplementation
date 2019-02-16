@@ -205,7 +205,7 @@ func (mspd *MySqlPrivateDatabase) transformTable(tableName string, transformedTa
 			return err
 		}
 		if transformValid {
-			// Do not recreate the transform if it is valid
+			// Send not recreate the transform if it is valid
 			return nil
 		}
 	} else {
