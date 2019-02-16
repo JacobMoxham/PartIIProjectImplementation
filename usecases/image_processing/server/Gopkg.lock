@@ -10,7 +10,7 @@
     "middleware",
   ]
   pruneopts = "UT"
-  revision = "2f3453b6216db66bd6a3a3addb7e8da8c7052e3d"
+  revision = "afc533a59117202586f23f5655694fae54a45c0c"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"

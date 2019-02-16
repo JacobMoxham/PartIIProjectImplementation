@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	imageProcessing "github.com/JacobMoxham/PartIIProjectImplementation/image_recognition"
 	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
 	image2 "image"
 	"image/jpeg"
@@ -14,6 +15,22 @@ import (
 )
 
 const DOCKER = true
+
+func imageProcessingHandler(w http.ResponseWriter, r *http.Request) {
+	top5Labels := imageProcessing.GetTop5LabelsFromImageReader(r.Body)
+	returnString := ""
+	for _, l := range top5Labels {
+		fmt.Printf("label: %s, probability: %.2f%%\n", l.Label, l.Probability*100)
+		returnString += fmt.Sprintf("label: %s, probability: %.2f%%\n", l.Label, l.Probability*100)
+	}
+
+	_, err := w.Write([]byte(returnString))
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		log.Println(err.Error())
+		return
+	}
+}
 
 func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {

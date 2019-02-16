@@ -3,11 +3,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:4a1a62d4d038a1eab7aaad975c11e3db58c6f3d50460d49f70632aa340f14b7f"
+  digest = "1:3c79c67ce557179b205a9c31111c99300b56a30991ba39a3440c45a9c02872f2"
   name = "github.com/JacobMoxham/PartIIProjectImplementation"
-  packages = ["middleware"]
+  packages = [
+    "image_recognition",
+    "middleware",
+  ]
   pruneopts = "UT"
-  revision = "2f3453b6216db66bd6a3a3addb7e8da8c7052e3d"
+  revision = "afc533a59117202586f23f5655694fae54a45c0c"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"
@@ -16,6 +19,17 @@
   pruneopts = "UT"
   revision = "72cd26f257d44c1114970e19afddcd812016007e"
   version = "v1.4.1"
+
+[[projects]]
+  digest = "1:0c7907087e740274db3c93281656162e00a5e602fa7485ea812cdc13b25eeed2"
+  name = "github.com/tensorflow/tensorflow"
+  packages = [
+    "tensorflow/go",
+    "tensorflow/go/op",
+  ]
+  pruneopts = "UT"
+  revision = "a6d8ffae097d0132989ae4688d224121ec6d8f35"
+  version = "v1.12.0"
 
 [[projects]]
   branch = "master"
@@ -42,6 +56,9 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/JacobMoxham/PartIIProjectImplementation/middleware"]
+  input-imports = [
+    "github.com/JacobMoxham/PartIIProjectImplementation/image_recognition",
+    "github.com/JacobMoxham/PartIIProjectImplementation/middleware",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
