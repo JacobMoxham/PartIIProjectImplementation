@@ -31,7 +31,7 @@ func getAverageForClient(client string, startDate string, endDate string, policy
 	req.SetParam("endDate", endDate)
 
 	pamResp, err := req.Send()
-	// TODO: check if the database failed to connect and error properly, might now be fixed
+	// TODO: check if the database failed to connect and error properly - I think the database examples had a "ping database" style test for this
 	if err != nil {
 		log.Printf("Request to %s produced an error: %s", client, err.Error())
 		return err

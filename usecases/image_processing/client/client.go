@@ -5,6 +5,7 @@ import (
 	"fmt"
 	imageProcessing "github.com/JacobMoxham/PartIIProjectImplementation/image_recognition"
 	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
+	"github.com/tcnksm/go-httpstat"
 	image2 "image"
 	"image/jpeg"
 	"io/ioutil"
@@ -12,9 +13,10 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 )
 
-const DOCKER = false
+const DOCKER = true
 
 func imageProcessingHandler(w http.ResponseWriter, r *http.Request) {
 	top5Labels := imageProcessing.GetTop5LabelsFromImageReader(r.Body)
@@ -75,6 +77,10 @@ func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) fu
 			httpRequest, _ = http.NewRequest("PUT", "http://127.0.0.1:3000/", bytes.NewReader(body))
 
 		}
+		// Create a httpstat powered context
+		var result httpstat.Result
+		ctx := httpstat.WithHTTPStat(httpRequest.Context(), &result)
+		httpRequest = httpRequest.WithContext(ctx)
 
 		policy := middleware.RequestPolicy{
 			RequesterID:                 "client1",
@@ -114,6 +120,13 @@ func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) fu
 			http.Error(w, err.Error(), 500)
 			return
 		}
+
+		// Log the request latency from httpstat
+		log.Printf("DNS lookup: %d ms", int(result.DNSLookup/time.Millisecond))
+		log.Printf("TCP connection: %d ms", int(result.TCPConnection/time.Millisecond))
+		log.Printf("TLS handshake: %d ms", int(result.TLSHandshake/time.Millisecond))
+		log.Printf("Server processing: %d ms", int(result.ServerProcessing/time.Millisecond))
+		log.Printf("Content transfer: %d ms", int(result.ContentTransfer(time.Now())/time.Millisecond))
 	}
 }
 

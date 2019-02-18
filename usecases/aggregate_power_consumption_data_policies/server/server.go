@@ -55,7 +55,7 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 				continue
 			}
 
-			// TODO: check that computation level is correct
+			// We ignore the computation level for this example
 
 			resp := pamResp.HttpResponse
 
@@ -91,11 +91,14 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 				}
 			}
 			// Do a division here to keep numbers smaller
-			// TODO: guard against divide by 0
-			averageActiveEnergyPerMinute := totalActiveEnergyPerMinute / float64(len(lines))
-			averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
+			if len(lines) > 0 {
+				averageActiveEnergyPerMinute := totalActiveEnergyPerMinute / float64(len(lines))
+				averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
+			}
 		}
-		averageActiveEnergyPerMinuteFromAllClients /= float64(len(clients))
+		if len(clients) > 0 {
+			averageActiveEnergyPerMinuteFromAllClients /= float64(len(clients))
+		}
 		_, err = w.Write([]byte(fmt.Sprintf("%.2f", averageActiveEnergyPerMinuteFromAllClients)))
 		if err != nil {
 			log.Println("Error:", err)

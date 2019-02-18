@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"log"
 	"net/http"
 )
 
@@ -43,32 +42,18 @@ func (p *StaticComputationPolicy) Resolve(path string, preferredLocation Process
 		rawDataHandler, hasRawDataHandler := capability[RawData]
 		canComputeHandler, hasCanComputeHandler := capability[CanCompute]
 
-		// TODO: in dynamic version we may have a "valid" tag?
 		if hasCanComputeHandler {
 			if hasRawDataHandler {
 				if preferredLocation == Remote {
-					log.Println("Serving request as preferred location is remote and we can compute")
 					return CanCompute, canComputeHandler
 				} else {
-					log.Println("Partially serving request as preferred location is local and we can compute")
 					return RawData, rawDataHandler
 				}
 			} else {
-				if preferredLocation == Local {
-					log.Println("Preferred location is local but we can only compute full result")
-				} else {
-					log.Println("Serving request as we can compute full result")
-				}
 				return CanCompute, canComputeHandler
 			}
 		} else {
 			if hasRawDataHandler {
-				if preferredLocation == Local {
-					log.Println("Partially serving request as preferred location is local and we can compute")
-				} else {
-					// TODO: ensure receivers handle this correctly
-					log.Println("Preferred location is remote but we can only partially compute, returning anyway")
-				}
 				return RawData, rawDataHandler
 			}
 		}

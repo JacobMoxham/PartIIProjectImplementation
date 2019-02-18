@@ -16,7 +16,6 @@ const DOCKER = true
 
 func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
 	transformsForEntities := make(map[string]map[string]func(interface{}) (interface{}, error))
-	// TODO: do something realistic with this
 	transformsForEntities["household_power_consumption"] = map[string]func(arg interface{}) (interface{}, error){"datetime": func(arg interface{}) (interface{}, error) {
 		date, ok := arg.(*time.Time)
 
@@ -104,7 +103,6 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 }
 func createAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
 	transformsForEntities := make(map[string]map[string]func(interface{}) (interface{}, error))
-	// TODO: do something realistic with this
 	transformsForEntities["household_power_consumption"] = map[string]func(arg interface{}) (interface{}, error){"datetime": func(arg interface{}) (interface{}, error) {
 		date, ok := arg.(*time.Time)
 
@@ -184,7 +182,6 @@ func createAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Req
 
 			for rows.Next() {
 				numRows += 1
-				// TODO: maybe remove datetime
 				rows.Scan(&datetime, &activeEnergyPerMinute)
 				totalActiveEnergyPerMinute += activeEnergyPerMinute
 			}

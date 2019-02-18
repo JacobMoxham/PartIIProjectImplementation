@@ -52,7 +52,7 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		// TODO: check that computation level is correct
+		// We ignore the computation level for this example
 
 		resp := pamResp.HttpResponse
 

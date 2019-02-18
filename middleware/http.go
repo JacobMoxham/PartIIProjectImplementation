@@ -59,7 +59,6 @@ func BuildPamResponse(resp *http.Response) (PamResponse, error) {
 	// Query response to see if this is a partial result
 	computationLevelString := resp.Header.Get("computation_level")
 	if computationLevelString == "" {
-		// TODO: consider what to do if the other end does not use the middleware
 		return PamResponse{}, errors.New("the response did not specify a computation level")
 	}
 

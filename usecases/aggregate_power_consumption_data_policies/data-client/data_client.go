@@ -15,7 +15,6 @@ const DOCKER = false
 
 func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
 	transformsForEntities := make(map[string]map[string]func(interface{}) (interface{}, error))
-	// TODO: do something realistic with this
 	transformsForEntities["household_power_consumption"]["datetime"] = func(arg interface{}) (interface{}, error) {
 		date, ok := arg.(*time.Time)
 

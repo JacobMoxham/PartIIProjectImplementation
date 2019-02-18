@@ -18,18 +18,12 @@ func MakePrivacyAwareClient(policy ComputationPolicy) PrivacyAwareClient {
 }
 
 func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
-	// TODO: consider whether to copy requests before sending as we need to edit the body - probably fine without
 	httpRequest := req.HttpRequest
 
 	// Add the query params from the policy
 	params := httpRequest.URL.Query()
 	req.Policy.AddToParams(&params)
 	httpRequest.URL.RawQuery = params.Encode()
-
-	// TODO: consider whether we can handle this if we have all of the data and can process locally.
-	//  This may require us to specify a dependency on "has all data" when registering handlers, I'll have a think
-	// Currently not having a dependency in the handler
-	// TODO: Also ignoring the fact the ports may need to change
 
 	// Check if we would prefer to process locally
 	policy := req.Policy
@@ -60,7 +54,5 @@ func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
 		return PamResponse{}, err
 	}
 
-	// TODO: consider whether there should be sender config which says whether or not we can use partial results/full
-	// results, it could possibly fit into the same framework
 	return BuildPamResponse(resp)
 }

@@ -48,7 +48,6 @@ type DataPolicy interface {
 
 type StaticDataPolicy struct {
 	// PrivacyGroups is an ordered list of PrivacyGroups where the policy for the first group we are a member of is applied
-	// TODO: talk to Jat about whether to make this more complicated and try to incorporate all policies
 	PrivacyGroups []*PrivacyGroup
 	Transforms    DataTransforms
 }
