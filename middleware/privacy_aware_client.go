@@ -5,11 +5,13 @@ import (
 	"net/http/httptest"
 )
 
+// PrivacyAwareClient wraps a http client with a ComputationPolicy
 type PrivacyAwareClient struct {
 	client            *http.Client
 	computationPolicy ComputationPolicy
 }
 
+// MakePrivacyAwareClient returns an PrivacyAwareClient with initialised fields
 func MakePrivacyAwareClient(policy ComputationPolicy) PrivacyAwareClient {
 	return PrivacyAwareClient{
 		client:            &http.Client{},
@@ -17,6 +19,10 @@ func MakePrivacyAwareClient(policy ComputationPolicy) PrivacyAwareClient {
 	}
 }
 
+// Send takes a PamRequest and martials the RequestPolicy into the http request parameters before sending it using the
+// contained http client. If the ComputationPolicy has a local handler for the requested path, and the preferred
+// location is local, and all of the data required for a result is contained within the request then the request will
+// instead be handled locally.
 func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
 	httpRequest := req.HttpRequest
 

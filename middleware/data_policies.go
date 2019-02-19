@@ -11,6 +11,7 @@ type TableOperations struct {
 	ExcludedCols    map[string][]string
 }
 
+// NewTableOperations returns a pointer to a TableOperations struct with initialised fields
 func NewTableOperations() *TableOperations {
 	return &TableOperations{
 		TableTransforms: make(map[string]map[string]func(interface{}) (interface{}, error)),
@@ -46,12 +47,15 @@ type DataPolicy interface {
 	Resolve(string) (*TableOperations, error)
 }
 
+// StaticDataPolicy implements the DataPolicy interface and contains a list of PrivacyGroups and DataTransforms for them
 type StaticDataPolicy struct {
 	// PrivacyGroups is an ordered list of PrivacyGroups where the policy for the first group we are a member of is applied
 	PrivacyGroups []*PrivacyGroup
 	Transforms    DataTransforms
 }
 
+// Resolve takes an entity ID and returns a pointer to the relevant TableOperations struct based on the PrivacyGroups
+// that the entity ID is in and the associated transforms stored in the StaticDataPolicy
 func (stp *StaticDataPolicy) Resolve(entityID string) (*TableOperations, error) {
 	var privacyGroups []*PrivacyGroup
 	for _, group := range stp.PrivacyGroups {

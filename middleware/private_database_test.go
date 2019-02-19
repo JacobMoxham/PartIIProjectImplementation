@@ -11,7 +11,7 @@ import (
 )
 
 func TestMySqlPrivateDatabase_ConnectAndClose(t *testing.T) {
-	db := MySqlPrivateDatabase{}
+	db := MySQLPrivateDatabase{}
 	err := db.Connect("demouser", "demopassword", "store1", "localhost", 33060)
 	t.Name()
 	require.NoError(t, err)
@@ -58,7 +58,7 @@ func TestMySqlPrivateDatabase_Query(t *testing.T) {
 
 	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
 
-	db := MySqlPrivateDatabase{
+	db := MySQLPrivateDatabase{
 		StaticDataPolicy: &StaticDataPolicy{
 			PrivacyGroups: []*PrivacyGroup{group},
 			Transforms:    DataTransforms{group: &TableOperations{funcMap, colMap}},

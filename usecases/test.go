@@ -39,7 +39,7 @@ func test_main() {
 
 	group := &middleware.PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
 
-	db := middleware.MySqlPrivateDatabase{
+	db := middleware.MySQLPrivateDatabase{
 		StaticDataPolicy: &middleware.StaticDataPolicy{
 			PrivacyGroups: []*middleware.PrivacyGroup{group},
 			Transforms:    middleware.DataTransforms{group: &middleware.TableOperations{funcMap, colMap}},

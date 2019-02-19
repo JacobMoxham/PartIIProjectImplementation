@@ -47,7 +47,9 @@ func (m *mutexMap) GetMutex(key string) *sync.Mutex {
 	return mutex
 }
 
-type MySqlPrivateDatabase struct {
+// MySQLPrivateDatabase is a wrapper around a MySQL database which implements the PrivateRelationalDatabase interface,
+// it supports DataPolicies which specify transforms for columns and excluded columns on a per PrivacyGroup basis
+type MySQLPrivateDatabase struct {
 	StaticDataPolicy *StaticDataPolicy
 	CacheTables      bool
 	database         *sql.DB
@@ -55,7 +57,8 @@ type MySqlPrivateDatabase struct {
 	tableMutexes     mutexMap
 }
 
-func (mspd *MySqlPrivateDatabase) Connect(user string, password string, databaseName string, uri string, port int) error {
+// Connect opens the connection to the MySQL database
+func (mspd *MySQLPrivateDatabase) Connect(user string, password string, databaseName string, uri string, port int) error {
 	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=UTC", user, password, uri, port, databaseName))
 	if err != nil {
 		return err
@@ -67,12 +70,15 @@ func (mspd *MySqlPrivateDatabase) Connect(user string, password string, database
 	return nil
 }
 
-func (mspd *MySqlPrivateDatabase) Close() error {
+// Close closes the connection to the MySQL database
+func (mspd *MySQLPrivateDatabase) Close() error {
 	err := mspd.database.Close()
 	return err
 }
 
-func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*sql.Rows, error) {
+// Query takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
+// request policy to give a result to the query on transformed versions of the actual database tables
+func (mspd *MySQLPrivateDatabase) Query(query string, context *RequestPolicy) (*sql.Rows, error) {
 	// Parse query
 	stmt, err := sqlparser.Parse(query)
 	if err != nil {
@@ -123,7 +129,7 @@ func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*
 	return rows, nil
 }
 
-func (mspd *MySqlPrivateDatabase) transformTable(tableName string, transformedTableName string,
+func (mspd *MySQLPrivateDatabase) transformTable(tableName string, transformedTableName string,
 	transforms map[string]func(interface{}) (interface{}, error), excludedColumns []string) error {
 
 	if mspd.CacheTables {
@@ -156,7 +162,7 @@ func (mspd *MySqlPrivateDatabase) transformTable(tableName string, transformedTa
 	return nil
 }
 
-func (mspd *MySqlPrivateDatabase) doTransform(tableName string, transformedTableName string,
+func (mspd *MySQLPrivateDatabase) doTransform(tableName string, transformedTableName string,
 	transforms map[string]func(interface{}) (interface{}, error), excludedColumns []string) error {
 	// Get the column types
 	colsToCopy, err := mspd.getColsToCopy(tableName, excludedColumns)
@@ -263,7 +269,7 @@ func applyTransformsToRows(vals *[]interface{}, colsToCopy []string,
 	return nil
 }
 
-func (mspd *MySqlPrivateDatabase) writeToTable(tableName string, rowsToWrite string, rowArguments []interface{}) error {
+func (mspd *MySQLPrivateDatabase) writeToTable(tableName string, rowsToWrite string, rowArguments []interface{}) error {
 	// Write rows to transformed table
 	insertString := fmt.Sprintf("INSERT INTO %s VALUES %s", tableName, rowsToWrite)
 	_, err := mspd.database.Exec(insertString, rowArguments...)
@@ -273,13 +279,13 @@ func (mspd *MySqlPrivateDatabase) writeToTable(tableName string, rowsToWrite str
 	return nil
 }
 
-func (mspd *MySqlPrivateDatabase) dropTableIfExists(table string) error {
+func (mspd *MySQLPrivateDatabase) dropTableIfExists(table string) error {
 	dropTableString := fmt.Sprintf("DROP TABLE IF EXISTS %s;", table)
 	_, err := mspd.database.Exec(dropTableString)
 	return err
 }
 
-func (mspd *MySqlPrivateDatabase) isTransformedTableValid(tableName string, transformedTableName string) (bool, error) {
+func (mspd *MySQLPrivateDatabase) isTransformedTableValid(tableName string, transformedTableName string) (bool, error) {
 	// Check when the table was last updated
 	// TODO: check when the security policy was last changed
 	timeOfLastUpdateRow := mspd.database.QueryRow(
@@ -339,7 +345,7 @@ func (mspd *MySqlPrivateDatabase) isTransformedTableValid(tableName string, tran
 	return timeOfTransformCreation.After(timeOfLastUpdate), nil
 }
 
-func (mspd *MySqlPrivateDatabase) getColsToCopy(tableName string, excludedColumns []string) ([]string, error) {
+func (mspd *MySQLPrivateDatabase) getColsToCopy(tableName string, excludedColumns []string) ([]string, error) {
 	// Get the columns in the table
 	columnNamesString := fmt.Sprintf("SELECT column_name, data_type FROM information_schema.columns WHERE table_name='%s';", tableName)
 	columnNames, err := mspd.database.Query(columnNamesString)
@@ -368,7 +374,7 @@ func (mspd *MySqlPrivateDatabase) getColsToCopy(tableName string, excludedColumn
 	return colsToCopy, nil
 }
 
-func (mspd *MySqlPrivateDatabase) checkCache(tableName string, transformedTableName string) (bool, error) {
+func (mspd *MySQLPrivateDatabase) checkCache(tableName string, transformedTableName string) (bool, error) {
 	// Take out table lock
 	mutex := mspd.tableMutexes.GetMutex(tableName)
 	mutex.Lock()

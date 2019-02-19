@@ -47,6 +47,7 @@ func NewDynamicComputationPolicy() *DynamicComputationPolicy {
 	}
 }
 
+// Register adds a capability for a path at a specific ComputationLevel
 func (p *DynamicComputationPolicy) Register(path string, level ComputationLevel, handler http.Handler) {
 	if p.capabilities[path] == nil {
 		p.capabilities[path] = make(dynamicComputationCapability)
@@ -54,10 +55,12 @@ func (p *DynamicComputationPolicy) Register(path string, level ComputationLevel,
 	p.capabilities[path][level] = newDynamicHandler(handler)
 }
 
+// UnregisterAll removes all capabilities for a path
 func (p *DynamicComputationPolicy) UnregisterAll(path string) {
 	delete(p.capabilities, path)
 }
 
+// UnregisterOne removes a capability for a path at a specific computation level
 func (p *DynamicComputationPolicy) UnregisterOne(path string, level ComputationLevel) {
 	capability, ok := p.capabilities[path]
 	if ok {
@@ -65,6 +68,8 @@ func (p *DynamicComputationPolicy) UnregisterOne(path string, level ComputationL
 	}
 }
 
+// Deactivate marks the handler for a specific request path and computation level as deactivated which means it will
+// appear not be registered but can easily be re-activated with a call to Activate
 func (p *DynamicComputationPolicy) Deactivate(path string, level ComputationLevel) error {
 	capability := p.capabilities[path]
 	if capability == nil {
@@ -82,6 +87,8 @@ func (p *DynamicComputationPolicy) Deactivate(path string, level ComputationLeve
 	return nil
 }
 
+// Activate marks a handler for a specific request path and computation level as active and hence it will appear as
+// registered
 func (p *DynamicComputationPolicy) Activate(path string, level ComputationLevel) error {
 	capability := p.capabilities[path]
 	if capability == nil {
@@ -99,6 +106,9 @@ func (p *DynamicComputationPolicy) Activate(path string, level ComputationLevel)
 	return nil
 }
 
+// Resolve takes a path and preferred processing location and returns a handler and the computation level which that
+// handler provides. It does this based on the capabilities for this path registered with the StaticComputationPolicy.
+// The preferred processing location is used to break ties when we can offer full computation and raw data.
 func (p *DynamicComputationPolicy) Resolve(path string, preferredLocation ProcessingLocation) (ComputationLevel, http.Handler) {
 	capability, ok := p.capabilities[path]
 	if ok {
