@@ -2,16 +2,19 @@ version: '3'
 
 services:
   data-client-raw-data:
-    build: './data-client-raw-data'
+    build: './data-client-configurable'
+    command: -raw-data database-raw-data
     container_name: data-client-raw-data
   data-client-can-compute:
-    build: './data-client-can-compute'
+    build: './data-client-configurable'
+    command: -can-compute database-can-compute
     container_name: data-client-compute
   data-client-both:
-    build: './data-client-both'
+    build: './data-client-configurable'
+    command: -raw-data -can-compute database-both
     container_name: data-client-both
   data-client-no-computation:
-    build: './data-client-no-computation'
+    build: './data-client-configurable'
     container_name: data-client-none
   database-both:
     image: mysql
