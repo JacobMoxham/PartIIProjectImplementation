@@ -31,7 +31,6 @@ func getAverageForClient(client, startDate, endDate string, policy middleware.Re
 	req.SetParam("endDate", endDate)
 
 	pamResp, err := req.Send()
-	// TODO: check if the database failed to connect and error properly - I think the database examples had a "ping database" style test for this
 	if err != nil {
 		log.Printf("Request to %s produced an error: %s", client, err.Error())
 		return err
@@ -145,18 +144,17 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 			}()
 		}
 
+		// Wait for all clients to finish
 		respondingClientCount := 0
 		for i := 0; i < len(clients); i++ {
 			<-done
-			// Take a result, if none exists then continue, this allows there to be less results than clients requested
-			select {
-			case averageActiveEnergyPerMinute := <-results:
-				// TODO: look at what happens when one client errors and does not respond, possibly just close responses and then range over it
-				respondingClientCount += 1
-				averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
-			default:
-				continue
-			}
+		}
+
+		// Accumulate all the results clients provided
+		close(results)
+		for averageActiveEnergyPerMinute := range results {
+			respondingClientCount += 1
+			averageActiveEnergyPerMinuteFromAllClients += averageActiveEnergyPerMinute
 		}
 
 		// Don't divide by 0

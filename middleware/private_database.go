@@ -62,11 +62,11 @@ func (m *mutexMap) GetMutex(key string) *sync.Mutex {
 // MySQLPrivateDatabase is a wrapper around a MySQL database which implements the PrivateRelationalDatabase interface,
 // it supports DataPolicies which specify transforms for columns and excluded columns on a per PrivacyGroup basis
 type MySQLPrivateDatabase struct {
-	StaticDataPolicy *StaticDataPolicy
-	CacheTables      bool
-	database         *sql.DB
-	databaseName     string
-	tableMutexes     mutexMap
+	DataPolicy   DataPolicy
+	CacheTables  bool
+	database     *sql.DB
+	databaseName string
+	tableMutexes mutexMap
 }
 
 // Connect opens the connection to the MySQL database
@@ -276,7 +276,7 @@ func (mspd *MySQLPrivateDatabase) transformTables(query string, requestPolicy *R
 		if queryReads {
 			// Create a version of the table with the privacy policy applied
 			transformedTableName := groupPrefix + tableName
-			tableOperations, err := mspd.StaticDataPolicy.Resolve(requestPolicy.RequesterID)
+			tableOperations, err := mspd.DataPolicy.Resolve(requestPolicy.RequesterID)
 			if err != nil {
 				return err
 			}
@@ -290,7 +290,7 @@ func (mspd *MySQLPrivateDatabase) transformTables(query string, requestPolicy *R
 			re := regexp.MustCompile(regexString)
 			query = re.ReplaceAllString(query, transformedTableName)
 		} else if queryWrites {
-			tableOperations, err := mspd.StaticDataPolicy.Resolve(requestPolicy.RequesterID)
+			tableOperations, err := mspd.DataPolicy.Resolve(requestPolicy.RequesterID)
 			if err != nil {
 				return err
 			}
@@ -493,8 +493,10 @@ func (mspd *MySQLPrivateDatabase) dropTableIfExists(table string) error {
 }
 
 func (mspd *MySQLPrivateDatabase) isTransformedTableValid(tableName string, transformedTableName string) (bool, error) {
+	// Check when the data policy was last updated
+	timeOfLastPolicyUpdate := mspd.DataPolicy.LastUpdated()
+
 	// Check when the table was last updated
-	// TODO: check when the security policy was last changed
 	timeOfLastUpdateRow := mspd.database.QueryRow(
 		`SELECT create_time, update_time FROM information_schema.tables WHERE table_schema = ? AND table_name = ?`,
 		mspd.databaseName, tableName)
@@ -549,7 +551,7 @@ func (mspd *MySQLPrivateDatabase) isTransformedTableValid(tableName string, tran
 	}
 
 	// Work out whether the transform is valid
-	return timeOfTransformCreation.After(timeOfLastUpdate), nil
+	return timeOfTransformCreation.After(timeOfLastUpdate) || timeOfTransformCreation.After(timeOfLastPolicyUpdate), nil
 }
 
 func (mspd *MySQLPrivateDatabase) getColsToCopy(tableName string, excludedColumns []string) ([]string, error) {

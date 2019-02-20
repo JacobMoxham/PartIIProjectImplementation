@@ -92,3 +92,5 @@ func TestStaticDataPolicy_Resolve_Fail(t *testing.T) {
 	_, err := dataPolicy.Resolve("jacob")
 	require.EqualError(t, err, "multiple data policies with different transforms for the same table apply, cannot resolve")
 }
+
+// TODO: add test for isTransformValid
