@@ -28,13 +28,15 @@ func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Reques
 	removedColumnsForEntities := map[string][]string{"CentralServer": {}}
 
 	group := &middleware.PrivacyGroup{Name: "CentralServer", Members: map[string]bool{"server": true}}
+	groups := []*middleware.PrivacyGroup{group}
+	transforms := middleware.DataTransforms{
+		group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}}
+
 	db := middleware.MySQLPrivateDatabase{
-		DataPolicy: &middleware.StaticDataPolicy{
-			PrivacyGroups: []*middleware.PrivacyGroup{group},
-			Transforms:    middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}},
-		},
+		DataPolicy:  middleware.NewStaticDataPolicy(groups, transforms),
 		CacheTables: true,
 	}
+
 	var err error
 	if DOCKER {
 		err = db.Connect("demouser", "demopassword", "power_consumption", "database", 3306)

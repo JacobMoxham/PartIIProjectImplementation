@@ -117,12 +117,11 @@ func createAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Req
 
 	group := &middleware.PrivacyGroup{Name: "CentralServer", Members: map[string]bool{"server": true}}
 
-	staticDataPolicy := middleware.NewStaticDataPolicy()
-	staticDataPolicy.PrivacyGroups = []*middleware.PrivacyGroup{group}
-	staticDataPolicy.Transforms = middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}}
+	groups := []*middleware.PrivacyGroup{group}
+	transforms := middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}}
 
 	db := middleware.MySQLPrivateDatabase{
-		DataPolicy:  staticDataPolicy,
+		DataPolicy:  middleware.NewStaticDataPolicy(groups, transforms),
 		CacheTables: true,
 	}
 
