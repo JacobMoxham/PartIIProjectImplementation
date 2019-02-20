@@ -14,7 +14,7 @@ type PamRequest struct {
 
 // AddParam adds a parameter to the contained http request with the same semantics as adding to the URL.Values of the
 // http request
-func (r *PamRequest) AddParam(key string, value string) {
+func (r *PamRequest) AddParam(key, value string) {
 	httpRequest := r.HttpRequest
 	params := httpRequest.URL.Query()
 	params.Add(key, value)
@@ -40,7 +40,7 @@ func (r *PamRequest) GetParam(key string) string {
 
 // AddParam sets a parameter on the contained http request with the same semantics as adding to the URL.Values of the
 // http request
-func (r *PamRequest) SetParam(key string, value string) {
+func (r *PamRequest) SetParam(key, value string) {
 	httpRequest := r.HttpRequest
 	params := httpRequest.URL.Query()
 	params.Set(key, value)

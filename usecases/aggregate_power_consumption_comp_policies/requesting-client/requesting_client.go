@@ -13,6 +13,8 @@ import (
 const DOCKER = true
 
 func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
+	client := middleware.MakePrivacyAwareClient(middleware.NewStaticComputationPolicy())
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Println("Request Received")
 		policy := middleware.RequestPolicy{
@@ -42,7 +44,7 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 		req.SetParam("startDate", startDate)
 		req.SetParam("endDate", endDate)
 
-		pamResp, err := req.Send()
+		pamResp, err := client.Send(req)
 		if err != nil {
 			log.Println("Error:", err)
 			return

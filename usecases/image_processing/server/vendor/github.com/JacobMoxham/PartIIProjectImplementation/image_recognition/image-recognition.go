@@ -17,18 +17,54 @@ const (
 	labelsFile = "/model/imagenet_comp_graph_label_strings.txt"
 )
 
-// Label type
+// Label type containing a label and a probability
 type Label struct {
 	Label       string  `json:"label"`
 	Probability float32 `json:"probability"`
 }
 
-// Labels type
+// Labels type containing a list of Labels
 type Labels []Label
 
 func (a Labels) Len() int           { return len(a) }
 func (a Labels) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a Labels) Less(i, j int) bool { return a[i].Probability > a[j].Probability }
+
+// GetTop5LabelsFromImageReader takes an image reader, reads the image and runs object tagging using a Tensorflow model
+// to return a list of Labels for the image
+func GetTop5LabelsFromImageReader(reader io.ReadCloser) []Label {
+	modelGraph, labels, err := loadModel()
+	if err != nil {
+		log.Fatalf("unable to load model: %v", err)
+	}
+
+	// Get normalized tensor
+	tensor, err := normalizeImage(reader)
+	if err != nil {
+		log.Fatalf("unable to make a tensor from image: %v", err)
+	}
+
+	// Create a session for inference over modelGraph
+	session, err := tensorflow.NewSession(modelGraph, nil)
+	if err != nil {
+		log.Fatalf("could not init session: %v", err)
+	}
+
+	output, err := session.Run(
+		map[tensorflow.Output]*tensorflow.Tensor{
+			modelGraph.Operation("input").Output(0): tensor,
+		},
+		[]tensorflow.Output{
+			modelGraph.Operation("output").Output(0),
+		},
+		nil)
+	if err != nil {
+		log.Fatalf("could not run inference: %v", err)
+	}
+
+	res := getTopFiveLabels(labels, output[0].Value().([][]float32)[0])
+	return res
+}
 
 func loadModel() (*tensorflow.Graph, []string, error) {
 	// Load inception model
@@ -125,38 +161,4 @@ func getTopFiveLabels(labels []string, probabilities []float32) []Label {
 
 	sort.Sort(Labels(resultLabels))
 	return resultLabels[:5]
-}
-
-func GetTop5LabelsFromImageReader(reader io.ReadCloser) []Label {
-	modelGraph, labels, err := loadModel()
-	if err != nil {
-		log.Fatalf("unable to load model: %v", err)
-	}
-
-	// Get normalized tensor
-	tensor, err := normalizeImage(reader)
-	if err != nil {
-		log.Fatalf("unable to make a tensor from image: %v", err)
-	}
-
-	// Create a session for inference over modelGraph
-	session, err := tensorflow.NewSession(modelGraph, nil)
-	if err != nil {
-		log.Fatalf("could not init session: %v", err)
-	}
-
-	output, err := session.Run(
-		map[tensorflow.Output]*tensorflow.Tensor{
-			modelGraph.Operation("input").Output(0): tensor,
-		},
-		[]tensorflow.Output{
-			modelGraph.Operation("output").Output(0),
-		},
-		nil)
-	if err != nil {
-		log.Fatalf("could not run inference: %v", err)
-	}
-
-	res := getTopFiveLabels(labels, output[0].Value().([][]float32)[0])
-	return res
 }

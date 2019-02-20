@@ -29,7 +29,7 @@ func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Reques
 
 	group := &middleware.PrivacyGroup{Name: "CentralServer", Members: map[string]bool{"server": true}}
 	db := middleware.MySQLPrivateDatabase{
-		StaticDataPolicy: &middleware.StaticDataPolicy{
+		DataPolicy: &middleware.StaticDataPolicy{
 			PrivacyGroups: []*middleware.PrivacyGroup{group},
 			Transforms:    middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}},
 		},

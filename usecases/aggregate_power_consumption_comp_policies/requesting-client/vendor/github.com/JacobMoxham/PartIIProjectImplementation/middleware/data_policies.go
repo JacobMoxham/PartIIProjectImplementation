@@ -3,6 +3,7 @@ package middleware
 import (
 	"errors"
 	"fmt"
+	"time"
 )
 
 // TableOperations contains functions to apply to tables before sending to an entity and columns to exclude
@@ -11,6 +12,7 @@ type TableOperations struct {
 	ExcludedCols    map[string][]string
 }
 
+// NewTableOperations returns a pointer to a TableOperations struct with initialised fields
 func NewTableOperations() *TableOperations {
 	return &TableOperations{
 		TableTransforms: make(map[string]map[string]func(interface{}) (interface{}, error)),
@@ -44,18 +46,31 @@ type DataTransforms map[*PrivacyGroup]*TableOperations
 type DataPolicy interface {
 	// resolve takes an identifier for an entity and returns the TableOperatoinsg for the entity
 	Resolve(string) (*TableOperations, error)
+	LastUpdated() time.Time
 }
 
+// StaticDataPolicy implements the DataPolicy interface and contains a list of PrivacyGroups and DataTransforms for them
 type StaticDataPolicy struct {
 	// PrivacyGroups is an ordered list of PrivacyGroups where the policy for the first group we are a member of is applied
-	// TODO: talk to Jat about whether to make this more complicated and try to incorporate all policies
 	PrivacyGroups []*PrivacyGroup
 	Transforms    DataTransforms
+	created       time.Time
 }
 
-func (stp *StaticDataPolicy) Resolve(entityID string) (*TableOperations, error) {
+// NewStaticDataPolicy returns a pointer to a StaticDataPolicy with initialised fields
+func NewStaticDataPolicy() *StaticDataPolicy {
+	return &StaticDataPolicy{
+		PrivacyGroups: []*PrivacyGroup{},
+		Transforms:    make(DataTransforms),
+		created:       time.Now(),
+	}
+}
+
+// Resolve takes an entity ID and returns a pointer to the relevant TableOperations struct based on the PrivacyGroups
+// that the entity ID is in and the associated transforms stored in the StaticDataPolicy
+func (sdp *StaticDataPolicy) Resolve(entityID string) (*TableOperations, error) {
 	var privacyGroups []*PrivacyGroup
-	for _, group := range stp.PrivacyGroups {
+	for _, group := range sdp.PrivacyGroups {
 		if group.contains(entityID) {
 			privacyGroups = append(privacyGroups, group)
 		}
@@ -67,7 +82,7 @@ func (stp *StaticDataPolicy) Resolve(entityID string) (*TableOperations, error) 
 	// Make sure we only have one set of transforms but concatenate removed columns
 	allTableOperations := NewTableOperations()
 	for _, privacyGroup := range privacyGroups {
-		tableOperations, ok := stp.Transforms[privacyGroup]
+		tableOperations, ok := sdp.Transforms[privacyGroup]
 		if ok {
 			err := allTableOperations.merge(tableOperations)
 			if err != nil {
@@ -79,4 +94,9 @@ func (stp *StaticDataPolicy) Resolve(entityID string) (*TableOperations, error) 
 	}
 
 	return allTableOperations, nil
+}
+
+func (sdp StaticDataPolicy) LastUpdated() time.Time {
+	// The static policy is not intended to be updated
+	return sdp.created
 }

@@ -1,23 +1,26 @@
 package middleware
 
 import (
-	"log"
 	"net/http"
 )
 
 type computationCapability map[ComputationLevel]http.Handler
 
-// StaticComputationPolicy holds a set of computation capabilities for paths, these must be set manually
+// StaticComputationPolicy holds a map from http request paths to computation capabilities which dictate which handlers
+// can be used for the request. A handler can be specified for returning a full result (CanCompute) or just the raw data
+// (RawData)
 type StaticComputationPolicy struct {
 	capabilities map[string]computationCapability
 }
 
+// NewStaticComputationPolicy returns a pointer to an initialised StaticComputationPolicy
 func NewStaticComputationPolicy() *StaticComputationPolicy {
 	return &StaticComputationPolicy{
 		make(map[string]computationCapability),
 	}
 }
 
+// Register adds a capability for a path at a specific ComputationLevel
 func (p *StaticComputationPolicy) Register(path string, level ComputationLevel, handler http.Handler) {
 	if p.capabilities[path] == nil {
 		p.capabilities[path] = make(computationCapability)
@@ -25,10 +28,12 @@ func (p *StaticComputationPolicy) Register(path string, level ComputationLevel, 
 	p.capabilities[path][level] = handler
 }
 
+// UnregisterAll removes all capabilities for a path
 func (p *StaticComputationPolicy) UnregisterAll(path string) {
 	delete(p.capabilities, path)
 }
 
+// UnregisterOne removes a capability for a path at a specific computation level
 func (p *StaticComputationPolicy) UnregisterOne(path string, level ComputationLevel) {
 	capability, ok := p.capabilities[path]
 	if ok {
@@ -36,39 +41,27 @@ func (p *StaticComputationPolicy) UnregisterOne(path string, level ComputationLe
 	}
 }
 
+// Resolve takes a path and preferred processing location and returns a handler and the computation level which that
+// handler provides. It does this based on the capabilities for this path registered with the StaticComputationPolicy.
+// The preferred processing location is used to break ties when we can offer full computation and raw data.
 func (p *StaticComputationPolicy) Resolve(path string, preferredLocation ProcessingLocation) (ComputationLevel, http.Handler) {
-
 	capability, ok := p.capabilities[path]
 	if ok {
 		rawDataHandler, hasRawDataHandler := capability[RawData]
 		canComputeHandler, hasCanComputeHandler := capability[CanCompute]
 
-		// TODO: in dynamic version we may have a "valid" tag?
 		if hasCanComputeHandler {
 			if hasRawDataHandler {
 				if preferredLocation == Remote {
-					log.Println("Serving request as preferred location is remote and we can compute")
 					return CanCompute, canComputeHandler
 				} else {
-					log.Println("Partially serving request as preferred location is local and we can compute")
 					return RawData, rawDataHandler
 				}
 			} else {
-				if preferredLocation == Local {
-					log.Println("Preferred location is local but we can only compute full result")
-				} else {
-					log.Println("Serving request as we can compute full result")
-				}
 				return CanCompute, canComputeHandler
 			}
 		} else {
 			if hasRawDataHandler {
-				if preferredLocation == Local {
-					log.Println("Partially serving request as preferred location is local and we can compute")
-				} else {
-					// TODO: ensure receivers handle this correctly
-					log.Println("Preferred location is remote but we can only partially compute, returning anyway")
-				}
 				return RawData, rawDataHandler
 			}
 		}

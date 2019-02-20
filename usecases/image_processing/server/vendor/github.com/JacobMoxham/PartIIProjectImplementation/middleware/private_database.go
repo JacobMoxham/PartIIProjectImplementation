@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"context"
 	"database/sql"
 	"errors"
 	"fmt"
@@ -16,12 +17,23 @@ import (
 
 const batchSize = 1000
 
-// PrivateRelationalDatabase wraps an SQL database and edits queries so that they operate over tables adjusted to match privacy policies
+// PrivateRelationalDatabase wraps an SQL database and edits queries so that they operate
+// over tables adjusted to match privacy policies
 type PrivateRelationalDatabase interface {
-	Connect(string, string, string) error
+	Connect(user, password, databaseName, uri string, port int) error
 	Close() error
-	Query(string *RequestPolicy) (*sql.Rows, error)
-	// TODO: consider how updates are handled? Perhaps edit update query and check for excluded rows? Perhaps just consider read only
+	Query(query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Rows, error)
+	QueryContext(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Rows, error)
+	QueryRow(query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Row, error)
+	QueryRowContext(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Row, error)
+	Exec(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (sql.Result, error)
+	ExecContext(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (sql.Result, error)
+	Stats() sql.DBStats
+	SetConnMaxLifetime(d time.Duration)
+	SetMaxOpenConns(n int)
+	SetMaxIdleConns(n int)
+	Ping() error
+	PingContext(ctx context.Context) error
 }
 
 type mutexMap struct {
@@ -47,16 +59,18 @@ func (m *mutexMap) GetMutex(key string) *sync.Mutex {
 	return mutex
 }
 
-type MySqlPrivateDatabase struct {
-	StaticDataPolicy *StaticDataPolicy
-	CacheTables      bool
-	database         *sql.DB
-	databaseName     string
-	tableMutexes     mutexMap
+// MySQLPrivateDatabase is a wrapper around a MySQL database which implements the PrivateRelationalDatabase interface,
+// it supports DataPolicies which specify transforms for columns and excluded columns on a per PrivacyGroup basis
+type MySQLPrivateDatabase struct {
+	DataPolicy   DataPolicy
+	CacheTables  bool
+	database     *sql.DB
+	databaseName string
+	tableMutexes mutexMap
 }
 
-func (mspd *MySqlPrivateDatabase) Connect(user string, password string, databaseName string, uri string, port int) error {
-	// TODO consider getting the time.Time location from somewhere
+// Connect opens the connection to the MySQL database
+func (mspd *MySQLPrivateDatabase) Connect(user, password, databaseName, uri string, port int) error {
 	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=UTC", user, password, uri, port, databaseName))
 	if err != nil {
 		return err
@@ -68,16 +82,176 @@ func (mspd *MySqlPrivateDatabase) Connect(user string, password string, database
 	return nil
 }
 
-func (mspd *MySqlPrivateDatabase) Close() error {
+// Close closes the connection to the MySQL database
+func (mspd *MySQLPrivateDatabase) Close() error {
 	err := mspd.database.Close()
 	return err
 }
 
-func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*sql.Rows, error) {
+// Query takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
+// request policy to give a result to the query on transformed versions of the actual database tables
+func (mspd *MySQLPrivateDatabase) Query(query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Rows, error) {
+	return mspd.QueryContext(context.Background(), query, requestPolicy, args...)
+}
+
+// QueryContext takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
+// request policy to give a result to the query on transformed versions of the actual database tables
+func (mspd *MySQLPrivateDatabase) QueryContext(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Rows, error) {
+	// Transform tables
+	err := mspd.transformTables(query, requestPolicy)
+	if err != nil {
+		return nil, err
+	}
+
+	// Execute query
+	rows, err := mspd.database.QueryContext(ctx, query, args...)
+	if err != nil {
+		return nil, err
+	}
+	return rows, nil
+}
+
+// QueryRow takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
+//// request policy to give a result to the query on transformed versions of the actual database tables
+func (mspd *MySQLPrivateDatabase) QueryRow(query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Row, error) {
+	return mspd.QueryRowContext(context.Background(), query, requestPolicy, args...)
+}
+
+// QueryRowContext takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
+// request policy to give a result to the query on transformed versions of the actual database tables
+func (mspd *MySQLPrivateDatabase) QueryRowContext(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Row, error) {
+	// Transform tables
+	err := mspd.transformTables(query, requestPolicy)
+	if err != nil {
+		return nil, err
+	}
+
+	// Execute query
+	row := mspd.database.QueryRowContext(ctx, query, args...)
+
+	return row, nil
+}
+
+// Exec takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
+// request policy to give a result to the query on transformed versions of the actual database tables
+func (mspd *MySQLPrivateDatabase) Exec(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (sql.Result, error) {
+	return mspd.ExecContext(context.Background(), query, requestPolicy, args...)
+}
+
+// ExecContext takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
+// request policy to give a result to the query on transformed versions of the actual database tables
+func (mspd *MySQLPrivateDatabase) ExecContext(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (sql.Result, error) {
+	// Transform tables
+	err := mspd.transformTables(query, requestPolicy)
+	if err != nil {
+		return nil, err
+	}
+
+	// Execute query
+	rows, err := mspd.database.ExecContext(ctx, query, args...)
+	if err != nil {
+		return nil, err
+	}
+	return rows, nil
+}
+
+// Stats returns database statistics
+func (mspd *MySQLPrivateDatabase) Stats() sql.DBStats {
+	return mspd.database.Stats()
+}
+
+// SetConnMaxLifetime sets the maximum amount of time a connection may be reused.
+//
+// Expired connections may be closed lazily before reuse.
+//
+// If d <= 0, connections are reused forever.
+func (mspd *MySQLPrivateDatabase) SetConnMaxLifetime(d time.Duration) {
+	mspd.database.SetConnMaxLifetime(d)
+}
+
+// SetMaxOpenConns sets the maximum number of open connections to the database.
+//
+// If MaxIdleConns is greater than 0 and the new MaxOpenConns is less than
+// MaxIdleConns, then MaxIdleConns will be reduced to match the new
+// MaxOpenConns limit.
+//
+// If n <= 0, then there is no limit on the number of open connections.
+// The default is 0 (unlimited).
+func (mspd *MySQLPrivateDatabase) SetMaxOpenConns(n int) {
+	mspd.database.SetMaxOpenConns(n)
+}
+
+// SetMaxIdleConns sets the maximum number of connections in the idle
+// connection pool.
+//
+// If MaxOpenConns is greater than 0 but less than the new MaxIdleConns,
+// then the new MaxIdleConns will be reduced to match the MaxOpenConns limit.
+//
+// If n <= 0, no idle connections are retained.
+//
+// The default max idle connections is currently 2. This may change in
+// a future release.
+func (mspd *MySQLPrivateDatabase) SetMaxIdleConns(n int) {
+	mspd.database.SetMaxIdleConns(n)
+}
+
+// Ping verifies a connection to the database is still alive,
+// establishing a connection if necessary.
+func (mspd *MySQLPrivateDatabase) Ping() error {
+	return mspd.database.Ping()
+}
+
+// PingContext verifies a connection to the database is still alive,
+// establishing a connection if necessary.
+func (mspd *MySQLPrivateDatabase) PingContext(ctx context.Context) error {
+	return mspd.database.PingContext(ctx)
+}
+
+// TODO: consider wrapping Conns as well as DBs, also need to work out if Ping breaks our wrapper
+// TODO: consider supporting Prepare and PrepareContext and BeginTx, Begin etc.
+
+func (mspd *MySQLPrivateDatabase) transformTables(query string, requestPolicy *RequestPolicy) error {
 	// Parse query
 	stmt, err := sqlparser.Parse(query)
 	if err != nil {
-		return nil, err
+		return err
+	}
+
+	// Get all statements in the query
+	var statements []sqlparser.Statement
+	err = sqlparser.Walk(
+		func(node sqlparser.SQLNode) (kcontinue bool, err error) {
+			switch node := node.(type) {
+			case sqlparser.Statement:
+				statements = append(statements, node)
+			}
+			return true, nil
+		}, stmt)
+	if err != nil {
+		return err
+	}
+
+	// Transform tables if the query only reads,
+	// don't transform them but check for excluded column access if it only writes,
+	// error if the query both reads and writes (the user needs to separate these queries)
+	queryReads := false
+	queryWrites := false
+	for _, s := range statements {
+		// TODO: add a test that this covers all of the statements we need it to
+		switch s.(type) {
+		case *sqlparser.Select:
+			queryReads = true
+		case *sqlparser.Update:
+			queryWrites = true
+		case *sqlparser.Insert:
+			queryWrites = true
+		case *sqlparser.Delete:
+			queryWrites = true
+		}
+	}
+
+	if queryReads && queryWrites {
+		return errors.New("cannot support SQL which both reads and writes to the database")
 	}
 
 	// Get all tables in query
@@ -94,45 +268,235 @@ func (mspd *MySqlPrivateDatabase) Query(query string, context *RequestPolicy) (*
 			return true, nil
 		}, stmt)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	groupPrefix := fmt.Sprintf("transformed_%s_", context.RequesterID)
+	groupPrefix := fmt.Sprintf("transformed_%s_", requestPolicy.RequesterID)
 	for _, tableName := range tableNames {
-		// Create a version of the table with the privacy policy applied
-		transformedTableName := groupPrefix + tableName
-		tableOperations, err := mspd.StaticDataPolicy.Resolve(context.RequesterID)
-		if err != nil {
-			return nil, err
-		}
-		err = mspd.transformTable(tableName, transformedTableName, tableOperations.TableTransforms[tableName], tableOperations.ExcludedCols[tableName])
-		if err != nil {
-			return nil, err
-		}
+		if queryReads {
+			// Create a version of the table with the privacy policy applied
+			transformedTableName := groupPrefix + tableName
+			tableOperations, err := mspd.DataPolicy.Resolve(requestPolicy.RequesterID)
+			if err != nil {
+				return err
+			}
+			err = mspd.transformTable(tableName, transformedTableName, tableOperations.TableTransforms[tableName], tableOperations.ExcludedCols[tableName])
+			if err != nil {
+				return err
+			}
 
-		// Replace table Name with transformed table Name in query
-		regexString := fmt.Sprintf("\\b%s\\b", tableName)
-		re := regexp.MustCompile(regexString)
-		query = re.ReplaceAllString(query, transformedTableName)
-	}
+			// Replace table Name with transformed table Name in query
+			regexString := fmt.Sprintf("\\b%s\\b", tableName)
+			re := regexp.MustCompile(regexString)
+			query = re.ReplaceAllString(query, transformedTableName)
+		} else if queryWrites {
+			tableOperations, err := mspd.DataPolicy.Resolve(requestPolicy.RequesterID)
+			if err != nil {
+				return err
+			}
 
-	// Execute query
-	rows, err := mspd.database.Query(query)
-	if err != nil {
-		return nil, err
+			err = mspd.checkForExcludedColumns(tableName, tableOperations.ExcludedCols[tableName])
+			if err != nil {
+				return err
+			}
+		} else {
+			return errors.New("unsupported query")
+		}
 	}
-	return rows, nil
+	return nil
 }
 
-func (mspd *MySqlPrivateDatabase) dropTableIfExists(table string) error {
+func (mspd *MySQLPrivateDatabase) checkForExcludedColumns(tableName string, excludedColumns []string) error {
+	// Get the columns in the table
+	columnNamesString := fmt.Sprintf("SELECT column_name, data_type FROM information_schema.columns WHERE table_name='%s';", tableName)
+	columnNames, err := mspd.database.Query(columnNamesString)
+	if err != nil {
+		return err
+	}
+	defer columnNames.Close()
+
+	// Check if any columns which should be excluded are accessed
+	var (
+		colName string
+		colType string
+	)
+
+	for columnNames.Next() {
+		err := columnNames.Scan(&colName, &colType)
+		if err != nil {
+			return err
+		}
+		if contains(excludedColumns, colName) {
+			// return an error if we access an excluded column but do not reveal the reason so we don't reveal
+			// information through error messages
+			return errors.New("query failed")
+		}
+	}
+
+	return nil
+}
+
+func (mspd *MySQLPrivateDatabase) transformTable(tableName string, transformedTableName string,
+	transforms map[string]func(interface{}) (interface{}, error), excludedColumns []string) error {
+
+	if mspd.CacheTables {
+		// Check if we have a valid cached table
+		valid, err := mspd.checkCache(tableName, transformedTableName)
+		if err != nil {
+			return err
+		}
+		if valid {
+			return nil
+		}
+	} else {
+		// Add a random ID to the table name to avoid clashes with concurrent requests
+		transformedTableName += fmt.Sprintf("%d", rand.Intn(99999))
+	}
+
+	err := mspd.doTransform(tableName, transformedTableName, transforms, excludedColumns)
+	if err != nil {
+		return err
+	}
+
+	if !mspd.CacheTables {
+		// Drop the table we created
+		err = mspd.dropTableIfExists(transformedTableName)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (mspd *MySQLPrivateDatabase) doTransform(tableName string, transformedTableName string,
+	transforms map[string]func(interface{}) (interface{}, error), excludedColumns []string) error {
+	// Get the column types
+	colsToCopy, err := mspd.getColsToCopy(tableName, excludedColumns)
+	if err != nil {
+		return err
+	}
+
+	// Create a string of the column names to be copied over and another string with the names and types
+	columnString := strings.Join(colsToCopy, ", ")
+
+	if columnString == "" {
+		return errors.New("all columns are excluded, cannot create transformed table")
+	}
+	// Drop the table if it already exists - it should not exist at this point
+	err = mspd.dropTableIfExists(transformedTableName)
+	if err != nil {
+		return err
+	}
+
+	// Copy table
+	createTableString := fmt.Sprintf("CREATE TABLE %s LIKE %s;", transformedTableName, tableName)
+	_, err = mspd.database.Exec(createTableString)
+	if err != nil {
+		return err
+	}
+
+	// Get necessary columns from database
+	selectedColumnsString := fmt.Sprintf("SELECT %s FROM %s", columnString, tableName)
+	rows, err := mspd.database.Query(selectedColumnsString)
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+
+	// Create arguments of the correct types to scan values into
+	vals, scanArgs, err := getVariablesForRows(rows)
+
+	var rowArguments []interface{}
+	rowCount := 0
+	rowsToWrite := ""
+	for rows.Next() {
+		// Read rows into variables
+		err = rows.Scan(scanArgs...)
+		if err != nil {
+			return err
+		}
+
+		// Apply transforms to rows
+		err := applyTransformsToRows(&vals, colsToCopy, transforms)
+		if err != nil {
+			return err
+		}
+
+		// Add rows to string
+		rowsToWrite += "("
+		for i := 0; i < len(vals); i++ {
+			rowsToWrite += "?, "
+		}
+		rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
+		rowsToWrite += "), "
+		rowArguments = append(rowArguments, vals...)
+
+		rowCount += 1
+		if rowCount == batchSize {
+			// Remove the last comma and space
+			rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
+
+			// Write to database and then continue
+			err := mspd.writeToTable(transformedTableName, rowsToWrite, rowArguments)
+			if err != nil {
+				return err
+			}
+
+			// Reset accumulators
+			rowCount = 0
+			rowsToWrite = ""
+			rowArguments = rowArguments[:0]
+		}
+	}
+	if rowCount > 0 {
+		// Remove the last comma and space
+		rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
+		err := mspd.writeToTable(transformedTableName, rowsToWrite, rowArguments)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func applyTransformsToRows(vals *[]interface{}, colsToCopy []string,
+	transforms map[string]func(interface{}) (interface{}, error)) error {
+	for i, val := range *vals {
+		currentCol := colsToCopy[i]
+		transform, ok := transforms[currentCol]
+		if ok {
+			transformedVal, err := transform(val)
+			if err != nil {
+				return err
+			}
+			(*vals)[i] = transformedVal
+		}
+	}
+	return nil
+}
+
+func (mspd *MySQLPrivateDatabase) writeToTable(tableName string, rowsToWrite string, rowArguments []interface{}) error {
+	// Write rows to transformed table
+	insertString := fmt.Sprintf("INSERT INTO %s VALUES %s", tableName, rowsToWrite)
+	_, err := mspd.database.Exec(insertString, rowArguments...)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (mspd *MySQLPrivateDatabase) dropTableIfExists(table string) error {
 	dropTableString := fmt.Sprintf("DROP TABLE IF EXISTS %s;", table)
 	_, err := mspd.database.Exec(dropTableString)
 	return err
 }
 
-func (mspd *MySqlPrivateDatabase) isTransformedTableValid(tableName string, transformedTableName string) (bool, error) {
+func (mspd *MySQLPrivateDatabase) isTransformedTableValid(tableName string, transformedTableName string) (bool, error) {
+	// Check when the data policy was last updated
+	timeOfLastPolicyUpdate := mspd.DataPolicy.LastUpdated()
+
 	// Check when the table was last updated
-	// TODO: check when the security policy was last changed
 	timeOfLastUpdateRow := mspd.database.QueryRow(
 		`SELECT create_time, update_time FROM information_schema.tables WHERE table_schema = ? AND table_name = ?`,
 		mspd.databaseName, tableName)
@@ -187,38 +551,19 @@ func (mspd *MySqlPrivateDatabase) isTransformedTableValid(tableName string, tran
 	}
 
 	// Work out whether the transform is valid
-	return timeOfTransformCreation.After(timeOfLastUpdate), nil
+	return timeOfTransformCreation.After(timeOfLastUpdate) || timeOfTransformCreation.After(timeOfLastPolicyUpdate), nil
 }
 
-func (mspd *MySqlPrivateDatabase) transformTable(tableName string, transformedTableName string,
-	transforms map[string]func(interface{}) (interface{}, error), excludedColumns []string) error {
-
-	if mspd.CacheTables {
-		// Take out table lock
-		mutex := mspd.tableMutexes.GetMutex(tableName)
-		mutex.Lock()
-		defer mutex.Unlock()
-
-		// Check if transform is valid
-		transformValid, err := mspd.isTransformedTableValid(tableName, transformedTableName)
-		if err != nil {
-			return err
-		}
-		if transformValid {
-			// Send not recreate the transform if it is valid
-			return nil
-		}
-	} else {
-		// Add a random ID to the table name to avoid clashes with concurrent requests
-		transformedTableName += fmt.Sprintf("%d", rand.Intn(99999))
-	}
-	// Get the column types
-	// TODO: see if we can do this better - we almost certainly can
+func (mspd *MySQLPrivateDatabase) getColsToCopy(tableName string, excludedColumns []string) ([]string, error) {
+	// Get the columns in the table
 	columnNamesString := fmt.Sprintf("SELECT column_name, data_type FROM information_schema.columns WHERE table_name='%s';", tableName)
 	columnNames, err := mspd.database.Query(columnNamesString)
 	if err != nil {
-		return err
+		return nil, err
 	}
+	defer columnNames.Close()
+
+	// Remove any columns which should be excluded
 	var (
 		colName string
 		colType string
@@ -228,166 +573,62 @@ func (mspd *MySqlPrivateDatabase) transformTable(tableName string, transformedTa
 	for columnNames.Next() {
 		err := columnNames.Scan(&colName, &colType)
 		if err != nil {
-			log.Fatal(err)
+			return nil, err
 		}
 		if !contains(excludedColumns, colName) {
 			colsToCopy = append(colsToCopy, colName)
 		}
 
 	}
-	columnNames.Close()
-
-	// Create a string of the column names to be copied over and another string with the names and types
-	// TODO: deal with primary keys and auto increments etc. - I think this is sorted by using LIKE
-	columnString := strings.Join(colsToCopy, ", ")
-
-	if columnString == "" {
-		return errors.New("all columns are excluded, cannot create transformed table")
-	} else {
-		// Drop the table if it already exists - it should not exist at this point
-		err = mspd.dropTableIfExists(transformedTableName)
-		if err != nil {
-			return err
-		}
-
-		// Copy table
-		createTableString := fmt.Sprintf("CREATE TABLE %s LIKE %s;", transformedTableName, tableName)
-		_, err = mspd.database.Exec(createTableString)
-		if err != nil {
-			return err
-		}
-
-		// Get necessary columns from database
-		selectedColumnsString := fmt.Sprintf("SELECT %s FROM %s", columnString, tableName)
-		rows, err := mspd.database.Query(selectedColumnsString)
-		if err != nil {
-			return err
-		}
-		defer rows.Close()
-
-		//// TODO: see if this works
-		//colTypes, err := rows.ColumnTypes()
-		//if err != nil {
-		//	return err
-		//}
-		//for i, ct := range colTypes {
-		//	scanArg := ct.ScanType()
-		//	fmt.Println(scanArg.String())
-		//	// Issue is it prefers its own types to build in go ones
-		//	scanArgs[i] = reflect.New(scanArg).Interface()
-		//}
-
-		// Create arguments of the correct types to scan values into
-		var vals []interface{}
-
-		// Create scan variables of the correct underlying type
-		colTypes, err := rows.ColumnTypes()
-		if err != nil {
-			return err
-		}
-		for _, ct := range colTypes {
-			databaseTypeName := strings.ToLower(ct.DatabaseTypeName())
-			// TODO add this in
-			//nullable, ok := ct.Nullable()
-			//args, ok := ct.DecimalSize()
-			appendCorrectArgumentType(&vals, databaseTypeName)
-		}
-
-		scanArgs := make([]interface{}, len(vals))
-		// Make the scan args point at the values
-		for i := range vals {
-			scanArgs[i] = &vals[i]
-		}
-
-		var rowArguments []interface{}
-		rowCount := 0
-		rowsToWrite := ""
-		for rows.Next() {
-			// Read rows into variables
-			err = rows.Scan(scanArgs...)
-			if err != nil {
-				return err
-			}
-			// Apply transforms to rows
-			for i, val := range vals {
-				currentCol := colsToCopy[i]
-				transform, ok := transforms[currentCol]
-				if ok {
-					transformedVal, err := transform(val)
-					if err != nil {
-						return err
-					}
-					vals[i] = transformedVal
-				}
-			}
-
-			// Add rows to string
-			rowsToWrite += "("
-			for i := 0; i < len(vals); i++ {
-				rowsToWrite += "?, "
-			}
-			rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
-			rowsToWrite += "), "
-			rowArguments = append(rowArguments, vals...)
-
-			rowCount += 1
-			if rowCount == batchSize {
-				// Write to database and then continue
-				// Remove the last comma and space
-				rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
-
-				// Write rows to transformed table
-				insertString := fmt.Sprintf("INSERT INTO %s VALUES %s", transformedTableName, rowsToWrite)
-				_, err = mspd.database.Exec(insertString, rowArguments...)
-				if err != nil {
-					return err
-				}
-
-				// Reset accumulators
-				rowCount = 0
-				rowsToWrite = ""
-				rowArguments = rowArguments[:0]
-			}
-		}
-		if rowCount > 0 {
-			// Remove the last comma and space
-			rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
-
-			// Write rows to transformed table
-			insertString := fmt.Sprintf("INSERT INTO %s VALUES %s", transformedTableName, rowsToWrite)
-			_, err = mspd.database.Exec(insertString, rowArguments...)
-			if err != nil {
-				return err
-			}
-		}
-	}
-
-	if !mspd.CacheTables {
-		// Drop the table we created
-		err = mspd.dropTableIfExists(transformedTableName)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
+	return colsToCopy, nil
 }
 
-//// appendSliceWithoutAliasing copies the values from the second slice into the first. This solves the problem of go
-//// reusing the underlying array of the first slice if it can do in the built in append function
-//func appendSliceWithoutAliasing(slice1 []interface{}, slice2 []interface{}) []interface{} {
-//	// Extend the first slice so we can copy in the values from the second slice
-//	oldLen := len(slice1)
-//	slice1 = append(slice1, make([]interface{}, len(slice2))...)
-//	for i, val := range slice2 {
-//		slice1[oldLen+i] = val
-//	}
-//	return slice1
-//}
+func (mspd *MySQLPrivateDatabase) checkCache(tableName string, transformedTableName string) (bool, error) {
+	// Take out table lock
+	mutex := mspd.tableMutexes.GetMutex(tableName)
+	mutex.Lock()
+	defer mutex.Unlock()
 
-func appendCorrectArgumentType(vals *[]interface{}, colType string) {
+	// Check if transform is valid
+	transformValid, err := mspd.isTransformedTableValid(tableName, transformedTableName)
+	if err != nil {
+		return false, err
+	}
+
+	// Do not recreate the transform if it is valid
+	return transformValid, nil
+}
+
+func getVariablesForRows(rows *sql.Rows) ([]interface{}, []interface{}, error) {
+	var vals []interface{}
+
+	// Create scan variables of the correct underlying type
+	colTypes, err := rows.ColumnTypes()
+	if err != nil {
+		return nil, nil, err
+	}
+	for _, ct := range colTypes {
+		appendCorrectArgumentType(&vals, ct)
+	}
+
+	scanArgs := make([]interface{}, len(vals))
+	// Make the scan args point at the values
+	for i := range vals {
+		scanArgs[i] = &vals[i]
+	}
+
+	return vals, scanArgs, nil
+}
+
+func appendCorrectArgumentType(vals *[]interface{}, columnType *sql.ColumnType) {
+	databaseTypeName := strings.ToLower(columnType.DatabaseTypeName())
+
+	// TODO: use these
+	//nullable, hasNullable := columnType.Nullable()
+	//precision, scale, hasPrecisionSclae := columnType.DecimalSize()
+
 	// TODO: this very much needs testing and debugging as well as use of the flags and nullable fields
-	switch colType {
+	switch databaseTypeName {
 	case "tinyint":
 		// TODO consider flags for unsigned and nullable
 		*vals = append(*vals, *new(int8))
@@ -442,7 +683,7 @@ func appendCorrectArgumentType(vals *[]interface{}, colType string) {
 	case "time":
 		*vals = append(*vals, *new(time.Time))
 	default:
-		log.Println(fmt.Sprintf("Could not find corresponding GO type for %s, using interface{}", colType))
+		log.Println(fmt.Sprintf("Could not find corresponding GO type for %s, using interface{}", databaseTypeName))
 		*vals = append(*vals, *new(interface{}))
 	}
 }

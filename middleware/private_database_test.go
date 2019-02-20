@@ -29,9 +29,8 @@ func TestMySqlPrivateDatabase_Query(t *testing.T) {
 
 	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
 
-	staticDataPolicy := NewStaticDataPolicy()
-	staticDataPolicy.Transforms = DataTransforms{group: &TableOperations{funcMap, colMap}}
-	staticDataPolicy.PrivacyGroups = []*PrivacyGroup{group}
+	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
+		DataTransforms{group: &TableOperations{funcMap, colMap}})
 
 	db := MySQLPrivateDatabase{
 		DataPolicy: staticDataPolicy,
@@ -52,9 +51,8 @@ func TestMySqlPrivateDatabase_QueryRow(t *testing.T) {
 
 	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
 
-	staticDataPolicy := NewStaticDataPolicy()
-	staticDataPolicy.Transforms = DataTransforms{group: &TableOperations{funcMap, colMap}}
-	staticDataPolicy.PrivacyGroups = []*PrivacyGroup{group}
+	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
+		DataTransforms{group: &TableOperations{funcMap, colMap}})
 
 	db := MySQLPrivateDatabase{
 		DataPolicy: staticDataPolicy,
@@ -76,9 +74,8 @@ func TestMySqlPrivateDatabase_Exec(t *testing.T) {
 
 	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
 
-	staticDataPolicy := NewStaticDataPolicy()
-	staticDataPolicy.Transforms = DataTransforms{group: &TableOperations{funcMap, colMap}}
-	staticDataPolicy.PrivacyGroups = []*PrivacyGroup{group}
+	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
+		DataTransforms{group: &TableOperations{funcMap, colMap}})
 
 	db := MySQLPrivateDatabase{
 		DataPolicy: staticDataPolicy,

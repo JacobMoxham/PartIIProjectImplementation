@@ -15,7 +15,8 @@ import (
 
 const DOCKER = true
 
-func getAverageForClient(client, startDate, endDate string, policy middleware.RequestPolicy, result chan float64) error {
+func getAverageForClient(client string, httpClient middleware.PrivacyAwareClient, startDate, endDate string,
+	policy middleware.RequestPolicy, result chan float64) error {
 	log.Printf("Requesting data from %s", client)
 	httpRequest, err := http.NewRequest("GET", fmt.Sprintf("http://%s:3001/", client), nil)
 	if err != nil {
@@ -30,7 +31,7 @@ func getAverageForClient(client, startDate, endDate string, policy middleware.Re
 	req.SetParam("startDate", startDate)
 	req.SetParam("endDate", endDate)
 
-	pamResp, err := req.Send()
+	pamResp, err := httpClient.Send(req)
 	if err != nil {
 		log.Printf("Request to %s produced an error: %s", client, err.Error())
 		return err
@@ -99,7 +100,7 @@ func getAverageForClient(client, startDate, endDate string, policy middleware.Re
 	return nil
 }
 
-func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Request), error) {
+func createGetAveragePowerConsumptionHandler(computationPolicy middleware.ComputationPolicy) (func(http.ResponseWriter, *http.Request), error) {
 	policy := middleware.RequestPolicy{
 		RequesterID:                 "server",
 		PreferredProcessingLocation: middleware.Local,
@@ -119,6 +120,8 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 		clients = []string{"127.0.0.1"}
 	}
 
+	httpClient := middleware.MakePrivacyAwareClient(computationPolicy)
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		pamRequest, err := middleware.BuildPamRequest(r)
 		startDate := pamRequest.GetParam("startDate")
@@ -136,7 +139,7 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 
 			// Request an average (and compute one if we get raw data) in parallel
 			go func() {
-				err := getAverageForClient(clientCopy, startDate, endDate, policy, results)
+				err := getAverageForClient(clientCopy, httpClient, startDate, endDate, policy, results)
 				if err != nil {
 					log.Printf("Could not get an average for %s, there was an error: %s", client, err.Error())
 				}
@@ -174,15 +177,16 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 }
 
 func main() {
+	// Define computation policy
+	computationPolicy := middleware.NewStaticComputationPolicy()
+
 	// Create actual function to run
-	getAveragePowerConsumptionHandler, err := createGetAveragePowerConsumptionHandler()
+	getAveragePowerConsumptionHandler, err := createGetAveragePowerConsumptionHandler(computationPolicy)
 	if err != nil {
 		log.Fatal(err)
 	}
 	handler := http.HandlerFunc(getAveragePowerConsumptionHandler)
 
-	// Define computation policy
-	computationPolicy := middleware.NewStaticComputationPolicy()
 	computationPolicy.Register("/get-average-power-consumption", middleware.CanCompute, handler)
 
 	// Register the composite handler at '/get-average-power-consumption' on port 3002

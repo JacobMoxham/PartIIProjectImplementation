@@ -11,3 +11,5 @@ cd ../data-client-no-computation/
 dep ensure -update
 cd ../data-client-raw-data/
 dep ensure -update
+cd ../data-client-configurable/
+dep ensure -update

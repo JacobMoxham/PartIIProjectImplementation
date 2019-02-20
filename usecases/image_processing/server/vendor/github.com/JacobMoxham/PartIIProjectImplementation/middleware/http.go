@@ -6,18 +6,23 @@ import (
 	"net/http"
 )
 
+// PamRequest contains a RequestPolicy and a http request
 type PamRequest struct {
 	Policy      *RequestPolicy
 	HttpRequest *http.Request
 }
 
-func (r *PamRequest) AddParam(key string, value string) {
+// AddParam adds a parameter to the contained http request with the same semantics as adding to the URL.Values of the
+// http request
+func (r *PamRequest) AddParam(key, value string) {
 	httpRequest := r.HttpRequest
 	params := httpRequest.URL.Query()
 	params.Add(key, value)
 	httpRequest.URL.RawQuery = params.Encode()
 }
 
+// AddParam deletes a parameter from the contained http request with the same semantics as adding to the URL.Values of the
+// http request
 func (r *PamRequest) DelParam(key string) {
 	httpRequest := r.HttpRequest
 	params := httpRequest.URL.Query()
@@ -25,41 +30,49 @@ func (r *PamRequest) DelParam(key string) {
 	httpRequest.URL.RawQuery = params.Encode()
 }
 
+// AddParam gets a parameter from the contained http request with the same semantics as adding to the URL.Values of the
+// http request
 func (r *PamRequest) GetParam(key string) string {
 	httpRequest := r.HttpRequest
 	params := httpRequest.URL.Query()
 	return params.Get(key)
 }
 
-func (r *PamRequest) SetParam(key string, value string) {
+// AddParam sets a parameter on the contained http request with the same semantics as adding to the URL.Values of the
+// http request
+func (r *PamRequest) SetParam(key, value string) {
 	httpRequest := r.HttpRequest
 	params := httpRequest.URL.Query()
 	params.Set(key, value)
 	httpRequest.URL.RawQuery = params.Encode()
 }
 
-func BuildPamRequest(req *http.Request) (*PamRequest, error) {
+// BuildPamRequest takes a pointer to a http request and returns a PamRequest with policy values taken from
+// the parameters of the passed request
+func BuildPamRequest(req *http.Request) (PamRequest, error) {
 	policy, err := BuildRequestPolicy(req)
 	if err != nil {
-		return nil, err
+		return PamRequest{}, err
 	}
 	pamRequest := PamRequest{
 		HttpRequest: req,
 		Policy:      policy,
 	}
-	return &pamRequest, nil
+	return pamRequest, nil
 }
 
+// PamResponse contains a http response and its associated computation level
 type PamResponse struct {
 	ComputationLevel ComputationLevel
 	HttpResponse     *http.Response
 }
 
+// BuildPamResponse takes a pointer to a http response and returns a PamResponse with the ComputationLevel taken from
+// the response header
 func BuildPamResponse(resp *http.Response) (PamResponse, error) {
 	// Query response to see if this is a partial result
 	computationLevelString := resp.Header.Get("computation_level")
 	if computationLevelString == "" {
-		// TODO: consider what to do if the other end does not use the middleware
 		return PamResponse{}, errors.New("the response did not specify a computation level")
 	}
 

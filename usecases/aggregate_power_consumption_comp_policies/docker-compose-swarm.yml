@@ -2,7 +2,8 @@ version: '3'
 
 services:
   data-client-raw-data:
-    image: jacobmoxham2/part_ii_project_implementation:data-raw
+    image: jacobmoxham2/part_ii_project_implementation:data-configurable
+    command: -raw-data database-raw-data
     deploy:
       resources:
         limits:
@@ -12,7 +13,8 @@ services:
           cpus: '0.1'
           memory: 50M
   data-client-compute:
-    image: jacobmoxham2/part_ii_project_implementation:data-compute
+    image: jacobmoxham2/part_ii_project_implementation:data-configurable
+    command: -can-compute database-can-compute
     deploy:
       resources:
         limits:
@@ -22,7 +24,8 @@ services:
           cpus: '0.1'
           memory: 50M
   data-client-both:
-    image: jacobmoxham2/part_ii_project_implementation:data-both
+    image: jacobmoxham2/part_ii_project_implementation:data-configurable
+    command: -raw-data -can-compute database-both
     deploy:
       resources:
         limits:
@@ -32,7 +35,7 @@ services:
           cpus: '0.1'
           memory: 50M
   data-client-none:
-    image: jacobmoxham2/part_ii_project_implementation:data-none
+    image: jacobmoxham2/part_ii_project_implementation:data-configurable
     deploy:
       resources:
         limits:

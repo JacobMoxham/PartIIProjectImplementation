@@ -32,11 +32,11 @@ func TestStaticDataPolicy_Resolve_Success(t *testing.T) {
 	}
 
 	dataPolicy := StaticDataPolicy{
-		PrivacyGroups: []*PrivacyGroup{
+		privacyGroups: []*PrivacyGroup{
 			&group1,
 			&group2,
 		},
-		Transforms: transforms,
+		transforms: transforms,
 	}
 
 	policy, err := dataPolicy.Resolve("jacob")
@@ -82,11 +82,11 @@ func TestStaticDataPolicy_Resolve_Fail(t *testing.T) {
 	}
 
 	dataPolicy := StaticDataPolicy{
-		PrivacyGroups: []*PrivacyGroup{
+		privacyGroups: []*PrivacyGroup{
 			&group1,
 			&group2,
 		},
-		Transforms: transforms,
+		transforms: transforms,
 	}
 
 	_, err := dataPolicy.Resolve("jacob")

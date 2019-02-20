@@ -14,7 +14,7 @@ import (
 
 const DOCKER = true
 
-func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
+func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySQLPrivateDatabase, error) {
 	transformsForEntities := make(map[string]map[string]func(interface{}) (interface{}, error))
 	transformsForEntities["household_power_consumption"] = map[string]func(arg interface{}) (interface{}, error){"datetime": func(arg interface{}) (interface{}, error) {
 		date, ok := arg.(*time.Time)
@@ -29,11 +29,12 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 
 	group := &middleware.PrivacyGroup{Name: "CentralServer", Members: map[string]bool{"server": true}}
 
-	db := middleware.MySqlPrivateDatabase{
-		StaticDataPolicy: &middleware.StaticDataPolicy{
-			PrivacyGroups: []*middleware.PrivacyGroup{group},
-			Transforms:    middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}},
-		},
+	staticDataPolicy := middleware.NewStaticDataPolicy()
+	staticDataPolicy.PrivacyGroups = []*middleware.PrivacyGroup{group}
+	staticDataPolicy.Transforms = middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}}
+
+	db := middleware.MySQLPrivateDatabase{
+		DataPolicy:  staticDataPolicy,
 		CacheTables: true,
 	}
 	var err error
@@ -101,7 +102,7 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 		},
 		&db, nil
 }
-func createAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
+func createAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySQLPrivateDatabase, error) {
 	transformsForEntities := make(map[string]map[string]func(interface{}) (interface{}, error))
 	transformsForEntities["household_power_consumption"] = map[string]func(arg interface{}) (interface{}, error){"datetime": func(arg interface{}) (interface{}, error) {
 		date, ok := arg.(*time.Time)
@@ -116,13 +117,15 @@ func createAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Req
 
 	group := &middleware.PrivacyGroup{Name: "CentralServer", Members: map[string]bool{"server": true}}
 
-	db := middleware.MySqlPrivateDatabase{
-		StaticDataPolicy: &middleware.StaticDataPolicy{
-			PrivacyGroups: []*middleware.PrivacyGroup{group},
-			Transforms:    middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}},
-		},
+	staticDataPolicy := middleware.NewStaticDataPolicy()
+	staticDataPolicy.PrivacyGroups = []*middleware.PrivacyGroup{group}
+	staticDataPolicy.Transforms = middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}}
+
+	db := middleware.MySQLPrivateDatabase{
+		DataPolicy:  staticDataPolicy,
 		CacheTables: true,
 	}
+
 	var err error
 	if DOCKER {
 		dbName := "database-both"
@@ -228,7 +231,6 @@ func main() {
 		rawDataHandler := http.HandlerFunc(powerConsumptionRawDataHandler)
 
 		computationPolicy.Register("/", middleware.RawData, rawDataHandler)
-
 	}
 
 	// Register the composite handler at '/' on port 3001

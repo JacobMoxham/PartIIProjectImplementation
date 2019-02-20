@@ -5,11 +5,13 @@ import (
 	"net/http/httptest"
 )
 
+// PrivacyAwareClient wraps a http client with a ComputationPolicy
 type PrivacyAwareClient struct {
 	client            *http.Client
 	computationPolicy ComputationPolicy
 }
 
+// MakePrivacyAwareClient returns an PrivacyAwareClient with initialised fields
 func MakePrivacyAwareClient(policy ComputationPolicy) PrivacyAwareClient {
 	return PrivacyAwareClient{
 		client:            &http.Client{},
@@ -17,19 +19,17 @@ func MakePrivacyAwareClient(policy ComputationPolicy) PrivacyAwareClient {
 	}
 }
 
+// Send takes a PamRequest and martials the RequestPolicy into the http request parameters before sending it using the
+// contained http client. If the ComputationPolicy has a local handler for the requested path, and the preferred
+// location is local, and all of the data required for a result is contained within the request then the request will
+// instead be handled locally.
 func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
-	// TODO: consider whether to copy requests before sending as we need to edit the body - probably fine without
 	httpRequest := req.HttpRequest
 
 	// Add the query params from the policy
 	params := httpRequest.URL.Query()
 	req.Policy.AddToParams(&params)
 	httpRequest.URL.RawQuery = params.Encode()
-
-	// TODO: consider whether we can handle this if we have all of the data and can process locally.
-	//  This may require us to specify a dependency on "has all data" when registering handlers, I'll have a think
-	// Currently not having a dependency in the handler
-	// TODO: Also ignoring the fact the ports may need to change
 
 	// Check if we would prefer to process locally
 	policy := req.Policy
@@ -60,7 +60,5 @@ func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
 		return PamResponse{}, err
 	}
 
-	// TODO: consider whether there should be sender config which says whether or not we can use partial results/full
-	// results, it could possibly fit into the same framework
 	return BuildPamResponse(resp)
 }

@@ -6,14 +6,15 @@ type PrivacyGroup struct {
 	Members map[string]bool
 }
 
-// TODO: look into creating types with pointer type for structs
 func (pg *PrivacyGroup) add(id string) {
 	pg.Members[id] = true
 }
 
 func (pg *PrivacyGroup) remove(id string) error {
-	// TODO: stop the map from getting too large
-	pg.Members[id] = false
+	_, ok := pg.Members[id]
+	if ok {
+		delete(pg.Members, id)
+	}
 	return nil
 }
 

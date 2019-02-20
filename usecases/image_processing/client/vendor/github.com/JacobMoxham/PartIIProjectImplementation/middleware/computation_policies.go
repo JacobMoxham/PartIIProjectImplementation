@@ -9,6 +9,8 @@ import (
 	"strings"
 )
 
+// ComputationLevel specifies whether a handler for a http request can compute no result, just provide the raw data or
+// compute a full result
 type ComputationLevel int
 
 const (
@@ -17,6 +19,7 @@ const (
 	CanCompute    ComputationLevel = iota
 )
 
+// ComputationLevelFromString converts a string to the relevant ComputationLevel
 func ComputationLevelFromString(level string) (ComputationLevel, error) {
 	switch strings.ToLower(level) {
 	case strings.ToLower("NoComputation"):
@@ -30,6 +33,7 @@ func ComputationLevelFromString(level string) (ComputationLevel, error) {
 	}
 }
 
+// ToString converts from a ComputationLevel to the relevant string
 func (c ComputationLevel) ToString() string {
 	switch c {
 	case NoComputation:
@@ -44,6 +48,7 @@ func (c ComputationLevel) ToString() string {
 	return ""
 }
 
+// ProcessingLocation refers to either local or remote computation over data
 type ProcessingLocation string
 
 const (
@@ -53,6 +58,7 @@ const (
 	Remote ProcessingLocation = "remote"
 )
 
+// ProcessingLocationFromString converts from a string to the relevant ProcessingLocation
 func ProcessingLocationFromString(loc string) (ProcessingLocation, error) {
 	switch strings.ToLower(loc) {
 	case "local":
@@ -62,6 +68,17 @@ func ProcessingLocationFromString(loc string) (ProcessingLocation, error) {
 	default:
 		return "", fmt.Errorf("cannot parse %s as a processing location", loc)
 	}
+}
+
+// ToString coverts from a ProcessingLocation to the relevant string
+func (p ProcessingLocation) ToString() string {
+	switch p {
+	case Local:
+		return "Local"
+	case Remote:
+		return "Remote"
+	}
+	return ""
 }
 
 // RequestPolicy stores the preferred location for processing of a request (and the identity of the requester?)
@@ -82,6 +99,7 @@ func (p *RequestPolicy) AddToParams(params *url.Values) {
 	return
 }
 
+// BuildRequestPolicy takes a http request and extracts the values for a RequestPolicy from its parameters
 func BuildRequestPolicy(req *http.Request) (*RequestPolicy, error) {
 	params := req.URL.Query()
 	requesterID := params.Get("requester_id")
@@ -112,7 +130,7 @@ func BuildRequestPolicy(req *http.Request) (*RequestPolicy, error) {
 	}, nil
 }
 
-// ComputationPolicy stores computation capabilities of a node
+// ComputationPolicy stores the computation capabilities of a node
 type ComputationPolicy interface {
 	Register(string, ComputationLevel, http.Handler)
 	UnregisterAll(string)

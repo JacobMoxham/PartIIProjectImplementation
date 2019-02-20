@@ -11,8 +11,10 @@ func (pg *PrivacyGroup) add(id string) {
 }
 
 func (pg *PrivacyGroup) remove(id string) error {
-	// TODO: stop the map from getting too large
-	pg.Members[id] = false
+	_, ok := pg.Members[id]
+	if ok {
+		delete(pg.Members, id)
+	}
 	return nil
 }
 

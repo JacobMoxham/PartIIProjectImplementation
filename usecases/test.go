@@ -41,8 +41,8 @@ func test_main() {
 
 	db := middleware.MySQLPrivateDatabase{
 		StaticDataPolicy: &middleware.StaticDataPolicy{
-			PrivacyGroups: []*middleware.PrivacyGroup{group},
-			Transforms:    middleware.DataTransforms{group: &middleware.TableOperations{funcMap, colMap}},
+			privacyGroups: []*middleware.PrivacyGroup{group},
+			transforms:    middleware.DataTransforms{group: &middleware.TableOperations{funcMap, colMap}},
 		},
 	}
 	db.Connect("demouser", "demopassword", "store1")
