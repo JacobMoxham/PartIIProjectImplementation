@@ -20,7 +20,7 @@ const batchSize = 1000
 // PrivateRelationalDatabase wraps an SQL database and edits queries so that they operate
 // over tables adjusted to match privacy policies
 type PrivateRelationalDatabase interface {
-	Connect(user string, password string, databaseName string, uri string, port int) error
+	Connect(user, password, databaseName, uri string, port int) error
 	Close() error
 	Query(query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Rows, error)
 	QueryContext(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Rows, error)
@@ -70,7 +70,7 @@ type MySQLPrivateDatabase struct {
 }
 
 // Connect opens the connection to the MySQL database
-func (mspd *MySQLPrivateDatabase) Connect(user string, password string, databaseName string, uri string, port int) error {
+func (mspd *MySQLPrivateDatabase) Connect(user, password, databaseName, uri string, port int) error {
 	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=UTC", user, password, uri, port, databaseName))
 	if err != nil {
 		return err

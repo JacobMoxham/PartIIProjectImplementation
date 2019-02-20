@@ -6,7 +6,6 @@ type PrivacyGroup struct {
 	Members map[string]bool
 }
 
-// TODO: look into creating types with pointer type for structs
 func (pg *PrivacyGroup) add(id string) {
 	pg.Members[id] = true
 }

@@ -13,8 +13,9 @@ import (
 
 const DOCKER = false
 
-func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySqlPrivateDatabase, error) {
+func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySQLPrivateDatabase, error) {
 	transformsForEntities := make(map[string]map[string]func(interface{}) (interface{}, error))
+	transformsForEntities["household_power_consumption"] = make(map[string]func(interface{}) (interface{}, error))
 	transformsForEntities["household_power_consumption"]["datetime"] = func(arg interface{}) (interface{}, error) {
 		date, ok := arg.(*time.Time)
 
@@ -27,8 +28,7 @@ func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Reques
 	removedColumnsForEntities := map[string][]string{"CentralServer": {}}
 
 	group := &middleware.PrivacyGroup{Name: "CentralServer", Members: map[string]bool{"server": true}}
-
-	db := middleware.MySqlPrivateDatabase{
+	db := middleware.MySQLPrivateDatabase{
 		StaticDataPolicy: &middleware.StaticDataPolicy{
 			PrivacyGroups: []*middleware.PrivacyGroup{group},
 			Transforms:    middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}},

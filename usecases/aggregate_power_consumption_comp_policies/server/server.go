@@ -15,7 +15,7 @@ import (
 
 const DOCKER = true
 
-func getAverageForClient(client string, startDate string, endDate string, policy middleware.RequestPolicy, result chan float64) error {
+func getAverageForClient(client, startDate, endDate string, policy middleware.RequestPolicy, result chan float64) error {
 	log.Printf("Requesting data from %s", client)
 	httpRequest, err := http.NewRequest("GET", fmt.Sprintf("http://%s:3001/", client), nil)
 	if err != nil {

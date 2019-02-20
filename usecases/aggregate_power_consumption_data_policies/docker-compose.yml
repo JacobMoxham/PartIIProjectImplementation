@@ -2,9 +2,7 @@ version: '3'
 
 services:
   data-client:
-    build: './data-client-raw-data'
-    ports:
-      - "3001:3001"
+    build: './data-client'
   database:
     image: mysql
     container_name: database.dev
@@ -12,8 +10,6 @@ services:
     volumes:
       - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
       - ./mysql-init:/docker-entrypoint-initdb.d
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_DATABASE: power_consumption
       MYSQL_USER: "demouser"
@@ -27,5 +23,3 @@ services:
       - "6060:6060"
   server:
     build: './server'
-    ports:
-      - "3002:3002"

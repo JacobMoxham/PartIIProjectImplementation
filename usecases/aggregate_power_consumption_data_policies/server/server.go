@@ -14,7 +14,7 @@ import (
 
 const DOCKER = false
 
-func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Request), error) {
+func createGetAveragePowerConsumptionHandler(computationPolicy middleware.ComputationPolicy) (func(http.ResponseWriter, *http.Request), error) {
 	policy := middleware.RequestPolicy{
 		RequesterID:                 "server",
 		PreferredProcessingLocation: middleware.Remote,
@@ -27,6 +27,8 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 	} else {
 		clients = []string{"127.0.0.1"}
 	}
+
+	httpClient := middleware.MakePrivacyAwareClient(computationPolicy)
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		pamRequest, err := middleware.BuildPamRequest(r)
@@ -43,7 +45,7 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 			req.SetParam("startDate", startDate)
 			req.SetParam("endDate", endDate)
 
-			pamResp, err := req.Send()
+			pamResp, err := httpClient.Send(req)
 			// TODO: check if the database failed to connect and error properly
 			if err != nil {
 				log.Println("Error:", err)
@@ -109,15 +111,16 @@ func createGetAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.
 }
 
 func main() {
+	// Define computation policy
+	computationPolicy := middleware.NewStaticComputationPolicy()
+
 	// Create actual function to run
-	getAveragePowerConsumptionHandler, err := createGetAveragePowerConsumptionHandler()
+	getAveragePowerConsumptionHandler, err := createGetAveragePowerConsumptionHandler(computationPolicy)
 	if err != nil {
 		log.Fatal(err)
 	}
 	handler := http.HandlerFunc(getAveragePowerConsumptionHandler)
 
-	// Define computation policy
-	computationPolicy := middleware.NewStaticComputationPolicy()
 	computationPolicy.Register("/get-average-power-consumption", middleware.CanCompute, handler)
 
 	// Register the composite handler at '/get-average-power-consumption' on port 3002

@@ -24,7 +24,74 @@ func TestMySqlPrivateDatabase_Query(t *testing.T) {
 	// TODO: set this up so that it initially creates the necessary tables. Unfortunately this is always going to need
 	// a database running unless that could be mocked - may look into this but not a major requirement
 	// also write the initial data into the DB and check the output data
+	funcMap := validFuncMap()
+	colMap := map[string][]string{"TestGroup": []string{}}
 
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+
+	db := MySQLPrivateDatabase{
+		StaticDataPolicy: &StaticDataPolicy{
+			PrivacyGroups: []*PrivacyGroup{group},
+			Transforms:    DataTransforms{group: &TableOperations{funcMap, colMap}},
+		},
+	}
+
+	err := db.Connect("demouser", "demopassword", "store1", "127.0.0.1", 3306)
+	require.NoError(t, err)
+	_, err = db.Query("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	require.NoError(t, err)
+}
+
+func TestMySqlPrivateDatabase_QueryRow(t *testing.T) {
+	// TODO: set this up so that it initially creates the necessary tables. Unfortunately this is always going to need
+	// a database running unless that could be mocked - may look into this but not a major requirement
+	// also write the initial data into the DB and check the output data
+	funcMap := validFuncMap()
+	colMap := map[string][]string{"TestGroup": []string{}}
+
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+
+	db := MySQLPrivateDatabase{
+		StaticDataPolicy: &StaticDataPolicy{
+			PrivacyGroups: []*PrivacyGroup{group},
+			Transforms:    DataTransforms{group: &TableOperations{funcMap, colMap}},
+		},
+	}
+
+	err := db.Connect("demouser", "demopassword", "store1", "127.0.0.1", 3306)
+	require.NoError(t, err)
+	_, err = db.QueryRow("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	require.NoError(t, err)
+}
+
+func TestMySqlPrivateDatabase_Exec(t *testing.T) {
+	// TODO: set this up so that it initially creates the necessary tables. Unfortunately this is always going to need
+	// a database running unless that could be mocked - may look into this but not a major requirement
+	// also write the initial data into the DB and check the output data
+
+	funcMap := validFuncMap()
+	colMap := map[string][]string{"TestGroup": []string{}}
+
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+
+	db := MySQLPrivateDatabase{
+		StaticDataPolicy: &StaticDataPolicy{
+			PrivacyGroups: []*PrivacyGroup{group},
+			Transforms:    DataTransforms{group: &TableOperations{funcMap, colMap}},
+		},
+	}
+
+	err := db.Connect("demouser", "demopassword", "store1", "127.0.0.1", 3306)
+	require.NoError(t, err)
+	_, err = db.Query("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	require.NoError(t, err)
+}
+
+// TODO: add a test for batching
+// TODO: test read/write logic
+// TODO: add a test for applying transforms properly
+
+func validFuncMap() map[string]map[string]func(interface{}) (interface{}, error) {
 	funcMap := make(map[string]map[string]func(interface{}) (interface{}, error))
 	funcMap["TestGroup"] = make(map[string]func(interface{}) (interface{}, error))
 
@@ -54,21 +121,6 @@ func TestMySqlPrivateDatabase_Query(t *testing.T) {
 		}
 		return hiddenName, nil
 	}
-	colMap := map[string][]string{"TestGroup": []string{}}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
-
-	db := MySQLPrivateDatabase{
-		StaticDataPolicy: &StaticDataPolicy{
-			PrivacyGroups: []*PrivacyGroup{group},
-			Transforms:    DataTransforms{group: &TableOperations{funcMap, colMap}},
-		},
-	}
-
-	err := db.Connect("demouser", "demopassword", "store1", "127.0.0.1", 3306)
-	require.NoError(t, err)
-	_, err = db.Query("SELECT * from people", &RequestPolicy{"jacob", Local, true})
-	require.NoError(t, err)
+	return funcMap
 }
-
-// TODO: add a test for batching
