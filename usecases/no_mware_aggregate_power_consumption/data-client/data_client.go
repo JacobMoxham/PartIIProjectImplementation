@@ -21,10 +21,6 @@ func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Reques
 	db.SetMaxIdleConns(0)
 	db.SetConnMaxLifetime(time.Second * 20)
 
-	if err != nil {
-		return nil, nil, err
-	}
-
 	return func(w http.ResponseWriter, r *http.Request) {
 			// Get date interval from received request
 			requestParams := r.URL.Query()

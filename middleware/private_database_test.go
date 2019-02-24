@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"database/sql"
 	"errors"
 	"fmt"
 	"testing"
@@ -9,6 +10,8 @@ import (
 import (
 	"github.com/stretchr/testify/require"
 )
+
+// TESTS
 
 func TestMySqlPrivateDatabase_ConnectAndClose(t *testing.T) {
 	db := MySQLPrivateDatabase{}
@@ -123,4 +126,157 @@ func validFuncMap() map[string]map[string]func(interface{}) (interface{}, error)
 	}
 
 	return funcMap
+}
+
+// BENCHMARKS
+
+func benchmarkMySQLDatabaseQueryRead(b *testing.B, queryString string) {
+	b.StopTimer()
+	db, err := sql.Open("mysql",
+		fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=UTC",
+			"demouser", "demopassword", "127.0.0.1", 3306, "store1"))
+	if err != nil {
+		b.Error(err.Error())
+	}
+	db.SetMaxIdleConns(0)
+	db.SetConnMaxLifetime(time.Second * 20)
+	b.StartTimer()
+
+	_, err = db.Query(queryString)
+	if err != nil {
+		b.Error(err.Error())
+	}
+}
+
+func BenchmarkMySQLDatabase_Query_Read(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		benchmarkMySQLDatabaseQueryRead(b, "SELECT * from people")
+	}
+}
+
+func benchmarkMySQLPrivateDatabaseQueryReadNoCaching(b *testing.B, queryString string) {
+	b.StopTimer()
+	funcMap := validFuncMap()
+	colMap := map[string][]string{"TestGroup": {}}
+
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+
+	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
+		DataTransforms{group: &TableOperations{funcMap, colMap}})
+
+	db := MySQLPrivateDatabase{
+		DataPolicy:  staticDataPolicy,
+		CacheTables: false,
+	}
+	err := db.Connect("demouser", "demopassword", "store1", "127.0.0.1", 3306)
+	if err != nil {
+		b.Error(err.Error())
+	}
+	b.StartTimer()
+
+	_, err = db.Query(queryString, &RequestPolicy{"jacob", Local, true})
+	if err != nil {
+		b.Error(err.Error())
+	}
+}
+
+func BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		benchmarkMySQLPrivateDatabaseQueryReadNoCaching(b, "SELECT * from people")
+	}
+}
+
+func benchmarkMySQLPrivateDatabaseQueryReadCaching(b *testing.B, queryString string) {
+	b.StopTimer()
+	funcMap := validFuncMap()
+	colMap := map[string][]string{"TestGroup": {}}
+
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+
+	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
+		DataTransforms{group: &TableOperations{funcMap, colMap}})
+
+	db := MySQLPrivateDatabase{
+		DataPolicy:  staticDataPolicy,
+		CacheTables: true,
+	}
+	err := db.Connect("demouser", "demopassword", "store1", "127.0.0.1", 3306)
+	if err != nil {
+		b.Error(err.Error())
+	}
+
+	// Make the query once so we know we have a cached version of the table
+	_, err = db.Query(queryString, &RequestPolicy{"jacob", Local, true})
+	if err != nil {
+		b.Error(err.Error())
+	}
+	b.StartTimer()
+
+	_, err = db.Query(queryString, &RequestPolicy{"jacob", Local, true})
+	if err != nil {
+		b.Error(err.Error())
+	}
+}
+
+func BenchmarkMySQLPrivateDatabase_Query_Read_Caching(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		benchmarkMySQLPrivateDatabaseQueryReadCaching(b, "SELECT * from people")
+	}
+}
+
+func benchmarkMySQLDatabaseExecWrite(b *testing.B, execString string) {
+	b.StopTimer()
+	db, err := sql.Open("mysql",
+		fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=UTC",
+			"demouser", "demopassword", "127.0.0.1", 3306, "store1"))
+	if err != nil {
+		b.Error(err.Error())
+	}
+	db.SetMaxIdleConns(0)
+	db.SetConnMaxLifetime(time.Second * 20)
+	b.StartTimer()
+
+	_, err = db.Exec(execString)
+	if err != nil {
+		b.Error(err.Error())
+	}
+}
+
+func BenchmarkMySQLDatabase_Exec_Write(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		benchmarkMySQLDatabaseExecWrite(b, `INSERT INTO people (name, dob) VALUES ('steve', '1996-02-07')`)
+	}
+}
+
+func benchmarkMySQLPrivateDatabaseExecWrite(b *testing.B, execString string) {
+	b.StopTimer()
+	funcMap := validFuncMap()
+	colMap := map[string][]string{"TestGroup": {}}
+
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+
+	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
+		DataTransforms{group: &TableOperations{funcMap, colMap}})
+
+	db := MySQLPrivateDatabase{
+		DataPolicy:  staticDataPolicy,
+		CacheTables: false,
+	}
+	err := db.Connect("demouser", "demopassword", "store1", "127.0.0.1", 3306)
+	if err != nil {
+		b.Error(err.Error())
+	}
+	b.StartTimer()
+
+	_, err = db.Exec(execString,
+		&RequestPolicy{"jacob", Local, true})
+	if err != nil {
+		b.Error(err.Error())
+	}
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		benchmarkMySQLPrivateDatabaseExecWrite(b, `INSERT INTO people (name, dob) VALUES ('steve', '1996-02-07')`)
+	}
 }

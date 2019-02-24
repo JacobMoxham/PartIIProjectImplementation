@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  client:
+    build: './client'
+    command: '-image-filename 9kB'
+    ports:
+      - "4000:4000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.09'
+          memory: 50M
+        reservations:
+          cpus: '0.09'
+          memory: 50M
+  server:
+    build: './server'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+          memory: 2G
+        reservations:
+          cpus: '0.1'
+          memory: 2G

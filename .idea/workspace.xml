@@ -2,298 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e28621a1-efb5-4cd6-86fd-b9d0c04829bd" name="Default Changelist" comment="Basic client and server working">
+      <change afterPath="$PROJECT_DIR$/usecases/image_processing/docker-compose-swarm.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/Gopkg.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/Gopkg.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/data_client.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/data_policies.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/dynamic_computation_policy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/http.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_group.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/static_computation_policy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/AUTHORS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/appengine.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/auth.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/buffer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/collations.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/connection.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/connection_go18.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/const.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/driver.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/dsn.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/errors.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/fields.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/infile.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/packets.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/result.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/rows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/statement.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/transaction.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/utils_go17.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/go-sql-driver/mysql/utils_go18.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/joho/sqltocsv/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/joho/sqltocsv/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/joho/sqltocsv/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/joho/sqltocsv/sqltocsv.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/CONTRIBUTORS.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/analyzer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/ast.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/comments.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/dependency/bytes2/buffer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/dependency/hack/hack.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/dependency/querypb/query.pb.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/bind_variables.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/plan_value.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/testing.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/type.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/value.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/encodable.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/impossible_query.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/normalizer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/parsed_query.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/redact_query.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/sql.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/sql.y" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/token.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/github.com/xwb1989/sqlparser/tracked_buffer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/google.golang.org/appengine/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/google.golang.org/appengine/cloudsql/cloudsql.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/google.golang.org/appengine/cloudsql/cloudsql_classic.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/vendor/google.golang.org/appengine/cloudsql/cloudsql_vm.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/Gopkg.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/Gopkg.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/data_client.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/data_policies.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/dynamic_computation_policy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/http.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_group.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/static_computation_policy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/AUTHORS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/appengine.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/auth.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/buffer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/collations.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/connection.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/connection_go18.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/const.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/driver.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/dsn.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/errors.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/fields.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/infile.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/packets.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/result.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/rows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/statement.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/transaction.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/utils_go17.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/go-sql-driver/mysql/utils_go18.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/CONTRIBUTORS.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/analyzer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/ast.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/comments.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/dependency/bytes2/buffer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/dependency/hack/hack.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/dependency/querypb/query.pb.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/bind_variables.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/plan_value.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/testing.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/type.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/value.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/encodable.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/impossible_query.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/normalizer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/parsed_query.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/redact_query.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/sql.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/sql.y" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/token.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/github.com/xwb1989/sqlparser/tracked_buffer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/google.golang.org/appengine/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/google.golang.org/appengine/cloudsql/cloudsql.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/google.golang.org/appengine/cloudsql/cloudsql_classic.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/vendor/google.golang.org/appengine/cloudsql/cloudsql_vm.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/Gopkg.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/Gopkg.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/data_client.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/data_policies.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/dynamic_computation_policy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/http.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_group.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/static_computation_policy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/AUTHORS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/appengine.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/auth.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/buffer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/collations.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/connection.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/connection_go18.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/const.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/driver.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/dsn.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/errors.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/fields.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/infile.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/packets.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/result.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/rows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/statement.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/transaction.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/utils_go17.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/go-sql-driver/mysql/utils_go18.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/CONTRIBUTORS.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/analyzer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/ast.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/comments.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/dependency/bytes2/buffer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/dependency/hack/hack.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/dependency/querypb/query.pb.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/bind_variables.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/plan_value.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/testing.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/type.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/value.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/encodable.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/impossible_query.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/normalizer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/parsed_query.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/redact_query.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/sql.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/sql.y" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/token.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/github.com/xwb1989/sqlparser/tracked_buffer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/google.golang.org/appengine/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/google.golang.org/appengine/cloudsql/cloudsql.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/google.golang.org/appengine/cloudsql/cloudsql_classic.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/vendor/google.golang.org/appengine/cloudsql/cloudsql_vm.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/Gopkg.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/Gopkg.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/data_client.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/data_policies.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/dynamic_computation_policy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/http.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_group.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/static_computation_policy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/AUTHORS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/appengine.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/auth.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/buffer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/collations.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/connection.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/connection_go18.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/const.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/driver.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/dsn.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/errors.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/fields.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/infile.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/packets.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/result.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/rows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/statement.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/transaction.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/utils.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/utils_go17.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/go-sql-driver/mysql/utils_go18.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/joho/sqltocsv/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/joho/sqltocsv/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/joho/sqltocsv/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/joho/sqltocsv/sqltocsv.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/CONTRIBUTORS.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/analyzer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/ast.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/comments.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/dependency/bytes2/buffer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/dependency/hack/hack.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/dependency/querypb/query.pb.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/bind_variables.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/plan_value.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/testing.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/type.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/dependency/sqltypes/value.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/encodable.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/impossible_query.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/normalizer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/parsed_query.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/redact_query.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/sql.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/sql.y" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/token.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/github.com/xwb1989/sqlparser/tracked_buffer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/google.golang.org/appengine/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/google.golang.org/appengine/cloudsql/cloudsql.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/google.golang.org/appengine/cloudsql/cloudsql_classic.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/vendor/google.golang.org/appengine/cloudsql/cloudsql_vm.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/dep-ensure-all.sh" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/dep-ensure-all.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/private_database.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/private_database.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/private_database_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/private_database_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/client/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/images/image1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/data-client/data_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/data-client/data_client.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -342,118 +57,74 @@
     </ExecCommand>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.8379287">
-      <split-first>
-        <leaf>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/client.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-2094">
-                  <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm.yml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1692">
-                  <caret line="94" column="17" selection-start-line="94" selection-start-column="17" selection-end-line="94" selection-end-column="17" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="195">
-                  <caret line="48" column="23" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/dep-ensure-all.sh">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="72">
-                  <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/requesting_client.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="468">
-                  <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1998">
-                  <caret line="122" column="69" selection-start-line="122" selection-start-column="69" selection-end-line="122" selection-end-column="69" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/image_processing/server/server.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="198">
-                  <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/requesting-client/requesting_client.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1566">
-                  <caret line="87" selection-start-line="87" selection-end-line="87" />
-                  <folding>
-                    <element signature="e#14#160#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/server.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="612">
-                  <caret line="44" column="46" selection-start-line="44" selection-start-column="46" selection-end-line="44" selection-end-column="46" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="589">
-                  <caret line="46" column="61" selection-start-line="46" selection-start-column="61" selection-end-line="46" selection-end-column="61" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm.yml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="119">
-                  <caret line="27" column="49" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="49" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/private_database_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="583">
+              <caret line="152" column="30" selection-start-line="152" selection-start-column="30" selection-end-line="152" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/client.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="725">
+              <caret line="192" column="19" selection-start-line="192" selection-start-column="19" selection-end-line="192" selection-end-column="19" />
+              <folding>
+                <element signature="e#14#319#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/usecases/image_processing/docker-compose.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/usecases/image_processing/docker-compose-swarm.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/data-client/data_client.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-126">
+              <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/go/src/database/sql/driver/driver.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4644">
+              <caret line="262" column="5" selection-start-line="262" selection-start-column="5" selection-end-line="262" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/static_computation_policy.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="972">
+              <caret line="56" column="24" selection-start-line="56" selection-start-column="24" selection-end-line="56" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -464,8 +135,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>w.Write</find>
-      <find>static</find>
       <find>Preferred location is local but we can only compute full result</find>
       <find>Mutex</find>
       <find>colsToCopy</find>
@@ -494,6 +163,8 @@
       <find>Connect</find>
       <find>db.Con</find>
       <find>transforms :=</find>
+      <find>writeToTable</find>
+      <find>.format</find>
     </findStrings>
     <replaceStrings>
       <replace>columnString</replace>
@@ -522,8 +193,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption/dep-ensure-all.sh" />
-        <option value="$PROJECT_DIR$/usecases/basic.go" />
         <option value="$PROJECT_DIR$/usecases/basic.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption/requesting-client/requesting_client.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption/server/server.go" />
@@ -546,7 +215,6 @@
         <option value="$PROJECT_DIR$/usecases/simple_usecases/basic.go" />
         <option value="$PROJECT_DIR$/middleware/dynamic_computation_policy_test.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/server/server.go" />
-        <option value="$PROJECT_DIR$/usecases/image_processing/client/client.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/client/Dockerfile" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/data_client.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/data_client.go" />
@@ -562,17 +230,20 @@
         <option value="$PROJECT_DIR$/middleware/http.go" />
         <option value="$PROJECT_DIR$/middleware/privacy_group.go" />
         <option value="$PROJECT_DIR$/middleware/data_policies_test.go" />
-        <option value="$PROJECT_DIR$/middleware/private_database.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/data_client.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm.yml" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/requesting_client.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go" />
         <option value="$PROJECT_DIR$/middleware/data_policies.go" />
-        <option value="$PROJECT_DIR$/middleware/private_database_test.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/data_client.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/dep-ensure-all.sh" />
+        <option value="$PROJECT_DIR$/middleware/private_database.go" />
+        <option value="$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/data-client/data_client.go" />
+        <option value="$PROJECT_DIR$/middleware/private_database_test.go" />
+        <option value="$PROJECT_DIR$/usecases/image_processing/client/client.go" />
+        <option value="$PROJECT_DIR$/usecases/image_processing/docker-compose-swarm.yml" />
       </list>
     </option>
   </component>
@@ -588,6 +259,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -615,21 +287,27 @@
               <item name="PartIIProjectImplentation" type="b2602c69:ProjectViewProjectNode" />
               <item name="PartIIProjectImplementation" type="462c0819:PsiDirectoryNode" />
               <item name="usecases" type="462c0819:PsiDirectoryNode" />
-              <item name="aggregate_power_consumption_comp_policies" type="462c0819:PsiDirectoryNode" />
-              <item name="requesting-client" type="462c0819:PsiDirectoryNode" />
+              <item name="image_processing" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PartIIProjectImplentation" type="b2602c69:ProjectViewProjectNode" />
               <item name="PartIIProjectImplementation" type="462c0819:PsiDirectoryNode" />
               <item name="usecases" type="462c0819:PsiDirectoryNode" />
-              <item name="aggregate_power_consumption_comp_policies" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="image_processing" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PartIIProjectImplentation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PartIIProjectImplementation" type="462c0819:PsiDirectoryNode" />
+              <item name="usecases" type="462c0819:PsiDirectoryNode" />
+              <item name="image_processing" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -649,19 +327,19 @@
     <property name="settings.editor.selected.configurable" value="database.main" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/usecases/image_processing" />
+      <recent name="$PROJECT_DIR$/middleware" />
+      <recent name="$PROJECT_DIR$/usecases/image_processing/server" />
+      <recent name="$PROJECT_DIR$/usecases/image_processing/client" />
+      <recent name="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/usecases" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/usecases/image_processing/server" />
       <recent name="$PROJECT_DIR$/usecases/image_processing/server/app" />
       <recent name="$PROJECT_DIR$/usecases/image_processing/server/image_recognition" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/middleware" />
-      <recent name="$PROJECT_DIR$/usecases/image_processing" />
-      <recent name="$PROJECT_DIR$/usecases/image_processing/server" />
-      <recent name="$PROJECT_DIR$/usecases/image_processing/client" />
-      <recent name="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -676,7 +354,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.aggregate_power_consumption_comp_policies: Compose Deployment">
+  <component name="RunManager" selected="Docker.image_processing/docker-compose-swarm.yml: Compose Deployment">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="PartIIProjectImplentation" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -698,54 +376,48 @@
       <output_directory value="$PROJECT_DIR$/../../../../bin" />
       <method v="2" />
     </configuration>
-    <configuration name="go build requesting_client.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="PartIIProjectImplentation" />
-      <working_directory value="$PROJECT_DIR$/" />
-      <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/requesting-client/requesting_client.go" />
-      <package value="github.com/JacobMoxham/partiiproject" />
-      <directory value="$PROJECT_DIR$/" />
-      <output_directory value="$PROJECT_DIR$/../../../../bin" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go build server.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="PartIIProjectImplentation" />
-      <working_directory value="$PROJECT_DIR$/" />
-      <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/server.go" />
-      <package value="github.com/JacobMoxham/partiiproject" />
-      <directory value="$PROJECT_DIR$/" />
-      <output_directory value="$PROJECT_DIR$/../../../../bin" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestPrivacyAwareClient_Send_RunLocally in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="PartIIProjectImplentation" />
       <working_directory value="$PROJECT_DIR$/middleware" />
-      <framework value="gotest" />
+      <framework value="gobench" />
       <kind value="PACKAGE" />
       <package value="github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestPrivacyAwareClient_Send_RunLocally$" />
+      <pattern value="^BenchmarkMySQLDatabase_Exec_Write$" />
       <method v="2" />
     </configuration>
-    <configuration name="go test github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="BenchmarkMySQLDatabase_Query_Read in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="PartIIProjectImplentation" />
       <working_directory value="$PROJECT_DIR$/middleware" />
-      <framework value="gotest" />
+      <framework value="gobench" />
       <kind value="PACKAGE" />
       <package value="github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^BenchmarkMySQLDatabase_Query_Read$" />
       <method v="2" />
     </configuration>
-    <configuration name="aggregate_power_consumption_comp_policies: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="commandLineOptions" value="--build" />
-          <option name="sourceFilePath" value="usecases/aggregate_power_consumption_comp_policies/docker-compose.yml" />
-        </settings>
-      </deployment>
+    <configuration name="BenchmarkMySQLPrivateDatabase_Query_Read_Caching in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="PartIIProjectImplentation" />
+      <working_directory value="$PROJECT_DIR$/middleware" />
+      <framework value="gobench" />
+      <kind value="PACKAGE" />
+      <package value="github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^BenchmarkMySQLPrivateDatabase_Query_Read_Caching$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="PartIIProjectImplentation" />
+      <working_directory value="$PROJECT_DIR$/middleware" />
+      <framework value="gobench" />
+      <kind value="PACKAGE" />
+      <package value="github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching$" />
       <method v="2" />
     </configuration>
     <configuration name="aggregate_power_consumption.server: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
@@ -761,55 +433,63 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="image_processing/docker-compose-swarm.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="usecases/image_processing/docker-compose-swarm.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Docker.aggregate_power_consumption.server: Compose Deployment" />
       <item itemvalue="Go Build.go build data_client.go" />
-      <item itemvalue="Go Build.go build server.go" />
-      <item itemvalue="Go Build.go build requesting_client.go" />
-      <item itemvalue="Go Test.go test github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
-      <item itemvalue="Go Test.TestPrivacyAwareClient_Send_RunLocally in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
-      <item itemvalue="Docker.aggregate_power_consumption_comp_policies: Compose Deployment" />
+      <item itemvalue="Go Test.BenchmarkMySQLDatabase_Query_Read in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <item itemvalue="Go Test.BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <item itemvalue="Go Test.BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <item itemvalue="Go Test.BenchmarkMySQLPrivateDatabase_Query_Read_Caching in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <item itemvalue="Docker.image_processing/docker-compose-swarm.yml: Compose Deployment" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.aggregate_power_consumption_comp_policies: Compose Deployment" />
-        <item itemvalue="Go Test.go test github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
-        <item itemvalue="Go Test.TestPrivacyAwareClient_Send_RunLocally in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
-        <item itemvalue="Go Build.go build requesting_client.go" />
-        <item itemvalue="Go Build.go build server.go" />
+        <item itemvalue="Docker.image_processing/docker-compose-swarm.yml: Compose Deployment" />
+        <item itemvalue="Go Test.BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+        <item itemvalue="Go Test.BenchmarkMySQLPrivateDatabase_Query_Read_Caching in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+        <item itemvalue="Go Test.BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+        <item itemvalue="Go Test.BenchmarkMySQLDatabase_Query_Read in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="TestPrivacyAwareClient_Send_RunLocally_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.20 at 19h 23m 11s.xml">
-      <configuration name="TestPrivacyAwareClient_Send_RunLocally in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkMySQLPrivateDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.22 at 11h 21m 46s.xml">
+      <configuration name="BenchmarkMySQLPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestPrivacyAwareClient_Send_RunLocally_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.20 at 19h 23m 34s.xml">
-      <configuration name="TestPrivacyAwareClient_Send_RunLocally in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkMySQLPrivateDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.22 at 11h 22m 59s.xml">
+      <configuration name="BenchmarkMySQLPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestPrivacyAwareClient_Send_RunLocally_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.20 at 19h 24m 23s.xml">
-      <configuration name="TestPrivacyAwareClient_Send_RunLocally in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkMySQLPrivateDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.22 at 11h 23m 45s.xml">
+      <configuration name="BenchmarkMySQLPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestPrivacyAwareClient_Send_RunLocally_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.20 at 19h 24m 42s.xml">
-      <configuration name="TestPrivacyAwareClient_Send_RunLocally in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkMySQLPrivateDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.22 at 11h 23m 58s.xml">
+      <configuration name="BenchmarkMySQLPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestPrivacyAwareClient_Send_RunLocally_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.20 at 19h 24m 51s.xml">
-      <configuration name="TestPrivacyAwareClient_Send_RunLocally in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkMySQLDatabase_Query_Read_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.24 at 17h 00m 09s.xml">
+      <configuration name="BenchmarkMySQLDatabase_Query_Read in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestPrivacyAwareClient_Send_RunLocally_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.20 at 19h 25m 14s.xml">
-      <configuration name="TestPrivacyAwareClient_Send_RunLocally in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.24 at 17h 00m 52s.xml">
+      <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestPrivacyAwareClient_Send_RunLocally_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.20 at 19h 27m 28s.xml">
-      <configuration name="TestPrivacyAwareClient_Send_RunLocally in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkMySQLDatabase_Query_Read_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.24 at 17h 01m 19s.xml">
+      <configuration name="BenchmarkMySQLDatabase_Query_Read in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestPrivacyAwareClient_Send_RunLocally_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.20 at 19h 27m 33s.xml">
-      <configuration name="TestPrivacyAwareClient_Send_RunLocally in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.24 at 17h 01m 39s.xml">
+      <configuration name="BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="go_test_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.20 at 22h 37m 55s.xml">
-      <configuration name="go test github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkMySQLPrivateDatabase_Query_Read_Caching_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.24 at 17h 01m 55s.xml">
+      <configuration name="BenchmarkMySQLPrivateDatabase_Query_Read_Caching in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="go_test_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.20 at 23h 22m 21s.xml">
-      <configuration name="go test github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.24 at 17h 02m 01s.xml">
+      <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -823,7 +503,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6962963" visible="true" weight="0.18777293" />
@@ -832,11 +512,11 @@
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32991803" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.13270637" />
-      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.33437827" />
-      <window_info anchor="bottom" id="Debug" order="4" weight="0.032392893" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.03552769" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.36050156" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.498618" weight="0.031347964" />
+      <window_info active="true" anchor="bottom" id="Docker" order="7" sideWeight="0.498618" visible="true" weight="0.54858935" />
       <window_info anchor="bottom" id="TODO" order="8" weight="0.44827586" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.501382" side_tool="true" weight="0.35005224" />
@@ -910,63 +590,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/usecases/image_processing/client/client.go</url>
-          <line>171</line>
+          <line>172</line>
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/usecases/image_processing/client/client.go</url>
-          <line>95</line>
+          <line>96</line>
           <option name="timeStamp" value="65" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/go/src/net/http/response.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1908">
-          <caret line="141" column="58" selection-start-line="141" selection-start-column="58" selection-end-line="141" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/go/src/sync/map.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1026">
-          <caret line="60" selection-start-line="60" selection-end-line="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing/dep-ensure-all.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/dynamic_computation_policy_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="28" column="77" selection-start-line="28" selection-start-column="77" selection-end-line="28" selection-end-column="77" />
-          <folding>
-            <element signature="e#20#53#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/go/src/net/http/server.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3908">
-          <caret line="2361" selection-start-line="2361" selection-end-line="2361" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
@@ -981,27 +616,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing/docker-compose.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/data_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="184" selection-start-line="184" selection-end-line="184" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/data_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="96" selection-start-line="96" selection-end-line="96" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/data_client.go" />
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/data_client.go" />
     <entry file="file:///usr/local/go/src/fmt/print.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
@@ -1029,22 +645,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/static_computation_policy.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="46" selection-start-line="43" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/middleware/utils.go">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/image_recognition/image-recognition.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="33" column="3" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
-        </state>
-      </provider>
     </entry>
     <entry file="file:///usr/local/go/src/math/rand/rand.go">
       <provider selected="true" editor-type-id="text-editor">
@@ -1067,10 +669,233 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="63" column="25" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/net/http/request.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="791" column="22" selection-start-line="791" selection-start-column="16" selection-end-line="791" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/simple_usecases/basic.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="742">
+          <caret line="74" column="25" selection-start-line="70" selection-start-column="8" selection-end-line="74" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/privacy_group.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/http.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="42" column="33" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="33" />
+          <folding>
+            <element signature="n#!!block;n#DelParam#0" />
+            <element signature="n#!!block;n#GetParam#0" />
+            <element signature="n#!!block;n#SetParam#0" />
+            <element signature="n#!!block;n#BuildPamRequest#0" />
+            <element signature="n#!!block;n#BuildPamResponse#0" />
+            <element signature="n#!!block;n#PrivacyAwareHandler#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/data_client.go" />
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5370">
+          <caret line="57" column="34" selection-start-line="57" selection-start-column="34" selection-end-line="57" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5compute.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="36" selection-start-line="4" selection-start-column="4" selection-end-line="5" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/data_policies_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="95" column="38" selection-start-line="95" selection-start-column="38" selection-end-line="95" selection-end-column="38" />
+          <folding>
+            <element signature="n#!!block;n#TestStaticDataPolicy_Resolve_Success#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/data_policies.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/data_client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/requesting-client/requesting_client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1566">
+          <caret line="87" selection-start-line="87" selection-end-line="87" />
+          <folding>
+            <element signature="e#14#160#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="44" column="46" selection-start-line="44" selection-start-column="46" selection-end-line="44" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1278">
+          <caret line="71" column="10" selection-start-line="71" selection-start-column="10" selection-end-line="71" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/dep-ensure-all.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/requesting_client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1998">
+          <caret line="122" column="69" selection-start-line="122" selection-start-column="69" selection-end-line="122" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/server/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="46" column="61" selection-start-line="46" selection-start-column="61" selection-end-line="46" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/data_policies.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/computation_policies.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="84" column="5" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/privacy_aware_client_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/database/sql/driver/driver.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4644">
+          <caret line="262" column="5" selection-start-line="262" selection-start-column="5" selection-end-line="262" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/static_computation_policy.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="972">
+          <caret line="56" column="24" selection-start-line="56" selection-start-column="24" selection-end-line="56" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image_recognition/image-recognition.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="33" column="3" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="869">
+          <caret line="72" column="34" selection-start-line="72" selection-start-column="34" selection-end-line="72" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file:///usr/local/go/src/database/sql/sql.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="955" column="22" selection-start-line="955" selection-start-column="22" selection-end-line="955" selection-end-column="22" />
+        <state relative-caret-position="310">
+          <caret line="812" column="14" selection-start-line="812" selection-start-column="14" selection-end-line="812" selection-end-column="14" />
           <folding>
             <element signature="e#722#797#0" />
             <element signature="e#1088#1316#0" />
@@ -1188,7 +1013,6 @@
             <element signature="e#22677#22792#0" />
             <element signature="e#22794#22816#0" />
             <element signature="e#22818#22837#0" />
-            <element signature="e#23271#23805#0" />
             <element signature="e#23297#23318#0" />
             <element signature="e#23324#23372#0" />
             <element signature="e#23477#23507#0" />
@@ -1299,7 +1123,6 @@
             <element signature="e#38590#38612#0" />
             <element signature="e#38627#38686#0" />
             <element signature="e#38854#38972#0" />
-            <element signature="e#39213#39494#0" />
             <element signature="e#39286#39391#0" />
             <element signature="e#39374#39388#0" />
             <element signature="e#39421#39475#0" />
@@ -1567,244 +1390,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go">
+    <entry file="file://$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/data-client/data_client.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="63" column="25" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/docker-compose.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/go/src/net/http/request.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="791" column="22" selection-start-line="791" selection-start-column="16" selection-end-line="791" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/computation_policies.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="84" column="5" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/simple_usecases/basic.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="742">
-          <caret line="74" column="25" selection-start-line="70" selection-start-column="8" selection-end-line="74" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/privacy_group.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3482">
-          <caret line="292" column="51" selection-start-line="292" selection-start-column="51" selection-end-line="292" selection-end-column="51" />
-          <folding>
-            <element signature="e#1453#1762#0" />
-            <element signature="e#2347#2643#0" />
-            <element signature="e#2746#2791#0" />
-            <element signature="e#3136#3218#0" />
-            <element signature="e#3598#3848#0" />
-            <element signature="e#5244#5325#0" />
-            <element signature="e#5704#5953#0" />
-            <element signature="e#6046#6079#0" />
-            <element signature="e#6343#6383#0" />
-            <element signature="e#11716#12356#0" />
-            <element signature="e#12546#14820#0" />
-            <element signature="e#14960#15204#0" />
-            <element signature="e#15325#15551#0" />
-            <element signature="e#15625#15754#0" />
-            <element signature="e#18036#18681#0" />
-            <element signature="e#18789#19137#0" />
-            <element signature="e#19218#19624#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/http.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="42" column="33" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="33" />
-          <folding>
-            <element signature="n#!!block;n#DelParam#0" />
-            <element signature="n#!!block;n#GetParam#0" />
-            <element signature="n#!!block;n#SetParam#0" />
-            <element signature="n#!!block;n#BuildPamRequest#0" />
-            <element signature="n#!!block;n#BuildPamResponse#0" />
-            <element signature="n#!!block;n#PrivacyAwareHandler#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/data_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="35">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/privacy_aware_client_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="e#20#53#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5370">
-          <caret line="57" column="34" selection-start-line="57" selection-start-column="34" selection-end-line="57" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5compute.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="36" selection-start-line="4" selection-start-column="4" selection-end-line="5" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/data_policies.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/data_policies_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="95" column="38" selection-start-line="95" selection-start-column="38" selection-end-line="95" selection-end-column="38" />
-          <folding>
-            <element signature="n#!!block;n#TestStaticDataPolicy_Resolve_Success#0" />
-          </folding>
+        <state relative-caret-position="-126">
+          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/middleware/private_database_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1242">
-          <caret line="77" column="65" selection-start-line="77" selection-start-column="65" selection-end-line="77" selection-end-column="65" />
+        <state relative-caret-position="583">
+          <caret line="152" column="30" selection-start-line="152" selection-start-column="30" selection-end-line="152" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/data_policies.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/images/image1.jpg">
+      <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/data_client.go">
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/client.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/requesting-client/requesting_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1566">
-          <caret line="87" selection-start-line="87" selection-end-line="87" />
+        <state relative-caret-position="725">
+          <caret line="192" column="19" selection-start-line="192" selection-start-column="19" selection-end-line="192" selection-end-column="19" />
           <folding>
-            <element signature="e#14#160#0" expanded="true" />
+            <element signature="e#14#319#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/server.go">
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/docker-compose.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="44" column="46" selection-start-line="44" selection-start-column="46" selection-end-line="44" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing/server/server.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2094">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        <state relative-caret-position="144">
+          <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1692">
-          <caret line="94" column="17" selection-start-line="94" selection-start-column="17" selection-end-line="94" selection-end-column="17" />
+        <state relative-caret-position="263">
+          <caret line="35" column="21" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="35" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go">
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/docker-compose-swarm.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1998">
-          <caret line="122" column="69" selection-start-line="122" selection-start-column="69" selection-end-line="122" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/requesting_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="46" column="61" selection-start-line="46" selection-start-column="61" selection-end-line="46" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="48" column="23" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/dep-ensure-all.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+        <state relative-caret-position="90">
+          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
         </state>
       </provider>
     </entry>
