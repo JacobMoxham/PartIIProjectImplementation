@@ -2,8 +2,8 @@ version: '3'
 
 services:
   client:
-    build: './client'
-    command: '-image-filename 9kB'
+    image: jacobmoxham2/part_ii_project_implementation:im-client
+    command: '-image-filename 9kB.jpg'
     ports:
       - "4000:4000"
     deploy:
@@ -15,7 +15,7 @@ services:
           cpus: '0.09'
           memory: 50M
   server:
-    build: './server'
+    image: jacobmoxham2/part_ii_project_implementation:im-server
     deploy:
       resources:
         limits:

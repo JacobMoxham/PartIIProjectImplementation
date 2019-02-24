@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"flag"
 	"fmt"
 	imageProcessing "github.com/JacobMoxham/PartIIProjectImplementation/image_recognition"
 	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
@@ -34,7 +33,7 @@ func imageProcessingHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy, imageFileName string) func(http.ResponseWriter, *http.Request) {
+func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) func(http.ResponseWriter, *http.Request) {
 	client := middleware.MakePrivacyAwareClient(computationPolicy)
 
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -42,6 +41,12 @@ func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy, im
 		requestParams := r.URL.Query()
 		preferredLocationString := requestParams.Get("preferredLocation")
 		preferredLocation, err := middleware.ProcessingLocationFromString(preferredLocationString)
+		if err != nil {
+			log.Println("Error:", err)
+			return
+		}
+
+		imageFileName := requestParams.Get("imageFileName")
 		if err != nil {
 			log.Println("Error:", err)
 			return
@@ -178,12 +183,8 @@ func main() {
 	computationPolicy := middleware.NewDynamicComputationPolicy()
 	computationPolicy.Register("/", middleware.CanCompute, http.HandlerFunc(imageProcessingHandler))
 
-	imageFileName := flag.String("image-filename", "image1.jpg",
-		"name of the file containing the image including its extension i.e. image1.jpg")
-	flag.Parse()
-
 	// Listen on 4000 for request to start example
-	http.Handle("/request", http.HandlerFunc(createMakeRequestHandler(computationPolicy, *imageFileName)))
+	http.Handle("/request", http.HandlerFunc(createMakeRequestHandler(computationPolicy)))
 
 	// Listen on 4000 for request to edit the computation policy
 	http.Handle("/update-policy", http.HandlerFunc(createUpdatePolicyHandler(computationPolicy)))
