@@ -71,56 +71,43 @@ type Device struct {
 	MemoryLimitBytes int64
 }
 
-// String describes d and implements fmt.Stringer.
-func (d Device) String() string {
-	memStr := "no memory limit"
-	if d.MemoryLimitBytes >= 0 {
-		memStr = fmt.Sprintf("memory limit %d bytes", d.MemoryLimitBytes)
-	}
-	return fmt.Sprintf("(Device: name \"%s\", type %s, %s)", d.Name, d.Type, memStr)
-}
-
-func deviceSliceFromDeviceList(list *C.TF_DeviceList) ([]Device, error) {
+// Return list of devices associated with a Session
+func (s *Session) ListDevices() ([]Device, error) {
 	var devices []Device
-	status := newStatus()
 
-	for i := 0; i < int(C.TF_DeviceListCount(list)); i++ {
-		name := C.TF_DeviceListName(list, C.int(i), status.c)
+	status := newStatus()
+	devices_list := C.TF_SessionListDevices(s.c, status.c)
+	if err := status.Err(); err != nil {
+		return nil, fmt.Errorf("SessionListDevices() failed: %v", err)
+	}
+	defer C.TF_DeleteDeviceList(devices_list)
+
+	for i := 0; i < int(C.TF_DeviceListCount(devices_list)); i++ {
+		device_name := C.TF_DeviceListName(devices_list, C.int(i), status.c)
 		if err := status.Err(); err != nil {
 			return nil, fmt.Errorf("DeviceListName(index=%d) failed: %v", i, err)
 		}
 
-		deviceType := C.TF_DeviceListType(list, C.int(i), status.c)
+		device_type := C.TF_DeviceListType(devices_list, C.int(i), status.c)
 		if err := status.Err(); err != nil {
 			return nil, fmt.Errorf("DeviceListType(index=%d) failed: %v", i, err)
 		}
 
-		memoryLimitBytes := C.TF_DeviceListMemoryBytes(list, C.int(i), status.c)
+		memory_limit_bytes := C.TF_DeviceListMemoryBytes(devices_list, C.int(i), status.c)
 		if err := status.Err(); err != nil {
 			return nil, fmt.Errorf("DeviceListMemoryBytes(index=%d) failed: %v", i, err)
 		}
 
 		device := Device{
-			Name:             C.GoString(name),
-			Type:             C.GoString(deviceType),
-			MemoryLimitBytes: int64(memoryLimitBytes),
+			Name:             C.GoString(device_name),
+			Type:             C.GoString(device_type),
+			MemoryLimitBytes: int64(memory_limit_bytes),
 		}
 
 		devices = append(devices, device)
 	}
 
 	return devices, nil
-}
-
-// ListDevices returns the list of devices associated with a Session.
-func (s *Session) ListDevices() ([]Device, error) {
-	status := newStatus()
-	devicesList := C.TF_SessionListDevices(s.c, status.c)
-	if err := status.Err(); err != nil {
-		return nil, fmt.Errorf("SessionListDevices() failed: %v", err)
-	}
-	defer C.TF_DeleteDeviceList(devicesList)
-	return deviceSliceFromDeviceList(devicesList)
 }
 
 // Run the graph with the associated session starting with the supplied feeds

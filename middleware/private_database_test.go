@@ -93,25 +93,26 @@ func TestMySqlPrivateDatabase_Exec(t *testing.T) {
 // TODO: add a test for batching
 // TODO: test read/write logic
 // TODO: add a test for applying transforms properly
+// TODO: add test for excludedRows
 
-func validFuncMap() map[string]map[string]func(interface{}) (interface{}, error) {
-	funcMap := make(map[string]map[string]func(interface{}) (interface{}, error))
-	funcMap["TestGroup"] = make(map[string]func(interface{}) (interface{}, error))
+func validFuncMap() map[string]TableTransform {
+	funcMap := make(map[string]TableTransform)
+	funcMap["TestGroup"] = make(TableTransform)
 
-	funcMap["TestGroup"]["dob"] = func(arg interface{}) (interface{}, error) {
+	funcMap["TestGroup"]["dob"] = func(arg interface{}) (interface{}, bool, error) {
 		date, ok := arg.(*time.Time)
 
 		if !ok {
-			return nil, errors.New("argument could not be asserted as time.Time")
+			return nil, true, errors.New("argument could not be asserted as time.Time")
 		}
 		onlyYear := time.Date(date.Year(), 1, 1, 0, 0, 0, 0, time.UTC)
-		return onlyYear, nil
+		return onlyYear, false, nil
 	}
-	funcMap["TestGroup"]["name"] = func(arg interface{}) (interface{}, error) {
+	funcMap["TestGroup"]["name"] = func(arg interface{}) (interface{}, bool, error) {
 		name, ok := arg.(*string)
 
 		if !ok {
-			return nil, errors.New("argument could not be asserted as string")
+			return nil, true, errors.New("argument could not be asserted as string")
 		}
 
 		hiddenName := ""
@@ -122,7 +123,7 @@ func validFuncMap() map[string]map[string]func(interface{}) (interface{}, error)
 				hiddenName += fmt.Sprintf("%c", c)
 			}
 		}
-		return hiddenName, nil
+		return hiddenName, false, nil
 	}
 
 	return funcMap

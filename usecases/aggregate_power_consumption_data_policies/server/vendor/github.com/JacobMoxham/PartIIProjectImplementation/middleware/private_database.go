@@ -134,7 +134,7 @@ func (mspd *MySQLPrivateDatabase) QueryRowContext(ctx context.Context, query str
 
 // Exec takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
 // request policy to give a result to the query on transformed versions of the actual database tables
-func (mspd *MySQLPrivateDatabase) Exec(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (sql.Result, error) {
+func (mspd *MySQLPrivateDatabase) Exec(query string, requestPolicy *RequestPolicy, args ...interface{}) (sql.Result, error) {
 	return mspd.ExecContext(context.Background(), query, requestPolicy, args...)
 }
 
@@ -148,11 +148,11 @@ func (mspd *MySQLPrivateDatabase) ExecContext(ctx context.Context, query string,
 	}
 
 	// Execute query
-	rows, err := mspd.database.ExecContext(ctx, query, args...)
+	result, err := mspd.database.ExecContext(ctx, query, args...)
 	if err != nil {
 		return nil, err
 	}
-	return rows, nil
+	return result, nil
 }
 
 // Stats returns database statistics
