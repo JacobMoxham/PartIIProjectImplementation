@@ -51,6 +51,10 @@ func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) fu
 			log.Println("Error:", err)
 			return
 		}
+		if imageFileName == "" {
+			imageFileName = "9kB.jpg"
+			log.Println("Using 9kB.jpg as no imageFileName was specified")
+		}
 
 		pwd, _ := os.Getwd()
 		filePath := "images/" + imageFileName
