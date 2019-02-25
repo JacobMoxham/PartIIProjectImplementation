@@ -337,7 +337,7 @@ func (mspd *MySQLPrivateDatabase) checkForExcludedColumns(tableName string, excl
 }
 
 func (mspd *MySQLPrivateDatabase) transformTable(tableName string, transformedTableName string,
-	transforms map[string]func(interface{}) (interface{}, error), excludedColumns []string) error {
+	transforms TableTransform, excludedColumns []string) error {
 
 	if mspd.CacheTables {
 		// Check if we have a valid cached table
@@ -370,7 +370,7 @@ func (mspd *MySQLPrivateDatabase) transformTable(tableName string, transformedTa
 }
 
 func (mspd *MySQLPrivateDatabase) doTransform(tableName string, transformedTableName string,
-	transforms map[string]func(interface{}) (interface{}, error), excludedColumns []string) error {
+	transforms TableTransform, excludedColumns []string) error {
 	// Get the column types
 	colsToCopy, err := mspd.getColsToCopy(tableName, excludedColumns)
 	if err != nil {
@@ -418,35 +418,37 @@ func (mspd *MySQLPrivateDatabase) doTransform(tableName string, transformedTable
 		}
 
 		// Apply transforms to rows
-		err := applyTransformsToRows(&vals, colsToCopy, transforms)
+		excludeRow, err := applyTransformsToRows(&vals, colsToCopy, transforms)
 		if err != nil {
 			return err
 		}
 
-		// Add rows to string
-		rowsToWrite += "("
-		for i := 0; i < len(vals); i++ {
-			rowsToWrite += "?, "
-		}
-		rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
-		rowsToWrite += "), "
-		rowArguments = append(rowArguments, vals...)
-
-		rowCount += 1
-		if rowCount == batchSize {
-			// Remove the last comma and space
-			rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
-
-			// Write to database and then continue
-			err := mspd.writeToTable(transformedTableName, rowsToWrite, rowArguments)
-			if err != nil {
-				return err
+		if !excludeRow {
+			// Add rows to string
+			rowsToWrite += "("
+			for i := 0; i < len(vals); i++ {
+				rowsToWrite += "?, "
 			}
+			rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
+			rowsToWrite += "), "
+			rowArguments = append(rowArguments, vals...)
 
-			// Reset accumulators
-			rowCount = 0
-			rowsToWrite = ""
-			rowArguments = rowArguments[:0]
+			rowCount += 1
+			if rowCount == batchSize {
+				// Remove the last comma and space
+				rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
+
+				// Write to database and then continue
+				err := mspd.writeToTable(transformedTableName, rowsToWrite, rowArguments)
+				if err != nil {
+					return err
+				}
+
+				// Reset accumulators
+				rowCount = 0
+				rowsToWrite = ""
+				rowArguments = rowArguments[:0]
+			}
 		}
 	}
 	if rowCount > 0 {
@@ -461,19 +463,22 @@ func (mspd *MySQLPrivateDatabase) doTransform(tableName string, transformedTable
 }
 
 func applyTransformsToRows(vals *[]interface{}, colsToCopy []string,
-	transforms map[string]func(interface{}) (interface{}, error)) error {
+	transforms TableTransform) (bool, error) {
 	for i, val := range *vals {
 		currentCol := colsToCopy[i]
 		transform, ok := transforms[currentCol]
 		if ok {
-			transformedVal, err := transform(val)
+			transformedVal, excludeRow, err := transform(val)
 			if err != nil {
-				return err
+				return true, err
+			}
+			if excludeRow {
+				return true, nil
 			}
 			(*vals)[i] = transformedVal
 		}
 	}
-	return nil
+	return false, nil
 }
 
 func (mspd *MySQLPrivateDatabase) writeToTable(tableName string, rowsToWrite string, rowArguments []interface{}) error {

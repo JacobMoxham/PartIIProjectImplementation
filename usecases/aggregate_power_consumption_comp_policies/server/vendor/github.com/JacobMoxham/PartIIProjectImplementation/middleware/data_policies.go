@@ -6,16 +6,20 @@ import (
 	"time"
 )
 
+type ColumnTransform func(interface{}) (transformedValue interface{}, excludeRow bool, err error)
+
+type TableTransform map[string]ColumnTransform
+
 // TableOperations contains functions to apply to tables before sending to an entity and columns to exclude
 type TableOperations struct {
-	TableTransforms map[string]map[string]func(interface{}) (interface{}, error)
+	TableTransforms map[string]TableTransform
 	ExcludedCols    map[string][]string
 }
 
 // NewTableOperations returns a pointer to a TableOperations struct with initialised fields
 func NewTableOperations() *TableOperations {
 	return &TableOperations{
-		TableTransforms: make(map[string]map[string]func(interface{}) (interface{}, error)),
+		TableTransforms: make(map[string]TableTransform),
 		ExcludedCols:    make(map[string][]string),
 	}
 }

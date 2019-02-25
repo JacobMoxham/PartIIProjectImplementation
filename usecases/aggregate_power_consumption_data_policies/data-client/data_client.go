@@ -14,17 +14,17 @@ import (
 const DOCKER = false
 
 func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySQLPrivateDatabase, error) {
-	transformsForEntities := make(map[string]map[string]func(interface{}) (interface{}, error))
-	transformsForEntities["household_power_consumption"] = make(map[string]func(interface{}) (interface{}, error))
-	transformsForEntities["household_power_consumption"]["datetime"] = func(arg interface{}) (interface{}, error) {
-		date, ok := arg.(*time.Time)
+	transformsForEntities := make(map[string]middleware.TableTransform)
+	transformsForEntities["household_power_consumption"] = middleware.TableTransform{
+		"datetime": func(arg interface{}) (interface{}, bool, error) {
+			date, ok := arg.(*time.Time)
 
-		if !ok {
-			return nil, errors.New("argument could not be asserted as time.Time")
-		}
-		onlyYear := time.Date(date.Year(), date.Month(), 1, 0, 0, 0, 0, time.UTC)
-		return onlyYear, nil
-	}
+			if !ok {
+				return nil, true, errors.New("argument could not be asserted as time.Time")
+			}
+			onlyYear := time.Date(date.Year(), date.Month(), 1, 0, 0, 0, 0, time.UTC)
+			return onlyYear, false, nil
+		}}
 	removedColumnsForEntities := map[string][]string{"CentralServer": {}}
 
 	group := &middleware.PrivacyGroup{Name: "CentralServer", Members: map[string]bool{"server": true}}
