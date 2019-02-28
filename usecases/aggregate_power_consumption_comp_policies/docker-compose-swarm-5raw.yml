@@ -70,6 +70,14 @@ services:
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 500M
+        reservations:
+          cpus: '0.2'
+          memory: 500M
   database-2:
     image: mysql
     command: mysqld --user=root --verbose
@@ -84,6 +92,14 @@ services:
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 500M
+        reservations:
+          cpus: '0.2'
+          memory: 500M
   database-3:
     image: mysql
     command: mysqld --user=root --verbose
@@ -98,6 +114,14 @@ services:
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 500M
+        reservations:
+          cpus: '0.2'
+          memory: 500M
   database-4:
     image: mysql
     command: mysqld --user=root --verbose
@@ -112,6 +136,14 @@ services:
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 500M
+        reservations:
+          cpus: '0.2'
+          memory: 500M
   database-5:
     image: mysql
     command: mysqld --user=root --verbose
@@ -126,6 +158,14 @@ services:
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 500M
+        reservations:
+          cpus: '0.2'
+          memory: 500M
   requesting-client:
     image: jacobmoxham2/part_ii_project_implementation:requesting
     deploy:
