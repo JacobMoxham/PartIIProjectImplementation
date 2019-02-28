@@ -94,6 +94,20 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 				log.Println(err.Error())
 				return
 			}
+
+			// Use double close pattern as rows.Close() is idempotent
+			if rows.Err() != nil {
+				http.Error(w, err.Error(), 500)
+				log.Println(err.Error())
+				return
+			}
+
+			if err := rows.Close(); err != nil {
+				http.Error(w, err.Error(), 500)
+				log.Println(err.Error())
+				return
+			}
+
 			_, err = w.Write([]byte(resultString))
 			if err != nil {
 				http.Error(w, err.Error(), 500)

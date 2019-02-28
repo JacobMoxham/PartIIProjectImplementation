@@ -8,10 +8,10 @@ services:
       resources:
         limits:
           cpus: '0.1'
-          memory: 40M
+          memory: 50M
         reservations:
           cpus: '0.1'
-          memory: 40M
+          memory: 50M
   data-client-2:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
     command: -raw-data database-2
@@ -19,10 +19,10 @@ services:
       resources:
         limits:
           cpus: '0.1'
-          memory: 40M
+          memory: 50M
         reservations:
           cpus: '0.1'
-          memory: 40M
+          memory: 50M
   data-client-3:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
     command: -raw-data database-3
@@ -30,10 +30,10 @@ services:
       resources:
         limits:
           cpus: '0.1'
-          memory: 40M
+          memory: 50M
         reservations:
           cpus: '0.1'
-          memory: 40M
+          memory: 50M
   data-client-4:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
     command: -raw-data database-4
@@ -41,10 +41,10 @@ services:
       resources:
         limits:
           cpus: '0.1'
-          memory: 40M
+          memory: 50M
         reservations:
           cpus: '0.1'
-          memory: 40M
+          memory: 50M
   data-client-5:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
     command: -raw-data database-5
@@ -52,10 +52,10 @@ services:
       resources:
         limits:
           cpus: '0.1'
-          memory: 40M
+          memory: 50M
         reservations:
           cpus: '0.1'
-          memory: 40M
+          memory: 50M
   database-1:
     image: mysql
     command: mysqld --user=root --verbose
@@ -146,9 +146,9 @@ services:
       resources:
         limits:
           cpus: '0.5'
-          memory: 200M
+          memory: 20M
         reservations:
           cpus: '0.5'
-          memory: 200M
+          memory: 20M
 #    ports:
 #      - "3002:3002"
