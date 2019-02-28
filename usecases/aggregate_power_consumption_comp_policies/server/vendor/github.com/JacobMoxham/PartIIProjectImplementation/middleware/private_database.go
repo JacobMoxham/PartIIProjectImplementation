@@ -75,7 +75,9 @@ func (mspd *MySQLPrivateDatabase) Connect(user, password, databaseName, uri stri
 	if err != nil {
 		return err
 	}
-	db.SetMaxIdleConns(0)
+	// TODO: what are the consequences of changing these?
+	db.SetMaxIdleConns(100)
+	db.SetMaxOpenConns(100)
 	db.SetConnMaxLifetime(time.Second * 20)
 	mspd.database = db
 	mspd.databaseName = databaseName

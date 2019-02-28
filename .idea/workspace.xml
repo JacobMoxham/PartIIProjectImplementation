@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e28621a1-efb5-4cd6-86fd-b9d0c04829bd" name="Default Changelist" comment="Basic client and server working">
-      <change afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/build-and-push-to-docker-hub.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/push-to-docker-hub.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/private_database.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/private_database.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/Gopkg.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/Gopkg.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/Gopkg.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,11 +91,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
-                  <caret line="27" column="10" selection-start-line="18" selection-start-column="6" selection-end-line="27" selection-end-column="10" />
+                <state relative-caret-position="612">
+                  <caret line="56" column="43" selection-start-line="56" selection-start-column="43" selection-end-line="56" selection-end-column="43" />
                 </state>
               </provider>
             </entry>
@@ -143,7 +145,7 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="342">
@@ -193,8 +195,8 @@
       <find>40M</find>
       <find>20M</find>
       <find>transformTables</find>
-      <find>database.Query</find>
       <find>.setmax</find>
+      <find>database.Query</find>
     </findStrings>
     <replaceStrings>
       <replace>columnString</replace>
@@ -271,10 +273,10 @@
         <option value="$PROJECT_DIR$/middleware/private_database_test.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/data_client.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5compute.yml" />
-        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/push-to-docker-hub.sh" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml" />
         <option value="$PROJECT_DIR$/middleware/private_database.go" />
+        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go" />
       </list>
     </option>
   </component>
@@ -1409,13 +1411,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="27" column="10" selection-start-line="18" selection-start-column="6" selection-end-line="27" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1462,6 +1457,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="77" column="57" selection-start-line="77" selection-start-column="57" selection-end-line="77" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="56" column="43" selection-start-line="56" selection-start-column="43" selection-end-line="56" selection-end-column="43" />
         </state>
       </provider>
     </entry>
