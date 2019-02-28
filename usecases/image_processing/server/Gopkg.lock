@@ -3,14 +3,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:9f5f237e5442d46bc07bab2b697cdda1d419dbaf833bd24fded9b1e1288ff613"
+  digest = "1:c0936dc9e828dfbcf74ad8e1dce4564fd66362c5b698ba8ef5f7cf0864a90596"
   name = "github.com/JacobMoxham/PartIIProjectImplementation"
   packages = [
     "image_recognition",
     "middleware",
   ]
   pruneopts = "UT"
-  revision = "fc2f4a954b15e1d3c815157a73220807e221f7a0"
+  revision = "d0fba10c28a7160e5c62888cb76f912dfbe172de"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"
@@ -21,15 +21,15 @@
   version = "v1.4.1"
 
 [[projects]]
-  digest = "1:0c7907087e740274db3c93281656162e00a5e602fa7485ea812cdc13b25eeed2"
+  digest = "1:9e0bdfdd154584486ba07ba78a4e237389c6ec402fecd4db0d0d84668f17ef57"
   name = "github.com/tensorflow/tensorflow"
   packages = [
     "tensorflow/go",
     "tensorflow/go/op",
   ]
   pruneopts = "UT"
-  revision = "a6d8ffae097d0132989ae4688d224121ec6d8f35"
-  version = "v1.12.0"
+  revision = "6612da89516247503f03ef76e974b51a434fb52e"
+  version = "v1.13.1"
 
 [[projects]]
   branch = "master"
