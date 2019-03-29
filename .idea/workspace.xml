@@ -2,19 +2,45 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e28621a1-efb5-4cd6-86fd-b9d0c04829bd" name="Default Changelist" comment="Basic client and server working">
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/Gopkg.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/Gopkg.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/Gopkg.lock" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/Gopkg.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/usecases/no_mware_image_processing/build-and-push-to-docker-hub.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/usecases/no_mware_image_processing/push-to-docker-hub.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/bench_to_csv/bench_to_csv.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/bench_to_csv/bench_to_csv.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/computation_policies.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/computation_policies.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/data_policies_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/data_policies_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/dynamic_computation_policy.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/dynamic_computation_policy.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/http.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/privacy_aware_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/privacy_aware_client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/private_database.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/private_database.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/private_database_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/private_database_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/static_computation_policy.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/static_computation_policy.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5compute.yml" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5compute.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/build-and-push-to-docker-hub.sh" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/build-and-push-to-docker-hub.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/client/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/client/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/docker-compose-swarm.yml" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/docker-compose-swarm.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/push-to-docker-hub.sh" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/push-to-docker-hub.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/image_processing/server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/image_processing/server/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/requesting-client/requesting_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/requesting-client/requesting_client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/no_mware_image_processing/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/no_mware_image_processing/client/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/no_mware_image_processing/docker-compose-swarm.yml" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/no_mware_image_processing/docker-compose-swarm.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/no_mware_image_processing/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/no_mware_image_processing/server/server.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/PartIIProjectImplentation$BenchmarkMySQLDatabaseQueryRead_100_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware.out" NAME="BenchmarkMySQLDatabaseQueryRead_100 in github.com/JacobMoxham/PartIIProjectImplementation/middleware Coverage Results" MODIFIED="1552231926452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/PartIIProjectImplentation$gobench_github_com_JacobMoxham_PartIIProjectImplementation_middleware.out" NAME="gobench github.com/JacobMoxham/PartIIProjectImplementation/middleware Coverage Results" MODIFIED="1552241067476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="345" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -57,106 +83,104 @@
     </ExecCommand>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.21281464">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5compute.yml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="314">
-                  <caret line="129" column="58" selection-start-line="129" selection-end-line="130" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="79" column="22" selection-start-line="79" selection-start-column="22" selection-end-line="79" selection-end-column="22" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="429">
-                  <caret line="172" column="15" selection-start-line="172" selection-start-column="15" selection-end-line="172" selection-end-column="15" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="612">
-                  <caret line="56" column="43" selection-start-line="56" selection-start-column="43" selection-end-line="56" selection-end-column="43" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm.yml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="72">
-                  <caret line="4" column="72" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="72" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/build-and-push-to-docker-hub.sh">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="18">
-                  <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/push-to-docker-hub.sh">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="126">
-                  <caret line="7" selection-start-line="7" selection-end-line="7" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret column="12" selection-start-column="12" selection-end-column="12" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/usecases/simple_usecases/basic.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="441">
-                  <caret line="74" column="25" selection-start-line="70" selection-start-column="8" selection-end-line="74" selection-end-column="25" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="342">
-                  <caret line="77" column="57" selection-start-line="77" selection-start-column="57" selection-end-line="77" selection-end-column="57" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/private_database_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="356">
+              <caret line="141" selection-start-line="141" selection-end-line="141" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/server.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="158">
+              <caret line="48" column="91" selection-start-line="48" selection-start-column="91" selection-end-line="48" selection-end-column="91" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/client.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-670">
+              <caret line="106" column="79" selection-start-line="106" selection-start-column="76" selection-end-line="106" selection-end-column="79" />
+              <folding>
+                <element signature="e#14#319#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/usecases/no_mware_image_processing/client/client.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="167">
+              <caret line="70" selection-start-line="70" selection-end-line="70" />
+              <folding>
+                <element signature="e#14#319#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/computation_policies.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="474">
+              <caret line="137" column="11" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/static_computation_policy.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="50" column="73" lean-forward="true" selection-start-line="50" selection-start-column="73" selection-end-line="50" selection-end-column="73" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/dynamic_computation_policy.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1195">
+              <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/data_policies_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="95" column="3" selection-start-line="95" selection-start-column="3" selection-end-line="95" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/privacy_aware_client.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="167">
+              <caret line="46" column="11" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="158">
+              <caret line="280" column="15" selection-start-line="280" selection-start-column="15" selection-end-line="280" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -167,36 +191,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>func \(db \*DB\)</find>
-      <find>Conn</find>
-      <find>transformTable</find>
-      <find>SELECT</find>
-      <find>func (db *DB)</find>
-      <find>SQLNode</find>
-      <find>SetConnMaxLifetime</find>
-      <find>Ping(</find>
-      <find>MySql</find>
-      <find>NewRequest</find>
-      <find>Body</find>
-      <find>([a-zA-z0-9]* string)</find>
-      <find>([a-zA-z0-9]* string,)</find>
-      <find>StaticDataPolicy</find>
-      <find>db</find>
-      <find>Connect</find>
-      <find>db.Con</find>
-      <find>transforms :=</find>
-      <find>writeToTable</find>
-      <find>.format</find>
-      <find>#RUN</find>
-      <find>funcMap :=</find>
-      <find>bool, err</find>
-      <find>func(arg interface{}) (interface{}, error)</find>
-      <find>,bool, error)</find>
-      <find>40M</find>
-      <find>20M</find>
       <find>transformTables</find>
       <find>.setmax</find>
+      <find>0.05</find>
+      <find>40M</find>
       <find>database.Query</find>
+      <find>0.025</find>
+      <find>Send</find>
+      <find>benchmarkMySQLPrivateDatabaseQueryReadCaching</find>
+      <find>store1</find>
+      <find>dropTable</find>
+      <find>dropTableIfExits</find>
+      <find>.Close</find>
+      <find>r = bench</find>
+      <find>r.Close()</find>
+      <find>BenchmarkMySQLDatabaseQueryRead</find>
+      <find>validFUnc</find>
+      <find>INSERT</find>
+      <find>colMap := map[string][]string{&quot;TestGroup&quot;: {}}</find>
+      <find>argu</find>
+      <find>lower</find>
+      <find>Columns    Columns</find>
+      <find>Columns</find>
+      <find>TableExpr</find>
+      <find>Update</find>
+      <find>ColName</find>
+      <find>.Qualifier</find>
+      <find>.Qualifier =</find>
+      <find>parse</find>
+      <find>Qualifier</find>
+      <find>Lock</find>
     </findStrings>
     <replaceStrings>
       <replace>columnString</replace>
@@ -206,13 +230,19 @@
       <replace>0.5</replace>
       <replace>0.05</replace>
       <replace>0.1</replace>
-      <replace>0.01</replace>
       <replace>0.03</replace>
       <replace>40M</replace>
       <replace>Dynamic</replace>
       <replace>dynamicComputationCapability</replace>
       <replace>20M</replace>
       <replace>50M</replace>
+      <replace>0.01</replace>
+      <replace>benchmarkMySQLPrivateDatabaseQueryReadNoCaching</replace>
+      <replace>benchmarkMySQLPrivateDatabaseQueryReadCaching</replace>
+      <replace>BenchmarkMySQLPrivateDatabase_Query_Read_Caching</replace>
+      <replace>BenchmarkMySQLPrivateDatabase_Query_Read_NoCaching</replace>
+      <replace>BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching</replace>
+      <replace>colMap := map[string][]string{}</replace>
     </replaceStrings>
   </component>
   <component name="GOROOT" path="/usr/local/go" />
@@ -226,21 +256,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption/requesting-client/requesting_client.go" />
-        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption/server/server.go" />
-        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption/data-client/data_client.go" />
-        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client/data_client.go" />
-        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-no-computation/data_client.go" />
-        <option value="$PROJECT_DIR$/middleware/utils.go" />
-        <option value="$PROJECT_DIR$/usecases/image_processing.go" />
-        <option value="$PROJECT_DIR$/usecases/image_processing.go" />
-        <option value="$PROJECT_DIR$/usecases/image_processing/docker-compose.yml" />
-        <option value="$PROJECT_DIR$/usecases/image_processing/server/image_recognition.go" />
-        <option value="$PROJECT_DIR$/usecases/image_processing/dep-ensure-all.sh" />
         <option value="$PROJECT_DIR$/usecases/image_processing/server/image_recognition/image_recognition.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/server/image_recognition/image-recognition.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/server/app/server.go" />
-        <option value="$PROJECT_DIR$/usecases/image_processing/server/Dockerfile" />
         <option value="$PROJECT_DIR$/middleware/privacy_aware_mux.go" />
         <option value="$PROJECT_DIR$/usecases/simple_usecases/basic.go" />
         <option value="$PROJECT_DIR$/middleware/dynamic_computation_policy_test.go" />
@@ -248,17 +266,14 @@
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-both/data_client.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-can-compute/data_client.go" />
         <option value="$PROJECT_DIR$/middleware/static_computation_policy.go" />
-        <option value="$PROJECT_DIR$/middleware/dynamic_computation_policy.go" />
         <option value="$PROJECT_DIR$/middleware/computation_policies.go" />
         <option value="$PROJECT_DIR$/middleware/privacy_aware_client.go" />
         <option value="$PROJECT_DIR$/image_recognition/image-recognition.go" />
-        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/server.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/requesting-client/requesting_client.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/docker-compose.yml" />
         <option value="$PROJECT_DIR$/middleware/privacy_aware_client_test.go" />
         <option value="$PROJECT_DIR$/middleware/http.go" />
         <option value="$PROJECT_DIR$/middleware/privacy_group.go" />
-        <option value="$PROJECT_DIR$/middleware/data_policies_test.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/data_client.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm.yml" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/requesting_client.go" />
@@ -266,25 +281,40 @@
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/dep-ensure-all.sh" />
         <option value="$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/data-client/data_client.go" />
-        <option value="$PROJECT_DIR$/usecases/image_processing/client/Dockerfile" />
-        <option value="$PROJECT_DIR$/usecases/image_processing/docker-compose-swarm.yml" />
-        <option value="$PROJECT_DIR$/usecases/image_processing/client/client.go" />
         <option value="$PROJECT_DIR$/middleware/data_policies.go" />
-        <option value="$PROJECT_DIR$/middleware/private_database_test.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/data_client.go" />
-        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5compute.yml" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/push-to-docker-hub.sh" />
-        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml" />
-        <option value="$PROJECT_DIR$/middleware/private_database.go" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go" />
+        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5compute.yml" />
+        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml" />
+        <option value="$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/requesting-client/requesting_client.go" />
+        <option value="$PROJECT_DIR$/usecases/no_mware_image_processing/server/server.go" />
+        <option value="$PROJECT_DIR$/usecases/image_processing/server/Dockerfile" />
+        <option value="$PROJECT_DIR$/usecases/image_processing/client/Dockerfile" />
+        <option value="$PROJECT_DIR$/usecases/image_processing/push-to-docker-hub.sh" />
+        <option value="$PROJECT_DIR$/usecases/image_processing/build-and-push-to-docker-hub.sh" />
+        <option value="$PROJECT_DIR$/usecases/image_processing/docker-compose-swarm.yml" />
+        <option value="$PROJECT_DIR$/middleware/data_policies_test.go" />
+        <option value="$PROJECT_DIR$/middleware/bench_to_csv.go" />
+        <option value="$PROJECT_DIR$/middleware/bench_to_csv/bench_to_csv.go" />
+        <option value="$PROJECT_DIR$/usecases/no_mware_image_processing/docker-compose-swarm.yml" />
+        <option value="$PROJECT_DIR$/usecases/no_mware_image_processing/build-and-push-to-docker-hub.sh" />
+        <option value="$PROJECT_DIR$/usecases/no_mware_image_processing/push-to-docker-hub.sh" />
+        <option value="$PROJECT_DIR$/middleware/utils.go" />
+        <option value="$PROJECT_DIR$/middleware/dynamic_computation_policy.go" />
+        <option value="$PROJECT_DIR$/middleware/private_database.go" />
+        <option value="$PROJECT_DIR$/middleware/private_database_test.go" />
+        <option value="$PROJECT_DIR$/usecases/no_mware_image_processing/client/client.go" />
+        <option value="$PROJECT_DIR$/usecases/image_processing/client/client.go" />
+        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/server.go" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="65" />
     <option name="y" value="-4" />
-    <option name="width" value="1847" />
-    <option name="height" value="1024" />
+    <option name="width" value="1855" />
+    <option name="height" value="1084" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -292,6 +322,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -307,32 +338,51 @@
             <path>
               <item name="PartIIProjectImplentation" type="b2602c69:ProjectViewProjectNode" />
               <item name="PartIIProjectImplementation" type="462c0819:PsiDirectoryNode" />
+              <item name="middleware" type="462c0819:PsiDirectoryNode" />
+              <item name="bench_to_csv" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PartIIProjectImplentation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PartIIProjectImplementation" type="462c0819:PsiDirectoryNode" />
               <item name="usecases" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PartIIProjectImplentation" type="b2602c69:ProjectViewProjectNode" />
               <item name="PartIIProjectImplementation" type="462c0819:PsiDirectoryNode" />
               <item name="usecases" type="462c0819:PsiDirectoryNode" />
-              <item name="aggregate_power_consumption_comp_policies" type="462c0819:PsiDirectoryNode" />
+              <item name="image_processing" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PartIIProjectImplentation" type="b2602c69:ProjectViewProjectNode" />
               <item name="PartIIProjectImplementation" type="462c0819:PsiDirectoryNode" />
               <item name="usecases" type="462c0819:PsiDirectoryNode" />
-              <item name="aggregate_power_consumption_comp_policies" type="462c0819:PsiDirectoryNode" />
-              <item name="data-client-configurable" type="462c0819:PsiDirectoryNode" />
+              <item name="image_processing" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PartIIProjectImplentation" type="b2602c69:ProjectViewProjectNode" />
               <item name="PartIIProjectImplementation" type="462c0819:PsiDirectoryNode" />
               <item name="usecases" type="462c0819:PsiDirectoryNode" />
-              <item name="simple_usecases" type="462c0819:PsiDirectoryNode" />
+              <item name="no_mware_image_processing" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PartIIProjectImplentation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PartIIProjectImplementation" type="462c0819:PsiDirectoryNode" />
+              <item name="usecases" type="462c0819:PsiDirectoryNode" />
+              <item name="no_mware_image_processing" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PartIIProjectImplentation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PartIIProjectImplementation" type="462c0819:PsiDirectoryNode" />
+              <item name="usecases" type="462c0819:PsiDirectoryNode" />
+              <item name="no_mware_image_processing" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -353,18 +403,18 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/usecases/no_mware_image_processing" />
+      <recent name="$PROJECT_DIR$/middleware/bench_to_csv" />
       <recent name="$PROJECT_DIR$/usecases" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/usecases/image_processing/server" />
-      <recent name="$PROJECT_DIR$/usecases/image_processing/server/app" />
-      <recent name="$PROJECT_DIR$/usecases/image_processing/server/image_recognition" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies" />
+      <recent name="$PROJECT_DIR$/usecases/no_mware_image_processing/server" />
+      <recent name="$PROJECT_DIR$/usecases/no_mware_image_processing" />
       <recent name="$PROJECT_DIR$/usecases/image_processing" />
-      <recent name="$PROJECT_DIR$/middleware" />
-      <recent name="$PROJECT_DIR$/usecases/image_processing/server" />
-      <recent name="$PROJECT_DIR$/usecases/image_processing/client" />
+      <recent name="$PROJECT_DIR$/usecases" />
+      <recent name="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -379,7 +429,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.aggregate_power_consumption_comp_policies: Compose Deployment">
+  <component name="RunManager" selected="Go Test.TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="PartIIProjectImplentation" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -391,11 +441,11 @@
       <output_directory value="$PROJECT_DIR$/../../../../bin" />
       <method v="2" />
     </configuration>
-    <configuration name="go build basic.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="go build bench_to_csv.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="PartIIProjectImplentation" />
       <working_directory value="$PROJECT_DIR$/" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/usecases/simple_usecases/basic.go" />
+      <filePath value="$PROJECT_DIR$/middleware/bench_to_csv/bench_to_csv.go" />
       <package value="github.com/JacobMoxham/partiiproject" />
       <directory value="$PROJECT_DIR$/" />
       <output_directory value="$PROJECT_DIR$/../../../../bin" />
@@ -411,23 +461,37 @@
       <output_directory value="$PROJECT_DIR$/../../../../bin" />
       <method v="2" />
     </configuration>
-    <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestMySqlPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="PartIIProjectImplentation" />
       <working_directory value="$PROJECT_DIR$/middleware" />
-      <framework value="gobench" />
+      <framework value="gotest" />
       <kind value="PACKAGE" />
       <package value="github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^BenchmarkMySQLDatabase_Exec_Write$" />
+      <pattern value="^TestMySqlPrivateDatabase_Exec_Write$" />
       <method v="2" />
     </configuration>
-    <configuration name="aggregate_power_consumption_comp_policies: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="sourceFilePath" value="usecases/aggregate_power_consumption_comp_policies/docker-compose.yml" />
-        </settings>
-      </deployment>
+    <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="PartIIProjectImplentation" />
+      <working_directory value="$PROJECT_DIR$/middleware" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestMySqlPrivateDatabase_Exec_Write_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="PartIIProjectImplentation" />
+      <working_directory value="$PROJECT_DIR$/middleware" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestMySqlPrivateDatabase_Exec_Write_To_Excluded_Col$" />
       <method v="2" />
     </configuration>
     <configuration name="aggregate_power_consumption.server: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
@@ -443,71 +507,64 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="image_processing: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="no_mware_image_processing: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
-          <option name="sourceFilePath" value="usecases/image_processing/docker-compose.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="image_processing/docker-compose-swarm.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="sourceFilePath" value="usecases/image_processing/docker-compose-swarm.yml" />
+          <option name="commandLineOptions" value="--build" />
+          <option name="sourceFilePath" value="usecases/no_mware_image_processing/docker-compose.yml" />
         </settings>
       </deployment>
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Docker.aggregate_power_consumption.server: Compose Deployment" />
-      <item itemvalue="Docker.image_processing/docker-compose-swarm.yml: Compose Deployment" />
-      <item itemvalue="Docker.image_processing: Compose Deployment" />
       <item itemvalue="Go Build.go build data_client.go" />
-      <item itemvalue="Go Test.BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
-      <item itemvalue="Go Build.go build basic.go" />
-      <item itemvalue="Docker.aggregate_power_consumption_comp_policies: Compose Deployment" />
+      <item itemvalue="Go Build.go build bench_to_csv.go" />
+      <item itemvalue="Docker.no_mware_image_processing: Compose Deployment" />
+      <item itemvalue="Go Test.TestMySqlPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <item itemvalue="Go Test.TestMySqlPrivateDatabase_Exec_Write_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <item itemvalue="Go Test.TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.aggregate_power_consumption_comp_policies: Compose Deployment" />
-        <item itemvalue="Go Build.go build basic.go" />
-        <item itemvalue="Docker.image_processing: Compose Deployment" />
-        <item itemvalue="Docker.image_processing/docker-compose-swarm.yml: Compose Deployment" />
-        <item itemvalue="Go Test.BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+        <item itemvalue="Go Test.TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+        <item itemvalue="Go Test.TestMySqlPrivateDatabase_Exec_Write_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+        <item itemvalue="Go Test.TestMySqlPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+        <item itemvalue="Docker.no_mware_image_processing: Compose Deployment" />
+        <item itemvalue="Go Build.go build bench_to_csv.go" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="BenchmarkMySQLPrivateDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.22 at 11h 21m 46s.xml">
-      <configuration name="BenchmarkMySQLPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 17h 59m 26s.xml">
+      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="BenchmarkMySQLPrivateDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.22 at 11h 22m 59s.xml">
-      <configuration name="BenchmarkMySQLPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 18h 01m 44s.xml">
+      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="BenchmarkMySQLPrivateDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.22 at 11h 23m 45s.xml">
-      <configuration name="BenchmarkMySQLPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 18h 12m 39s.xml">
+      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="BenchmarkMySQLPrivateDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.22 at 11h 23m 58s.xml">
-      <configuration name="BenchmarkMySQLPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 18h 15m 08s.xml">
+      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="BenchmarkMySQLDatabase_Query_Read_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.24 at 17h 00m 09s.xml">
-      <configuration name="BenchmarkMySQLDatabase_Query_Read in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 18h 15m 35s.xml">
+      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.24 at 17h 00m 52s.xml">
-      <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 18h 16m 05s.xml">
+      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="BenchmarkMySQLDatabase_Query_Read_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.24 at 17h 01m 19s.xml">
-      <configuration name="BenchmarkMySQLDatabase_Query_Read in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 18h 22m 05s.xml">
+      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.24 at 17h 01m 39s.xml">
-      <configuration name="BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 18h 30m 54s.xml">
+      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="BenchmarkMySQLPrivateDatabase_Query_Read_Caching_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.24 at 17h 01m 55s.xml">
-      <configuration name="BenchmarkMySQLPrivateDatabase_Query_Read_Caching in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 18h 31m 15s.xml">
+      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.02.24 at 17h 02m 01s.xml">
-      <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 18h 31m 27s.xml">
+      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -522,22 +579,21 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6962963" visible="true" weight="0.2838428" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6962963" visible="true" weight="0.2871179" />
       <window_info id="Structure" order="1" sideWeight="0.3037037" side_tool="true" weight="0.15588723" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32991803" />
       <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Find" order="2" weight="0.35005224" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.1368861" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.031347964" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.03970742" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.36050156" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.498618" visible="true" weight="0.038662486" />
-      <window_info anchor="bottom" id="TODO" order="8" weight="0.44827586" />
+      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.49727073" weight="0.16823407" />
+      <window_info active="true" anchor="bottom" id="TODO" order="8" visible="true" weight="0.44827586" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.501382" side_tool="true" weight="0.35005224" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50272924" side_tool="true" weight="0.5903866" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.5621735" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.32810867" />
       <window_info anchor="bottom" id="Statistic" order="13" weight="0.67189133" />
@@ -545,29 +601,31 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" weight="0.3294509" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.32946378" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6962963" visible="true" weight="0.18777293" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6962963" visible="true" weight="0.28745162" />
       <window_info id="Structure" order="1" sideWeight="0.3037037" side_tool="true" weight="0.15588723" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32991803" />
       <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Find" order="2" weight="0.33019853" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.17763846" />
-      <window_info anchor="bottom" id="Debug" order="4" weight="0.3939394" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.35005224" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.07105538" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.36050156" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.498618" weight="0.10240334" />
-      <window_info anchor="bottom" id="TODO" order="8" weight="0.043887146" />
+      <window_info anchor="bottom" id="Docker" order="7" sideWeight="0.49727073" weight="0.031347964" />
+      <window_info anchor="bottom" id="TODO" order="8" weight="0.44827586" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.501382" side_tool="true" weight="0.35005224" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.5047022" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50272924" side_tool="true" weight="0.5903866" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.5621735" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.32810867" />
       <window_info anchor="bottom" id="Statistic" order="13" weight="0.67189133" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" weight="0.3294509" />
+      <window_info anchor="right" id="Coverage" order="0" side_tool="true" weight="0.32946378" />
+      <window_info anchor="right" id="Commander" order="1" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="right" id="Database" order="4" weight="0.3294509" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -608,272 +666,41 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/usecases/image_processing/client/client.go</url>
-          <line>181</line>
+          <line>168</line>
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/usecases/image_processing/client/client.go</url>
-          <line>105</line>
+          <line>94</line>
           <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
+          <line>405</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/middleware/private_database.go</url>
+          <line>330</line>
+          <properties />
+          <option name="timeStamp" value="77" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/middleware/dynamic_computation_policy.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="90" column="3" selection-start-line="90" selection-start-column="3" selection-end-line="90" selection-end-column="3" />
-          <folding>
-            <element signature="e#79#137#0" />
-            <element signature="n#!!block;n#newDynamicHandler#0" />
-            <element signature="n#!!block;n#Get#0" />
-            <element signature="e#805#869#0" />
-            <element signature="n#!!block;n#NewDynamicComputationPolicy#0" />
-            <element signature="n#!!block;n#Register#0" />
-            <element signature="n#!!block;n#UnregisterAll#0" />
-            <element signature="n#!!block;n#UnregisterOne#0" />
-            <element signature="n#!!block;n#Deactivate#0" />
-            <element signature="n#!!block;n#Activate#0" />
-            <element signature="n#!!block;n#Resolve#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/utils.go">
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/Dockerfile">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file:///usr/local/go/src/math/rand/rand.go">
+    <entry file="file://$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/requesting-client/requesting_client.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="328" selection-start-line="328" selection-end-line="328" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/privacy_aware_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="24" column="30" lean-forward="true" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/go/src/github.com/xwb1989/sqlparser/ast.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="204" column="5" selection-start-line="204" selection-start-column="5" selection-end-line="204" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="63" column="25" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/docker-compose.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/go/src/net/http/request.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="791" column="22" selection-start-line="791" selection-start-column="16" selection-end-line="791" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/privacy_group.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/http.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="42" column="33" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="33" />
-          <folding>
-            <element signature="n#!!block;n#DelParam#0" />
-            <element signature="n#!!block;n#GetParam#0" />
-            <element signature="n#!!block;n#SetParam#0" />
-            <element signature="n#!!block;n#BuildPamRequest#0" />
-            <element signature="n#!!block;n#BuildPamResponse#0" />
-            <element signature="n#!!block;n#PrivacyAwareHandler#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-raw-data/data_client.go" />
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/private_database.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5370">
-          <caret line="57" column="34" selection-start-line="57" selection-start-column="34" selection-end-line="57" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/data_policies_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="95" column="38" selection-start-line="95" selection-start-column="38" selection-end-line="95" selection-end-column="38" />
-          <folding>
-            <element signature="n#!!block;n#TestStaticDataPolicy_Resolve_Success#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/requesting-client/requesting_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1566">
-          <caret line="87" selection-start-line="87" selection-end-line="87" />
-          <folding>
-            <element signature="e#14#160#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/server.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="44" column="46" selection-start-line="44" selection-start-column="46" selection-end-line="44" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/dep-ensure-all.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/requesting_client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/server.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1998">
-          <caret line="122" column="69" selection-start-line="122" selection-start-column="69" selection-end-line="122" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing/server/server.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/computation_policies.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="84" column="5" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/privacy_aware_client_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/go/src/database/sql/driver/driver.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4644">
-          <caret line="262" column="5" selection-start-line="262" selection-start-column="5" selection-end-line="262" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/static_computation_policy.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="972">
-          <caret line="56" column="24" selection-start-line="56" selection-start-column="24" selection-end-line="56" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/image_recognition/image-recognition.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="33" column="3" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
-        </state>
+        <state relative-caret-position="-54" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/data-client/data_client.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-126">
+        <state relative-caret-position="-409">
           <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/images/image1.jpg" />
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="44" column="95" selection-start-line="44" selection-start-column="88" selection-end-line="44" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/data_policies.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/private_database_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1818">
-          <caret line="110" column="76" selection-start-line="110" selection-start-column="76" selection-end-line="110" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/data_policies.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/data_policies.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="21" column="55" selection-start-line="21" selection-start-column="55" selection-end-line="21" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="55" column="72" selection-start-line="55" selection-start-column="72" selection-end-line="55" selection-end-column="72" />
-          <folding>
-            <element signature="e#14#319#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -884,34 +711,121 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/image_processing/docker-compose-swarm.yml">
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/server/Dockerfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="25" column="20" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+        <state relative-caret-position="427">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/data_client.go">
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/Dockerfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="15" column="125" lean-forward="true" selection-start-line="15" selection-start-column="125" selection-end-line="15" selection-end-column="125" />
+        <state relative-caret-position="684">
+          <caret line="38" column="2" selection-start-line="38" selection-start-column="2" selection-end-line="38" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/push-to-docker-hub.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/build-and-push-to-docker-hub.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/build-and-push-to-docker-hub.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="70" lean-forward="true" selection-start-line="7" selection-start-column="70" selection-end-line="7" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/push-to-docker-hub.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="32" selection-start-line="3" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/server/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/privacy_aware_client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="30" column="26" selection-start-line="30" selection-start-column="15" selection-end-line="30" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/middleware/computation_policies.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="94" column="28" selection-start-line="94" selection-start-column="16" selection-end-line="94" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/go/src/github.com/SermoDigital/helpers/helpers.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/go/src/github.com/mohae/joefriday/cpu/cpuinfo/cpuinfo_unix.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2412">
+          <caret line="143" column="25" selection-start-line="143" selection-start-column="25" selection-end-line="143" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/go/src/github.com/mohae/joefriday/mem/membasic/membasic_unix.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2016">
+          <caret line="112" column="24" selection-start-line="112" selection-start-column="17" selection-end-line="112" selection-end-column="24" />
           <folding>
-            <element signature="n#!!block;n#createPowerConsumptionDataHandler#0" />
+            <element signature="e#776#878#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/vendor/github.com/joho/sqltocsv/sqltocsv.go">
+    <entry file="file://$PROJECT_DIR$/middleware/bench_to_csv/bench_to_csv.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="72" column="26" selection-start-line="72" selection-start-column="20" selection-end-line="72" selection-end-column="26" />
+        <state relative-caret-position="432">
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/testing/benchmark.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11502">
+          <caret line="648" column="5" selection-start-line="648" selection-start-column="5" selection-end-line="648" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/encoding/csv/writer.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="35" column="1" selection-start-line="35" selection-end-line="35" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/go/src/github.com/mohae/benchutil/benchutil.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11394">
+          <caret line="653" column="5" selection-start-line="653" selection-start-column="5" selection-end-line="653" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file:///usr/local/go/src/database/sql/sql.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="1606" column="14" selection-start-line="1606" selection-start-column="14" selection-end-line="1606" selection-end-column="14" />
+        <state relative-caret-position="18234">
+          <caret line="2954" selection-start-line="2954" selection-end-line="2954" />
           <folding>
             <element signature="e#722#797#0" />
             <element signature="e#1088#1316#0" />
@@ -1379,7 +1293,6 @@
             <element signature="e#84178#84286#0" />
             <element signature="e#84448#84462#0" />
             <element signature="e#84776#84801#0" />
-            <element signature="e#84842#85228#0" />
             <element signature="e#84905#84922#0" />
             <element signature="e#84964#84987#0" />
             <element signature="e#85013#85042#0" />
@@ -1404,66 +1317,217 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/simple_usecases/basic.go">
+    <entry file="file://$PROJECT_DIR$/middleware/http.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="74" column="25" selection-start-line="70" selection-start-column="8" selection-end-line="74" selection-end-column="25" />
+        <state relative-caret-position="-679" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/docker-compose-swarm.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" selection-start-line="19" selection-end-line="26" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="12" selection-start-column="12" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/build-and-push-to-docker-hub.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/push-to-docker-hub.sh">
+    <entry file="file://$PROJECT_DIR$/usecases/no_mware_image_processing/build-and-push-to-docker-hub.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <caret line="7" column="65" lean-forward="true" selection-start-line="7" selection-end-line="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5compute.yml">
+    <entry file="file://$PROJECT_DIR$/usecases/no_mware_image_processing/push-to-docker-hub.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="129" column="58" selection-start-line="129" selection-end-line="130" />
+        <state relative-caret-position="108">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm.yml">
+    <entry file="file://$PROJECT_DIR$/usecases/no_mware_image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/image_recognition/image-recognition.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="72" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="72" />
+        <state relative-caret-position="213">
+          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/docker-compose-swarm-5raw.yml">
+    <entry file="file:///usr/local/go/src/bytes/reader.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="172" column="15" selection-start-line="172" selection-start-column="15" selection-end-line="172" selection-end-column="15" />
+        <state relative-caret-position="-111">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/image/jpeg/writer.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="574" column="5" selection-start-line="574" selection-start-column="5" selection-end-line="574" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/bytes/buffer.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="54" column="17" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/no_mware_image_processing/server/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="26" column="11" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/io/ioutil/ioutil.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/no_mware_image_processing/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="8" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/no_mware_image_processing/docker-compose-swarm.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="21" lean-forward="true" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/context/context.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="206" selection-start-line="206" selection-end-line="206" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/database/sql/driver/driver.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="262" column="5" selection-start-line="262" selection-start-column="5" selection-end-line="262" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/utils.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/runtime/panic.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="680" selection-start-line="680" selection-end-line="680" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/go/src/github.com/xwb1989/sqlparser/token.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1533">
+          <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/go/src/github.com/xwb1989/sqlparser/sql.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="5529" column="67" selection-start-line="5529" selection-start-column="58" selection-end-line="5529" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/go/src/github.com/xwb1989/sqlparser/ast.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="1635" column="5" selection-start-line="1635" selection-start-column="5" selection-end-line="1635" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/data_policies.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/computation_policies.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="137" column="11" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/static_computation_policy.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="50" column="73" lean-forward="true" selection-start-line="50" selection-start-column="73" selection-end-line="50" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/dynamic_computation_policy.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1195">
+          <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/data_policies_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="95" column="3" selection-start-line="95" selection-start-column="3" selection-end-line="95" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/privacy_aware_client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="46" column="11" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="77" column="57" selection-start-line="77" selection-start-column="57" selection-end-line="77" selection-end-column="57" />
+        <state relative-caret-position="158">
+          <caret line="280" column="15" selection-start-line="280" selection-start-column="15" selection-end-line="280" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/data_client.go">
+    <entry file="file://$PROJECT_DIR$/middleware/private_database_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="56" column="43" selection-start-line="56" selection-start-column="43" selection-end-line="56" selection-end-column="43" />
+        <state relative-caret-position="356">
+          <caret line="141" selection-start-line="141" selection-end-line="141" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/no_mware_image_processing/client/client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+          <folding>
+            <element signature="e#14#319#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/image_processing/client/client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-670">
+          <caret line="106" column="79" selection-start-line="106" selection-start-column="76" selection-end-line="106" selection-end-column="79" />
+          <folding>
+            <element signature="e#14#319#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="48" column="91" selection-start-line="48" selection-start-column="91" selection-end-line="48" selection-end-column="91" />
         </state>
       </provider>
     </entry>

@@ -26,6 +26,8 @@ func (dcc dynamicComputationCapability) Get(computationLevel ComputationLevel) (
 
 	// Check there was a handler registered
 	if ok {
+		dynamicHandler.Lock()
+		defer dynamicHandler.Unlock()
 		// Check the handler is active
 		if dynamicHandler.active {
 			return dynamicHandler.handler, ok

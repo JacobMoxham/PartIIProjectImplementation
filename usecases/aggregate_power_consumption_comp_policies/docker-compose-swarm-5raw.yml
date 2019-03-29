@@ -7,10 +7,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
         reservations:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
   data-client-2:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
@@ -18,10 +18,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
         reservations:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
   data-client-3:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
@@ -29,10 +29,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
         reservations:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
   data-client-4:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
@@ -40,10 +40,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
         reservations:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
   data-client-5:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
@@ -51,10 +51,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
         reservations:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
   database-1:
     image: mysql
@@ -186,9 +186,9 @@ services:
       resources:
         limits:
           cpus: '0.5'
-          memory: 20M
+          memory: 200M
         reservations:
           cpus: '0.5'
-          memory: 20M
+          memory: 200M
 #    ports:
 #      - "3002:3002"

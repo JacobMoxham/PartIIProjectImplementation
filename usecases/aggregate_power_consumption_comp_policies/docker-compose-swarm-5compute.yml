@@ -7,10 +7,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
         reservations:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
   data-client-2:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
@@ -18,10 +18,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
         reservations:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
   data-client-3:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
@@ -29,10 +29,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
         reservations:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
   data-client-4:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
@@ -40,10 +40,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
         reservations:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
   data-client-5:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
@@ -51,10 +51,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
         reservations:
-          cpus: '0.1'
+          cpus: '0.01'
           memory: 50M
   database-1:
     image: mysql
@@ -62,14 +62,22 @@ services:
     volumes:
       - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
       - ./mysql-init:/docker-entrypoint-initdb.d
-  #    ports:
-  #      - "3306:3306"
+    #    ports:
+    #      - "3306:3306"
     environment:
       MYSQL_DATABASE: power_consumption
       MYSQL_USER: "demouser"
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 500M
+        reservations:
+          cpus: '0.2'
+          memory: 500M
   database-2:
     image: mysql
     command: mysqld --user=root --verbose
@@ -84,20 +92,36 @@ services:
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 500M
+        reservations:
+          cpus: '0.2'
+          memory: 500M
   database-3:
     image: mysql
     command: mysqld --user=root --verbose
     volumes:
       - ./mysql-init/dbcreation.sql:/tmp/dbcreation.sql
       - ./mysql-init:/docker-entrypoint-initdb.d
-  #  ports:
-  #    - "3306:3306"
+    #  ports:
+    #    - "3306:3306"
     environment:
       MYSQL_DATABASE: power_consumption
       MYSQL_USER: "demouser"
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 500M
+        reservations:
+          cpus: '0.2'
+          memory: 500M
   database-4:
     image: mysql
     command: mysqld --user=root --verbose
@@ -112,6 +136,14 @@ services:
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 500M
+        reservations:
+          cpus: '0.2'
+          memory: 500M
   database-5:
     image: mysql
     command: mysqld --user=root --verbose
@@ -126,6 +158,14 @@ services:
       MYSQL_PASSWORD: "demopassword"
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 500M
+        reservations:
+          cpus: '0.2'
+          memory: 500M
   requesting-client:
     image: jacobmoxham2/part_ii_project_implementation:requesting
     deploy:
@@ -146,9 +186,9 @@ services:
       resources:
         limits:
           cpus: '0.5'
-          memory: 100M
+          memory: 200M
         reservations:
           cpus: '0.5'
-          memory: 100M
+          memory: 200M
 #    ports:
 #      - "3002:3002"

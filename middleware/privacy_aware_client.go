@@ -21,7 +21,7 @@ func MakePrivacyAwareClient(policy ComputationPolicy) PrivacyAwareClient {
 
 // Send takes a PamRequest and martials the RequestPolicy into the http request parameters before sending it using the
 // contained http client. If the ComputationPolicy has a local handler for the requested path, and the preferred
-// location is local, and all of the data required for a result is contained within the request then the request will
+// location is local, and all of the data required for a globalResult is contained within the request then the request will
 // instead be handled locally.
 func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
 	httpRequest := req.HttpRequest
@@ -45,7 +45,7 @@ func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
 
 	if preferLocal && computationLevel != NoComputation && allRequiredData {
 		// TODO: consider whether its good practice to use a testing library in this way
-		// Use the httptest ResponseRecorder to get the result locally
+		// Use the httptest ResponseRecorder to get the globalResult locally
 		responseRecorder := httptest.NewRecorder()
 		localHandler.ServeHTTP(responseRecorder, httpRequest)
 

@@ -70,7 +70,7 @@ type PamResponse struct {
 // BuildPamResponse takes a pointer to a http response and returns a PamResponse with the ComputationLevel taken from
 // the response header
 func BuildPamResponse(resp *http.Response) (PamResponse, error) {
-	// Query response to see if this is a partial result
+	// Query response to see if this is a partial globalResult
 	computationLevelString := resp.Header.Get("computation_level")
 	if computationLevelString == "" {
 		return PamResponse{}, errors.New("the response did not specify a computation level")
@@ -106,9 +106,9 @@ func PrivacyAwareHandler(policy ComputationPolicy) http.Handler {
 
 		switch computationLevel {
 		case NoComputation:
-			//// Return 403: FORBIDDEN as we are currently refusing to compute this result
+			//// Return 403: FORBIDDEN as we are currently refusing to compute this globalResult
 			//// 404: NOT FOUND may be better in some cases as this is what you get for an unregistered path
-			//http.Error(w, "Cannot compute result", 403)
+			//http.Error(w, "Cannot compute globalResult", 403)
 			w.Header().Set("computation_level", "NoComputation")
 		case CanCompute:
 			w.Header().Set("computation_level", "CanCompute")

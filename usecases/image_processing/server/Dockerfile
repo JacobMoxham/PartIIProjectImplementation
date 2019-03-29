@@ -41,4 +41,9 @@ COPY Gopkg.toml Gopkg.lock ./
 RUN dep ensure --vendor-only
 COPY . .
 RUN go build
+
+# Install iproute2 for pumba to work
+RUN echo 'Y' | apt-get install iproute2
+RUN ln -s /usr/lib/tc /lib/tc
+
 ENTRYPOINT ["./server"]

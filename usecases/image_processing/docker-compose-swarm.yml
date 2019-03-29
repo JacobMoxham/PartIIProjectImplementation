@@ -3,24 +3,25 @@ version: '3'
 services:
   client:
     image: jacobmoxham2/part_ii_project_implementation:im-client
-    command: '-image-filename 9kB.jpg'
     ports:
       - "4000:4000"
     deploy:
       resources:
         limits:
-          cpus: '0.09'
-          memory: 50M
+          cpus: '0.2'
+          memory: 200M
         reservations:
-          cpus: '0.09'
-          memory: 50M
+          cpus: '0.2'
+          memory: 200M
   server:
     image: jacobmoxham2/part_ii_project_implementation:im-server
+    ports:
+      - "3000:3000"
     deploy:
       resources:
         limits:
-          cpus: '0.9'
-          memory: 2G
+          cpus: '1.0'
+          memory: 1G
         reservations:
-          cpus: '0.1'
-          memory: 2G
+          cpus: '1.0'
+          memory: 1G

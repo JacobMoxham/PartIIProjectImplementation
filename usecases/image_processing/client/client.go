@@ -5,7 +5,6 @@ import (
 	"fmt"
 	imageProcessing "github.com/JacobMoxham/PartIIProjectImplementation/image_recognition"
 	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
-	"github.com/tcnksm/go-httpstat"
 	image2 "image"
 	"image/jpeg"
 	"io/ioutil"
@@ -13,7 +12,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"time"
 )
 
 const DOCKER = true
@@ -47,10 +45,6 @@ func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) fu
 		}
 
 		imageFileName := requestParams.Get("imageFileName")
-		if err != nil {
-			log.Println("Error:", err)
-			return
-		}
 		if imageFileName == "" {
 			imageFileName = "9kB.jpg"
 			log.Println("Using 9kB.jpg as no imageFileName was specified")
@@ -75,7 +69,6 @@ func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) fu
 			return
 		}
 
-		// TODO: get image from "phone"
 		buf := new(bytes.Buffer)
 		err = jpeg.Encode(buf, image, nil)
 		body := buf.Bytes()
@@ -87,10 +80,6 @@ func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) fu
 			httpRequest, _ = http.NewRequest("PUT", "http://127.0.0.1:3000/", bytes.NewReader(body))
 
 		}
-		// Create a httpstat powered context
-		var result httpstat.Result
-		ctx := httpstat.WithHTTPStat(httpRequest.Context(), &result)
-		httpRequest = httpRequest.WithContext(ctx)
 
 		policy := middleware.RequestPolicy{
 			RequesterID:                 "client1",
@@ -113,7 +102,11 @@ func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) fu
 			return
 		}
 
-		// TODO: check that computation level is correct
+		// Check that computation level is correct
+		if pamResp.ComputationLevel != middleware.CanCompute {
+			http.Error(w, "Server could not perform object classification", 500)
+			return
+		}
 
 		resp := pamResp.HttpResponse
 
@@ -131,12 +124,6 @@ func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) fu
 			return
 		}
 
-		// Log the request latency from httpstat
-		log.Printf("DNS lookup: %d ms", int(result.DNSLookup/time.Millisecond))
-		log.Printf("TCP connection: %d ms", int(result.TCPConnection/time.Millisecond))
-		log.Printf("TLS handshake: %d ms", int(result.TLSHandshake/time.Millisecond))
-		log.Printf("Server processing: %d ms", int(result.ServerProcessing/time.Millisecond))
-		log.Printf("Content transfer: %d ms", int(result.ContentTransfer(time.Now())/time.Millisecond))
 	}
 }
 

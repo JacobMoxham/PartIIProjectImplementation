@@ -1,5 +1,7 @@
 package middleware
 
+import "strings"
+
 func mergeStringSlice(s1 []string, s2 []string) []string {
 	mergedList := s1
 	for _, el := range s2 {
@@ -13,7 +15,7 @@ func mergeStringSlice(s1 []string, s2 []string) []string {
 
 func contains(stringList []string, element string) bool {
 	for _, el := range stringList {
-		if el == element {
+		if strings.ToLower(el) == strings.ToLower(element) {
 			return true
 		}
 	}

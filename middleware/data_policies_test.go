@@ -21,13 +21,13 @@ func TestStaticDataPolicy_Resolve_Success(t *testing.T) {
 	transforms := DataTransforms{
 		&group1: {
 			ExcludedCols: map[string][]string{"table1": {"col1", "col2", "col3"}},
-			TableTransforms: map[string]map[string]func(interface{}) (interface{}, error){
-				"table1": {"col1": func(i interface{}) (interface{}, error) { return i, nil }},
+			TableTransforms: map[string]TableTransform{
+				"table1": {"col1": func(i interface{}) (interface{}, bool, error) { return i, true, nil }},
 			},
 		},
 		&group2: {
 			ExcludedCols:    map[string][]string{"table1": {"col1", "col3", "col4", "col5"}},
-			TableTransforms: map[string]map[string]func(interface{}) (interface{}, error){},
+			TableTransforms: map[string]TableTransform{},
 		},
 	}
 
@@ -50,7 +50,7 @@ func TestStaticDataPolicy_Resolve_Success(t *testing.T) {
 	transform, ok := tableTransform["col1"]
 	assert.True(t, ok)
 
-	transform1, err := transform(1)
+	transform1, _, err := transform(1)
 	require.NoError(t, err)
 	assert.True(t, transform1 == 1)
 }
@@ -69,14 +69,14 @@ func TestStaticDataPolicy_Resolve_Fail(t *testing.T) {
 	transforms := DataTransforms{
 		&group1: {
 			ExcludedCols: map[string][]string{"table1": {"col1", "col2", "col3"}},
-			TableTransforms: map[string]map[string]func(interface{}) (interface{}, error){
-				"table1": {"col1": func(i interface{}) (interface{}, error) { return i, nil }},
+			TableTransforms: map[string]TableTransform{
+				"table1": {"col1": func(i interface{}) (interface{}, bool, error) { return i, true, nil }},
 			},
 		},
 		&group2: {
 			ExcludedCols: map[string][]string{"table1": {"col1", "col3", "col4", "col5"}},
-			TableTransforms: map[string]map[string]func(interface{}) (interface{}, error){
-				"table1": {"col1": func(i interface{}) (interface{}, error) { return i, nil }},
+			TableTransforms: map[string]TableTransform{
+				"table1": {"col1": func(i interface{}) (interface{}, bool, error) { return i, true, nil }},
 			},
 		},
 	}

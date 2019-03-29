@@ -75,7 +75,7 @@ func (mspd *MySQLPrivateDatabase) Connect(user, password, databaseName, uri stri
 	if err != nil {
 		return err
 	}
-	// TODO: what are the consequences of changing these?
+	// TODO: what are the consequences of changing these? I feel like maybe these should be moved out of this Connect method
 	db.SetMaxIdleConns(100)
 	db.SetMaxOpenConns(100)
 	db.SetConnMaxLifetime(time.Second * 20)
@@ -91,16 +91,16 @@ func (mspd *MySQLPrivateDatabase) Close() error {
 }
 
 // Query takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
-// request policy to give a result to the query on transformed versions of the actual database tables
+// request policy to give a globalResult to the query on transformed versions of the actual database tables
 func (mspd *MySQLPrivateDatabase) Query(query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Rows, error) {
 	return mspd.QueryContext(context.Background(), query, requestPolicy, args...)
 }
 
 // QueryContext takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
-// request policy to give a result to the query on transformed versions of the actual database tables
+// request policy to give a globalResult to the query on transformed versions of the actual database tables
 func (mspd *MySQLPrivateDatabase) QueryContext(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Rows, error) {
 	// Transform tables
-	transformedQuery, err := mspd.transformTables(query, requestPolicy)
+	transformedQuery, transformedTableNames, err := mspd.transformQuery(query, requestPolicy)
 	if err != nil {
 		return nil, err
 	}
@@ -110,20 +110,31 @@ func (mspd *MySQLPrivateDatabase) QueryContext(ctx context.Context, query string
 	if err != nil {
 		return nil, err
 	}
+
+	if !mspd.CacheTables {
+		// Drop the tables we created
+		for _, table := range transformedTableNames {
+			err = mspd.dropTableIfExists(table)
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
 	return rows, nil
 }
 
 // QueryRow takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
-//// request policy to give a result to the query on transformed versions of the actual database tables
+//// request policy to give a globalResult to the query on transformed versions of the actual database tables
 func (mspd *MySQLPrivateDatabase) QueryRow(query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Row, error) {
 	return mspd.QueryRowContext(context.Background(), query, requestPolicy, args...)
 }
 
 // QueryRowContext takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
-// request policy to give a result to the query on transformed versions of the actual database tables
+// request policy to give a globalResult to the query on transformed versions of the actual database tables
 func (mspd *MySQLPrivateDatabase) QueryRowContext(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (*sql.Row, error) {
 	// Transform tables
-	transformedQuery, err := mspd.transformTables(query, requestPolicy)
+	transformedQuery, transformedTableNames, err := mspd.transformQuery(query, requestPolicy)
 	if err != nil {
 		return nil, err
 	}
@@ -131,20 +142,30 @@ func (mspd *MySQLPrivateDatabase) QueryRowContext(ctx context.Context, query str
 	// Execute query
 	row := mspd.database.QueryRowContext(ctx, transformedQuery, args...)
 
+	if !mspd.CacheTables {
+		// Drop the tables we created
+		for _, table := range transformedTableNames {
+			err = mspd.dropTableIfExists(table)
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
 	return row, nil
 }
 
 // Exec takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
-// request policy to give a result to the query on transformed versions of the actual database tables
+// request policy to give a globalResult to the query on transformed versions of the actual database tables
 func (mspd *MySQLPrivateDatabase) Exec(query string, requestPolicy *RequestPolicy, args ...interface{}) (sql.Result, error) {
 	return mspd.ExecContext(context.Background(), query, requestPolicy, args...)
 }
 
 // ExecContext takes a query string and a RequestPolicy and resolves the DataPolicy from the MySQLPrivateDatabase with the
-// request policy to give a result to the query on transformed versions of the actual database tables
+// request policy to give a globalResult to the query on transformed versions of the actual database tables
 func (mspd *MySQLPrivateDatabase) ExecContext(ctx context.Context, query string, requestPolicy *RequestPolicy, args ...interface{}) (sql.Result, error) {
 	// Transform tables
-	transformedQuery, err := mspd.transformTables(query, requestPolicy)
+	transformedQuery, transformedTableNames, err := mspd.transformQuery(query, requestPolicy)
 	if err != nil {
 		return nil, err
 	}
@@ -154,6 +175,17 @@ func (mspd *MySQLPrivateDatabase) ExecContext(ctx context.Context, query string,
 	if err != nil {
 		return nil, err
 	}
+
+	if !mspd.CacheTables {
+		// Drop the tables we created
+		for _, table := range transformedTableNames {
+			err = mspd.dropTableIfExists(table)
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
 	return result, nil
 }
 
@@ -212,11 +244,11 @@ func (mspd *MySQLPrivateDatabase) PingContext(ctx context.Context) error {
 // TODO: consider wrapping Conns as well as DBs, also need to work out if Ping breaks our wrapper
 // TODO: consider supporting Prepare and PrepareContext and BeginTx, Begin etc.
 
-func (mspd *MySQLPrivateDatabase) transformTables(query string, requestPolicy *RequestPolicy) (string, error) {
+func (mspd *MySQLPrivateDatabase) transformQuery(query string, requestPolicy *RequestPolicy) (string, []string, error) {
 	// Parse query
 	stmt, err := sqlparser.Parse(query)
 	if err != nil {
-		return "", err
+		return "", nil, err
 	}
 
 	// Get all statements in the query
@@ -230,7 +262,7 @@ func (mspd *MySQLPrivateDatabase) transformTables(query string, requestPolicy *R
 			return true, nil
 		}, stmt)
 	if err != nil {
-		return "", err
+		return "", nil, err
 	}
 
 	// Transform tables if the query only reads,
@@ -238,6 +270,7 @@ func (mspd *MySQLPrivateDatabase) transformTables(query string, requestPolicy *R
 	// error if the query both reads and writes (the user needs to separate these queries)
 	queryReads := false
 	queryWrites := false
+
 	for _, s := range statements {
 		// TODO: add a test that this covers all of the statements we need it to
 		switch s.(type) {
@@ -245,6 +278,28 @@ func (mspd *MySQLPrivateDatabase) transformTables(query string, requestPolicy *R
 			queryReads = true
 		case *sqlparser.Update:
 			queryWrites = true
+			// TODO: decide whether to exclude this completely
+			//// If there is only one table mentioned in the query then this information is not propagated as a qualifier
+			//// for the updated columns
+			//defaultTableName := statement.TableExprs
+			//err = sqlparser.Walk(
+			//	func(node sqlparser.SQLNode) (kcontinue bool, err error) {
+			//		switch node := node.(type) {
+			//		case *sqlparser.UpdateExpr:
+			//			tableName := node.Name.Qualifier.Name.String()
+			//			colName := node.Name.Name.String()
+			//			log.Printf("Updates %s in table %s", colName, tableName)
+			//			//if updatedColumns[tableName] == nil {
+			//			//	updatedColumns[tableName] = make([]string, 1)
+			//			//}
+			//			updatedColumns[tableName] = append(updatedColumns[tableName], colName)
+			//		}
+			//		return true, nil
+			//	}, statement.Exprs)
+			//if err != nil {
+			//	return "", nil, err
+			//}
+
 		case *sqlparser.Insert:
 			queryWrites = true
 		case *sqlparser.Delete:
@@ -253,7 +308,7 @@ func (mspd *MySQLPrivateDatabase) transformTables(query string, requestPolicy *R
 	}
 
 	if queryReads && queryWrites {
-		return "", errors.New("cannot support SQL which both reads and writes to the database")
+		return "", nil, errors.New("cannot support SQL which both reads and writes to the database")
 	}
 
 	// Get all tables in query
@@ -270,22 +325,25 @@ func (mspd *MySQLPrivateDatabase) transformTables(query string, requestPolicy *R
 			return true, nil
 		}, stmt)
 	if err != nil {
-		return "", err
+		return "", nil, err
 	}
+
+	var transformedTableNames []string
 
 	groupPrefix := fmt.Sprintf("transformed_%s_", requestPolicy.RequesterID)
 	for _, tableName := range tableNames {
 		if queryReads {
 			// Create a version of the table with the privacy policy applied
-			transformedTableName := groupPrefix + tableName
 			tableOperations, err := mspd.DataPolicy.Resolve(requestPolicy.RequesterID)
 			if err != nil {
-				return "", err
+				return "", nil, err
 			}
-			err = mspd.transformTable(tableName, transformedTableName, tableOperations.TableTransforms[tableName], tableOperations.ExcludedCols[tableName])
+			transformedTableName, err := mspd.transformTable(tableName, groupPrefix, tableOperations.TableTransforms[tableName], tableOperations.ExcludedCols[tableName])
 			if err != nil {
-				return "", err
+				return "", nil, err
 			}
+
+			transformedTableNames = append(transformedTableNames, transformedTableName)
 
 			// Replace table Name with transformed table Name in query
 			regexString := fmt.Sprintf("\\b%s\\b", tableName)
@@ -294,18 +352,18 @@ func (mspd *MySQLPrivateDatabase) transformTables(query string, requestPolicy *R
 		} else if queryWrites {
 			tableOperations, err := mspd.DataPolicy.Resolve(requestPolicy.RequesterID)
 			if err != nil {
-				return "", err
+				return "", nil, err
 			}
 
 			err = mspd.checkForExcludedColumns(tableName, tableOperations.ExcludedCols[tableName])
 			if err != nil {
-				return "", err
+				return "", nil, err
 			}
 		} else {
-			return "", errors.New("unsupported query")
+			return "", nil, errors.New("unsupported query")
 		}
 	}
-	return query, nil
+	return query, transformedTableNames, nil
 }
 
 func (mspd *MySQLPrivateDatabase) checkForExcludedColumns(tableName string, excludedColumns []string) error {
@@ -342,17 +400,19 @@ func (mspd *MySQLPrivateDatabase) checkForExcludedColumns(tableName string, excl
 	return nil
 }
 
-func (mspd *MySQLPrivateDatabase) transformTable(tableName string, transformedTableName string,
-	transforms TableTransform, excludedColumns []string) error {
+func (mspd *MySQLPrivateDatabase) transformTable(tableName string, groupPrefix string,
+	transforms TableTransform, excludedColumns []string) (string, error) {
+
+	transformedTableName := groupPrefix + tableName
 
 	if mspd.CacheTables {
 		// Check if we have a valid cached table
 		valid, err := mspd.checkCache(tableName, transformedTableName)
 		if err != nil {
-			return err
+			return "", err
 		}
 		if valid {
-			return nil
+			return transformedTableName, nil
 		}
 	} else {
 		// Add a random ID to the table name to avoid clashes with concurrent requests
@@ -361,18 +421,10 @@ func (mspd *MySQLPrivateDatabase) transformTable(tableName string, transformedTa
 
 	err := mspd.doTransform(tableName, transformedTableName, transforms, excludedColumns)
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	if !mspd.CacheTables {
-		// Drop the table we created
-		err = mspd.dropTableIfExists(transformedTableName)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
+	return transformedTableName, nil
 }
 
 func (mspd *MySQLPrivateDatabase) doTransform(tableName string, transformedTableName string,

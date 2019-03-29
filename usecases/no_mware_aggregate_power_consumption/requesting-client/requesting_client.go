@@ -10,6 +10,7 @@ import (
 )
 
 func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
+	client := http.Client{}
 	return func(w http.ResponseWriter, r *http.Request) {
 		httpRequest, _ := http.NewRequest("GET", "http://no-mware-server:3002/get-average-power-consumption", nil)
 		//httpRequest, _ := http.NewRequest("GET", "http://127.0.0.1:3002/get-average-power-consumption", nil)
@@ -26,7 +27,6 @@ func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 		params.Set("endDate", endDate)
 		httpRequest.URL.RawQuery = params.Encode()
 
-		client := http.Client{}
 		resp, err := client.Do(httpRequest)
 		if err != nil {
 			log.Println("Error:", err)

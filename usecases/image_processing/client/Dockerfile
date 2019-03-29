@@ -29,10 +29,13 @@ RUN chmod +x /usr/bin/dep
 # Copy the code from the host and compile it
 WORKDIR $GOPATH/src/github.com/JacobMoxham/PartIIProjectImplementation/usecases/image_processing/client
 
-#RUN apt-get install iproute2
-
 COPY Gopkg.toml Gopkg.lock ./
 RUN dep ensure --vendor-only
 COPY . .
 RUN go build
+
+
+# Install iproute2 for pumba to work
+RUN echo 'Y' | apt-get install iproute2
+RUN ln -s /usr/lib/tc /lib/tc
 ENTRYPOINT ["./client"]

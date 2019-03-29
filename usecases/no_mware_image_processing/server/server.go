@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	imageProcessing "github.com/JacobMoxham/PartIIProjectImplementation/image_recognition"
-	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
 	"log"
 	"net/http"
 )
@@ -25,14 +24,7 @@ func imageProcessingHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	// Create actual function to run
-	finalHandler := http.HandlerFunc(imageProcessingHandler)
-
-	// Define computation policy
-	computationPolicy := middleware.NewStaticComputationPolicy()
-	computationPolicy.Register("/", middleware.CanCompute, finalHandler)
-
-	// Chain together "other" middlewares
-	handler := middleware.PrivacyAwareHandler(computationPolicy)
+	handler := http.HandlerFunc(imageProcessingHandler)
 
 	// Register the composite handler at '/' on port 3000
 	http.Handle("/", handler)
