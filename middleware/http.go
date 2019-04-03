@@ -120,3 +120,13 @@ func PrivacyAwareHandler(policy ComputationPolicy) http.Handler {
 		log.Println("PAM: finished serving: ", r.URL.Path)
 	})
 }
+
+// PrivacyAwareHandler returns a http.HandlerFunc which runs the PrivacyAwareHandler for the passed ComputationPolicy.
+func PrivacyAwareHandlerFunc(policy ComputationPolicy) http.HandlerFunc {
+	handler := PrivacyAwareHandler(policy)
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		handler.ServeHTTP(w, r)
+	})
+}
+
+// TODO: add tests for this file

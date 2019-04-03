@@ -38,7 +38,9 @@ func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
 	// Check if we can process this request locally
 	requestPath := req.HttpRequest.URL.Path
 	computationPolicy := c.computationPolicy
-	computationLevel, localHandler := computationPolicy.Resolve(requestPath, Local)
+	// TODO: check if this should be Local or Remote
+	// Pass Remote to resolve so that we get a CanCompute handler if it is available
+	computationLevel, localHandler := computationPolicy.Resolve(requestPath, Remote)
 
 	// Check if we have all of the required data to process this locally within the request
 	allRequiredData := req.Policy.HasAllRequiredData
