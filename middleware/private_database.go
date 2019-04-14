@@ -657,6 +657,9 @@ func (mspd *MySQLPrivateDatabase) getColsToCopy(tableName string, excludedColumn
 
 func (mspd *MySQLPrivateDatabase) checkCache(tableName string, transformedTableName string) (bool, error) {
 	// Take out table lock
+	// TODO: why do we take a lock, this is the only place. Notes said to avoid a race condition "may need a lock between DROP if exists and CREATE"
+	// I think I meant to fix that as a race in the non-caching state but only added it here, should probs look into SQL
+	// table locks instead?? Maybe not as trans vs non trans table
 	mutex := mspd.tableMutexes.GetMutex(tableName)
 	mutex.Lock()
 	defer mutex.Unlock()

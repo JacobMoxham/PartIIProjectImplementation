@@ -89,8 +89,8 @@ func BuildPamResponse(resp *http.Response) (PamResponse, error) {
 
 // PrivacyAwareHandler returns a http.Handler based on the passed
 // ComputationPolicy. It also performs some basic logging of requests received.
-func PrivacyAwareHandler(policy ComputationPolicy) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+func PrivacyAwareHandler(policy ComputationPolicy) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
 		log.Println("PAM: handling path: ", r.URL.Path)
 
 		// Get preferred processing location
@@ -118,15 +118,8 @@ func PrivacyAwareHandler(policy ComputationPolicy) http.Handler {
 			handler.ServeHTTP(w, r)
 		}
 		log.Println("PAM: finished serving: ", r.URL.Path)
-	})
-}
-
-// PrivacyAwareHandler returns a http.HandlerFunc which runs the PrivacyAwareHandler for the passed ComputationPolicy.
-func PrivacyAwareHandlerFunc(policy ComputationPolicy) http.HandlerFunc {
-	handler := PrivacyAwareHandler(policy)
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		handler.ServeHTTP(w, r)
-	})
+	}
 }
 
 // TODO: add tests for this file
+// TODO: check returning HandlerFunc doesn't break anything and that we can chain middlewares

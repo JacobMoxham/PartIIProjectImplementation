@@ -37,7 +37,7 @@ func basicServer() {
 	// Register the composite handler at '/' on port 3000
 	http.Handle("/", middleware.PrivacyAwareHandler(computationPolicy))
 	log.Println("Listening...")
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(":3007", nil)
 }
 
 func basicClient() {
@@ -49,7 +49,7 @@ func basicClient() {
 			HasAllRequiredData:          false,
 			PreferredProcessingLocation: middleware.Remote,
 		}
-		httpRequest, _ := http.NewRequest("GET", "http://127.0.0.1:3000/", nil)
+		httpRequest, _ := http.NewRequest("GET", "http://127.0.0.1:3007/", nil)
 		req := middleware.PamRequest{
 			Policy:      &policy,
 			HttpRequest: httpRequest,

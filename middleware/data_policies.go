@@ -50,6 +50,7 @@ type DataTransforms map[*PrivacyGroup]*TableOperations
 type DataPolicy interface {
 	// resolve takes an identifier for an entity and returns the TableOperatoinsg for the entity
 	Resolve(string) (*TableOperations, error)
+	//TODO: add test for last updated changing or at least last time of table update changing
 	LastUpdated() time.Time
 }
 
