@@ -4,8 +4,11 @@ import (
 	"database/sql"
 	"encoding/csv"
 	"errors"
+	"flag"
 	"fmt"
 	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
+	"gonum.org/v1/gonum/stat"
+	"log"
 	"os"
 	"strconv"
 	"testing"
@@ -15,7 +18,7 @@ import (
 func main() {
 	benchmarkResults := GetBenchmarkResults()
 
-	f, err := os.Create("/home/jacob/PycharmProjects/PartIIProjectDataAnalysis/benchmarks/data/read-benchmarks.csv")
+	f, err := os.Create("/home/jacob/PycharmProjects/PartIIProjectDataAnalysis/benchmarks/data/read-benchmarks2.csv")
 	if err != nil {
 		panic(err)
 	}
@@ -23,9 +26,9 @@ func main() {
 
 	w := csv.NewWriter(f)
 	for _, br := range benchmarkResults {
-		record := []string{strconv.FormatInt(br.NsPerOp(), 10),
-			strconv.FormatInt(br.AllocsPerOp(), 10),
-			strconv.FormatInt(br.AllocedBytesPerOp(), 10),
+		record := []string{strconv.FormatFloat(br.averageNsPerOp, 'f', 5, 64),
+			strconv.FormatFloat(br.averageAllocsPerOp, 'f', 5, 64),
+			strconv.FormatFloat(br.averageBytesPerOp, 'f', 5, 64),
 		}
 		err := w.Write(record)
 		if err != nil {
@@ -406,64 +409,115 @@ func BenchmarkMySQLPrivateDatabase_Query_Read_Caching_25000(b *testing.B) {
 	benchmarkMySQLPrivateDatabaseQueryReadCaching(b, "SELECT * FROM power_cons_25000")
 }
 
-func GetBenchmarkResults() []testing.BenchmarkResult {
-	return []testing.BenchmarkResult{
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_100),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_200),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_300),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_400),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_500),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_600),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_700),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_800),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_900),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_1000),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_2000),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_3000),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_4000),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_5000),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_8000),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_10000),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_15000),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_20000),
-		testing.Benchmark(BenchmarkMySQLDatabaseQueryRead_25000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_100),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_200),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_300),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_400),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_500),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_600),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_700),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_800),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_900),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_1000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_2000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_3000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_4000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_5000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_8000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_10000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_15000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_20000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_Caching_25000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_100),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_200),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_300),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_400),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_500),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_600),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_700),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_800),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_900),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_1000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_2000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_3000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_4000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_5000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_8000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_10000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_15000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_20000),
-		testing.Benchmark(BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_25000),
+var benchmarks = []func(*testing.B){
+	BenchmarkMySQLDatabaseQueryRead_100,
+	BenchmarkMySQLDatabaseQueryRead_200,
+	BenchmarkMySQLDatabaseQueryRead_300,
+	BenchmarkMySQLDatabaseQueryRead_400,
+	BenchmarkMySQLDatabaseQueryRead_500,
+	BenchmarkMySQLDatabaseQueryRead_600,
+	BenchmarkMySQLDatabaseQueryRead_700,
+	BenchmarkMySQLDatabaseQueryRead_800,
+	BenchmarkMySQLDatabaseQueryRead_900,
+	BenchmarkMySQLDatabaseQueryRead_1000,
+	BenchmarkMySQLDatabaseQueryRead_2000,
+	BenchmarkMySQLDatabaseQueryRead_3000,
+	BenchmarkMySQLDatabaseQueryRead_4000,
+	BenchmarkMySQLDatabaseQueryRead_5000,
+	BenchmarkMySQLDatabaseQueryRead_8000,
+	BenchmarkMySQLDatabaseQueryRead_10000,
+	BenchmarkMySQLDatabaseQueryRead_15000,
+	BenchmarkMySQLDatabaseQueryRead_20000,
+	BenchmarkMySQLDatabaseQueryRead_25000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_100,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_200,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_300,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_400,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_500,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_600,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_700,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_800,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_900,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_1000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_2000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_3000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_4000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_5000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_8000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_10000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_15000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_20000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_25000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_100,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_200,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_300,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_400,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_500,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_600,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_700,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_800,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_900,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_1000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_2000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_3000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_4000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_5000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_8000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_10000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_15000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_20000,
+	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_25000,
+}
+
+type benchResult struct {
+	averageNsPerOp     float64
+	averageAllocsPerOp float64
+	averageBytesPerOp  float64
+	stdevNsPerOp       float64
+	stdevAllocsPerOP   float64
+	stdevBytesPerOp    float64
+}
+
+func GetBenchmarkResults() []benchResult {
+	// Get number of iterations required to run each benchmark for at least a second
+	err := flag.Set("test.benchtime", "1s")
+	if err != nil {
+		log.Fatal(err)
 	}
+
+	var numIterations []int
+	for _, f := range benchmarks {
+		numIterations = append(numIterations, testing.Benchmark(f).N)
+	}
+
+	// Get the individual times for each iteration so we can calculate error bars
+	err = flag.Set("test.benchtime", "0s")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var benchResults []benchResult
+	for i, n := range numIterations {
+		nsPerOps := make([]float64, n, n)
+		bytesperOps := make([]float64, n, n)
+		allocsPerOps := make([]float64, n, n)
+
+		for j := 0; j < n; j++ {
+			benchmarkResult := testing.Benchmark(benchmarks[i])
+			nsPerOps[j] = float64(benchmarkResult.NsPerOp())
+			bytesperOps[j] = float64(benchmarkResult.AllocedBytesPerOp())
+			allocsPerOps[j] = float64(benchmarkResult.AllocsPerOp())
+		}
+
+		// Calculate means and standard deviations
+		averageNsPerOp, stdevNsPerOp := stat.MeanStdDev(nsPerOps, nil)
+		averageBytesPerOp, stdevBytesPerOp := stat.MeanStdDev(bytesperOps, nil)
+		averageAllocsPerOp, stdevAllocsPerOP := stat.MeanStdDev(allocsPerOps, nil)
+		benchResults = append(benchResults, benchResult{
+			averageNsPerOp, averageBytesPerOp, averageAllocsPerOp,
+			stdevNsPerOp, stdevBytesPerOp, stdevAllocsPerOP,
+		})
+	}
+
+	return benchResults
 }
