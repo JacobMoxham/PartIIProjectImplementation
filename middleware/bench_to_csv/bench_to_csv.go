@@ -26,9 +26,15 @@ func main() {
 
 	w := csv.NewWriter(f)
 	for _, br := range benchmarkResults {
-		record := []string{strconv.FormatFloat(br.averageNsPerOp, 'f', 5, 64),
+		record := []string{strconv.FormatFloat(
+			br.averageNsPerOp, 'f', 5, 64),
+			strconv.FormatFloat(br.stdevNsPerOp, 'f', 5, 64),
+
 			strconv.FormatFloat(br.averageAllocsPerOp, 'f', 5, 64),
+			strconv.FormatFloat(br.stdevAllocsPerOP, 'f', 5, 64),
+
 			strconv.FormatFloat(br.averageBytesPerOp, 'f', 5, 64),
+			strconv.FormatFloat(br.stdevBytesPerOp, 'f', 5, 64),
 		}
 		err := w.Write(record)
 		if err != nil {
@@ -97,9 +103,13 @@ func benchmarkMySQLDatabaseQueryRead(b *testing.B, queryString string) {
 	var r *sql.Rows
 	for i := 0; i < b.N; i++ {
 		r = benchmarkMySQLDatabaseQuery(b, db, queryString)
+		if r == nil {
+			b.Log("Nil result")
+			return
+		}
 		err = r.Close()
 		if err != nil {
-			b.Error(err.Error())
+			b.Log(err.Error())
 		}
 	}
 	result = r
@@ -205,9 +215,13 @@ func benchmarkMySQLPrivateDatabaseQueryReadNoCaching(b *testing.B, queryString s
 	var r *sql.Rows
 	for i := 0; i < b.N; i++ {
 		r = benchmarkMySQLPrivateDatabaseQuery(b, db, queryString)
+		if r == nil {
+			b.Log("Nil result")
+			return
+		}
 		err = r.Close()
 		if err != nil {
-			b.Error(err.Error())
+			b.Log(err.Error())
 		}
 	}
 	result = r
@@ -325,9 +339,13 @@ func benchmarkMySQLPrivateDatabaseQueryReadCaching(b *testing.B, queryString str
 	var r *sql.Rows
 	for i := 0; i < b.N; i++ {
 		r = benchmarkMySQLPrivateDatabaseQuery(b, db, queryString)
+		if r == nil {
+			b.Log("Nil result")
+			return
+		}
 		err = r.Close()
 		if err != nil {
-			b.Error(err.Error())
+			b.Log(err.Error())
 		}
 	}
 	result = r
@@ -429,6 +447,7 @@ var benchmarks = []func(*testing.B){
 	BenchmarkMySQLDatabaseQueryRead_15000,
 	BenchmarkMySQLDatabaseQueryRead_20000,
 	BenchmarkMySQLDatabaseQueryRead_25000,
+
 	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_100,
 	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_200,
 	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_300,
@@ -448,6 +467,7 @@ var benchmarks = []func(*testing.B){
 	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_15000,
 	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_20000,
 	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_25000,
+
 	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_100,
 	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_200,
 	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_300,
@@ -487,7 +507,10 @@ func GetBenchmarkResults() []benchResult {
 
 	var numIterations []int
 	for _, f := range benchmarks {
-		numIterations = append(numIterations, testing.Benchmark(f).N)
+		benchmark := testing.Benchmark(f)
+		iterations := benchmark.N
+		log.Printf("normal benchmark: %+v\n", benchmark)
+		numIterations = append(numIterations, iterations)
 	}
 
 	// Get the individual times for each iteration so we can calculate error bars
@@ -507,16 +530,21 @@ func GetBenchmarkResults() []benchResult {
 			nsPerOps[j] = float64(benchmarkResult.NsPerOp())
 			bytesperOps[j] = float64(benchmarkResult.AllocedBytesPerOp())
 			allocsPerOps[j] = float64(benchmarkResult.AllocsPerOp())
+			if benchmarkResult.NsPerOp() == 0 {
+				log.Printf("%+v", benchmarkResult)
+			}
 		}
 
 		// Calculate means and standard deviations
 		averageNsPerOp, stdevNsPerOp := stat.MeanStdDev(nsPerOps, nil)
 		averageBytesPerOp, stdevBytesPerOp := stat.MeanStdDev(bytesperOps, nil)
 		averageAllocsPerOp, stdevAllocsPerOP := stat.MeanStdDev(allocsPerOps, nil)
-		benchResults = append(benchResults, benchResult{
+		benchResult := benchResult{
 			averageNsPerOp, averageBytesPerOp, averageAllocsPerOp,
 			stdevNsPerOp, stdevBytesPerOp, stdevAllocsPerOP,
-		})
+		}
+		benchResults = append(benchResults, benchResult)
+		log.Printf("%d single bmarks iterations: %+v\n", n, benchResult)
 	}
 
 	return benchResults
