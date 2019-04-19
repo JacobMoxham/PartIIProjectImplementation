@@ -4,10 +4,8 @@ import (
 	"database/sql"
 	"encoding/csv"
 	"errors"
-	"flag"
 	"fmt"
 	"github.com/JacobMoxham/PartIIProjectImplementation/middleware"
-	"gonum.org/v1/gonum/stat"
 	"log"
 	"os"
 	"strconv"
@@ -16,32 +14,36 @@ import (
 )
 
 func main() {
-	benchmarkResults := GetBenchmarkResults()
+	for i, filename := range []string{
+		"/home/jacob/PycharmProjects/PartIIProjectDataAnalysis/benchmarks/data/read-benchmarks-no-mware-collection.csv",
+		"/home/jacob/PycharmProjects/PartIIProjectDataAnalysis/benchmarks/data/read-benchmarks-caching-collection.csv",
+		"/home/jacob/PycharmProjects/PartIIProjectDataAnalysis/benchmarks/data/read-benchmarks-no-caching-collection.csv",
+	} {
+		benchmarkResults := GetBenchmarkResults(benchmarkLists[i])
 
-	f, err := os.Create("/home/jacob/PycharmProjects/PartIIProjectDataAnalysis/benchmarks/data/read-benchmarks2.csv")
-	if err != nil {
-		panic(err)
-	}
-	defer f.Close()
-
-	w := csv.NewWriter(f)
-	for _, br := range benchmarkResults {
-		record := []string{strconv.FormatFloat(
-			br.averageNsPerOp, 'f', 5, 64),
-			strconv.FormatFloat(br.stdevNsPerOp, 'f', 5, 64),
-
-			strconv.FormatFloat(br.averageAllocsPerOp, 'f', 5, 64),
-			strconv.FormatFloat(br.stdevAllocsPerOP, 'f', 5, 64),
-
-			strconv.FormatFloat(br.averageBytesPerOp, 'f', 5, 64),
-			strconv.FormatFloat(br.stdevBytesPerOp, 'f', 5, 64),
+		f, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+		if err != nil {
+			panic(err)
 		}
-		err := w.Write(record)
+
+		w := csv.NewWriter(f)
+		for _, br := range benchmarkResults {
+			record := []string{
+				strconv.FormatFloat(br.nsPerOp, 'f', 5, 64),
+				strconv.FormatFloat(br.allocsPerOp, 'f', 5, 64),
+				strconv.FormatFloat(br.bytesperOp, 'f', 5, 64),
+			}
+			err := w.Write(record)
+			if err != nil {
+				panic(err)
+			}
+		}
+		w.Flush()
+		err = f.Close()
 		if err != nil {
 			panic(err)
 		}
 	}
-	w.Flush()
 }
 
 func validFuncMap() map[string]middleware.TableTransform {
@@ -427,7 +429,9 @@ func BenchmarkMySQLPrivateDatabase_Query_Read_Caching_25000(b *testing.B) {
 	benchmarkMySQLPrivateDatabaseQueryReadCaching(b, "SELECT * FROM power_cons_25000")
 }
 
-var benchmarks = []func(*testing.B){
+var benchmarkLists = [][]func(*testing.B){noMwareBenchmarks, cachingBenchmarks, noCachingBenchmarks}
+
+var noMwareBenchmarks = []func(*testing.B){
 	BenchmarkMySQLDatabaseQueryRead_100,
 	BenchmarkMySQLDatabaseQueryRead_200,
 	BenchmarkMySQLDatabaseQueryRead_300,
@@ -447,7 +451,8 @@ var benchmarks = []func(*testing.B){
 	BenchmarkMySQLDatabaseQueryRead_15000,
 	BenchmarkMySQLDatabaseQueryRead_20000,
 	BenchmarkMySQLDatabaseQueryRead_25000,
-
+}
+var cachingBenchmarks = []func(*testing.B){
 	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_100,
 	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_200,
 	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_300,
@@ -467,7 +472,8 @@ var benchmarks = []func(*testing.B){
 	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_15000,
 	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_20000,
 	BenchmarkMySQLPrivateDatabase_Query_Read_Caching_25000,
-
+}
+var noCachingBenchmarks = []func(*testing.B){
 	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_100,
 	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_200,
 	BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_300,
@@ -490,61 +496,34 @@ var benchmarks = []func(*testing.B){
 }
 
 type benchResult struct {
-	averageNsPerOp     float64
-	averageAllocsPerOp float64
-	averageBytesPerOp  float64
-	stdevNsPerOp       float64
-	stdevAllocsPerOP   float64
-	stdevBytesPerOp    float64
+	nsPerOp     float64
+	bytesperOp  float64
+	allocsPerOp float64
 }
 
-func GetBenchmarkResults() []benchResult {
-	// Get number of iterations required to run each benchmark for at least a second
-	err := flag.Set("test.benchtime", "1s")
-	if err != nil {
-		log.Fatal(err)
+func GetBenchmarkResults(benchmarks []func(*testing.B)) []*benchResult {
+	var benchResults []*benchResult
+	for i := 0; i < len(benchmarks); i++ {
+		benchResults = append(benchResults, new(benchResult))
 	}
 
-	var numIterations []int
-	for _, f := range benchmarks {
-		benchmark := testing.Benchmark(f)
-		iterations := benchmark.N
-		log.Printf("normal benchmark: %+v\n", benchmark)
-		numIterations = append(numIterations, iterations)
-	}
-
-	// Get the individual times for each iteration so we can calculate error bars
-	err = flag.Set("test.benchtime", "0s")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var benchResults []benchResult
-	for i, n := range numIterations {
-		nsPerOps := make([]float64, n, n)
-		bytesperOps := make([]float64, n, n)
-		allocsPerOps := make([]float64, n, n)
-
-		for j := 0; j < n; j++ {
-			benchmarkResult := testing.Benchmark(benchmarks[i])
-			nsPerOps[j] = float64(benchmarkResult.NsPerOp())
-			bytesperOps[j] = float64(benchmarkResult.AllocedBytesPerOp())
-			allocsPerOps[j] = float64(benchmarkResult.AllocsPerOp())
+	for j, f := range benchmarks {
+		backoff := 10 * time.Second
+		for {
+			benchmarkResult := testing.Benchmark(f)
+			log.Printf("%+v", benchmarkResult)
 			if benchmarkResult.NsPerOp() == 0 {
-				log.Printf("%+v", benchmarkResult)
+				log.Println("Retry")
+				time.Sleep(backoff)
+				backoff *= 2
+				continue
+			} else {
+				benchResults[j].nsPerOp = float64(benchmarkResult.NsPerOp())
+				benchResults[j].bytesperOp = float64(benchmarkResult.AllocedBytesPerOp())
+				benchResults[j].allocsPerOp = float64(benchmarkResult.AllocsPerOp())
+				break
 			}
 		}
-
-		// Calculate means and standard deviations
-		averageNsPerOp, stdevNsPerOp := stat.MeanStdDev(nsPerOps, nil)
-		averageBytesPerOp, stdevBytesPerOp := stat.MeanStdDev(bytesperOps, nil)
-		averageAllocsPerOp, stdevAllocsPerOP := stat.MeanStdDev(allocsPerOps, nil)
-		benchResult := benchResult{
-			averageNsPerOp, averageBytesPerOp, averageAllocsPerOp,
-			stdevNsPerOp, stdevBytesPerOp, stdevAllocsPerOP,
-		}
-		benchResults = append(benchResults, benchResult)
-		log.Printf("%d single bmarks iterations: %+v\n", n, benchResult)
 	}
 
 	return benchResults
