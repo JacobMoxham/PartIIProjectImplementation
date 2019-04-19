@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"strings"
 	"testing"
 	"time"
 )
@@ -557,7 +558,7 @@ func BenchmarkMySQLPrivateDatabase_Query_Read_Caching_25000(b *testing.B) {
 	benchmarkMySQLPrivateDatabaseQueryReadCaching(b, "SELECT * FROM power_cons_25000")
 }
 
-func benchmarkMySQLDatabaseExecWrite(b *testing.B, execString string) {
+func benchmarkMySQLDatabaseExecWrite(b *testing.B, execString string, args ...interface{}) {
 	b.StopTimer()
 	db, err := sql.Open("mysql",
 		fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=UTC",
@@ -565,11 +566,15 @@ func benchmarkMySQLDatabaseExecWrite(b *testing.B, execString string) {
 	if err != nil {
 		b.Error(err.Error())
 	}
+	if db == nil {
+		b.Error(errors.New("DB is nil"))
+	}
+
 	db.SetMaxIdleConns(0)
 	db.SetConnMaxLifetime(time.Second * 20)
 	b.StartTimer()
 
-	_, err = db.Exec(execString)
+	_, err = db.Exec(execString, args...)
 	if err != nil {
 		b.Error(err.Error())
 	}
@@ -582,13 +587,118 @@ func benchmarkMySQLDatabaseExecWrite(b *testing.B, execString string) {
 	b.StartTimer()
 }
 
-func BenchmarkMySQLDatabase_Exec_Write(b *testing.B) {
+var row = []interface{}{
+	"steve",
+	time.Date(1996, 2, 7, 0, 0, 0, 0, time.UTC),
+}
+
+func getNRows(numRows int) (string, []interface{}) {
+	rowsToWrite := ""
+	var rowArguments []interface{}
+	for i := 0; i < numRows; i++ {
+		// Add rows to string
+		rowsToWrite += "("
+		for i := 0; i < len(row); i++ {
+			rowsToWrite += "?, "
+		}
+		rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
+		rowsToWrite += "), "
+		rowArguments = append(rowArguments, row...)
+	}
+
+	// Remove the last comma and space
+	rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
+
+	return rowsToWrite, rowArguments
+}
+
+func benchmarkMySQLDatabaseExecWriteN(b *testing.B, numRows int) {
+	b.StopTimer()
+	rowsToWrite, rowArguments := getNRows(numRows)
+	b.StartTimer()
+
 	for i := 0; i < b.N; i++ {
-		benchmarkMySQLDatabaseExecWrite(b, `INSERT INTO people (name, dob) VALUES ('steve', '1996-02-07')`)
+		benchmarkMySQLDatabaseExecWrite(b, `INSERT INTO people (name, dob) VALUES `+rowsToWrite, rowArguments...)
 	}
 }
 
-func benchmarkMySQLPrivateDatabaseExecWrite(b *testing.B, execString string) {
+func BenchmarkMySQLDatabase_Exec_Write_100(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 100)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_200(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 200)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_300(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 300)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_400(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 400)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_500(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 500)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_600(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 600)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_700(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 700)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_800(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 800)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_900(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 900)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_1000(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 1000)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_2000(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 2000)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_3000(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 3000)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_4000(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 4000)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_5000(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 5000)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_8000(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 8000)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_10000(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 10000)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_15000(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 15000)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_20000(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 20000)
+}
+
+func BenchmarkMySQLDatabase_Exec_Write_25000(b *testing.B) {
+	benchmarkMySQLDatabaseExecWriteN(b, 25000)
+}
+
+func benchmarkMySQLPrivateDatabaseExecWrite(b *testing.B, execString string, args ...interface{}) {
 	b.StopTimer()
 	funcMap := validFuncMap()
 	colMap := map[string][]string{}
@@ -609,14 +719,102 @@ func benchmarkMySQLPrivateDatabaseExecWrite(b *testing.B, execString string) {
 	b.StartTimer()
 
 	_, err = db.Exec(execString,
-		&RequestPolicy{"jacob", Local, true})
+		&RequestPolicy{"jacob", Local, true},
+		args...)
 	if err != nil {
 		b.Error(err.Error())
 	}
+
+	b.StopTimer()
+	err = db.Close()
+	if err != nil {
+		b.Error(err.Error())
+	}
+	b.StartTimer()
 }
 
-func BenchmarkMySQLPrivateDatabase_Exec_Write(b *testing.B) {
+func benchmarkMySQLPrivateDatabaseEvecWriteN(b *testing.B, numRows int) {
+	b.StopTimer()
+	rowsToWrite, rowArguments := getNRows(numRows)
+	b.StartTimer()
+
 	for i := 0; i < b.N; i++ {
-		benchmarkMySQLPrivateDatabaseExecWrite(b, `INSERT INTO people (name, dob) VALUES ('steve', '1996-02-07')`)
+		benchmarkMySQLPrivateDatabaseExecWrite(b, `INSERT INTO people (name, dob) VALUES `+rowsToWrite, rowArguments...)
 	}
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_100(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 100)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_200(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 200)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_300(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 300)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_400(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 400)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_500(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 500)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_600(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 600)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_700(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 700)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_800(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 800)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_900(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 900)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_1000(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 1000)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_2000(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 2000)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_3000(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 3000)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_4000(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 4000)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_5000(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 5000)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_8000(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 8000)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_10000(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 10000)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_15000(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 15000)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_20000(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 20000)
+}
+
+func BenchmarkMySQLPrivateDatabase_Exec_Write_25000(b *testing.B) {
+	benchmarkMySQLPrivateDatabaseEvecWriteN(b, 25000)
 }

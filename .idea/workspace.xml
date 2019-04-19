@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e28621a1-efb5-4cd6-86fd-b9d0c04829bd" name="Default Changelist" comment="Basic client and server working">
-      <change beforePath="$PROJECT_DIR$/middleware/bench_to_csv/bench_to_csv.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/bench_to_csv/bench_to_csv.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/middleware/private_database_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/private_database_test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -64,124 +64,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/middleware/bench_to_csv/bench_to_csv.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7866">
-              <caret line="437" column="40" lean-forward="true" selection-start-line="437" selection-start-column="40" selection-end-line="437" selection-end-column="40" />
-              <folding>
-                <element signature="e#14#174#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/middleware/static_computation_policy.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-397">
-              <caret line="8" column="15" selection-start-line="8" selection-end-line="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/go/src/os/file.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="588">
-              <caret line="281" column="5" selection-start-line="281" selection-start-column="5" selection-end-line="281" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/go/src/gonum.org/v1/gonum/stat/stat.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="1228" column="5" selection-start-line="1228" selection-start-column="5" selection-end-line="1228" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/middleware/private_database_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1782">
-              <caret line="21" column="18" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="405" selection-start-line="405" selection-end-line="405" />
-              <folding>
-                <element signature="e#1320#1378#0" />
-                <element signature="e#2425#2442#0" />
-                <element signature="e#2826#2871#0" />
-                <element signature="e#4075#4163#0" />
-                <element signature="e#4133#4159#0" />
-                <element signature="e#4545#4630#0" />
-                <element signature="e#5150#5172#0" />
-                <element signature="e#5365#5453#0" />
-                <element signature="e#5423#5449#0" />
-                <element signature="e#5826#5907#0" />
-                <element signature="e#6421#6443#0" />
-                <element signature="e#6552#6574#0" />
-                <element signature="e#6598#6769#0" />
-                <element signature="e#6678#6766#0" />
-                <element signature="e#6736#6762#0" />
-                <element signature="e#6885#6918#0" />
-                <element signature="e#7182#7222#0" />
-                <element signature="e#7638#7675#0" />
-                <element signature="e#8124#8161#0" />
-                <element signature="e#8315#8347#0" />
-                <element signature="e#8534#8576#0" />
-                <element signature="e#9167#9234#0" />
-                <element signature="e#11284#11310#0" />
-                <element signature="e#11644#11674#0" />
-                <element signature="e#11853#11883#0" />
-                <element signature="e#12937#12954#0" />
-                <element signature="e#13047#13089#1" />
-                <element signature="e#13115#13427#0" />
-                <element signature="e#13179#13198#0" />
-                <element signature="e#13239#13424#0" />
-                <element signature="e#13458#13489#0" />
-                <element signature="e#13863#13886#0" />
-                <element signature="e#15926#15957#0" />
-                <element signature="e#16131#16497#0" />
-                <element signature="e#16368#16391#0" />
-                <element signature="e#16756#16775#0" />
-                <element signature="e#16905#17219#0" />
-                <element signature="e#16934#17198#0" />
-                <element signature="e#17016#17195#0" />
-                <element signature="e#17088#17115#0" />
-                <element signature="e#17133#17160#0" />
-                <element signature="e#17340#17566#0" />
-                <element signature="e#17640#17769#0" />
-                <element signature="e#18351#18975#0" />
-                <element signature="e#18438#18788#0" />
-                <element signature="e#18480#18533#0" />
-                <element signature="e#18563#18638#0" />
-                <element signature="e#18644#18788#0" />
-                <element signature="e#18790#18898#0" />
-                <element signature="e#18900#18972#0" />
-                <element signature="e#19215#19308#1" />
-                <element signature="e#19311#19879#0" />
-                <element signature="e#19395#19643#0" />
-                <element signature="e#19444#19511#0" />
-                <element signature="e#19517#19643#0" />
-                <element signature="e#19645#19792#0" />
-                <element signature="e#19794#19876#0" />
-                <element signature="e#20156#20868#0" />
-                <element signature="e#20399#20421#0" />
-                <element signature="e#20499#20541#1" />
-                <element signature="e#20592#20774#0" />
-                <element signature="e#20656#20680#0" />
-                <element signature="e#20722#20771#0" />
-                <element signature="e#20805#20841#0" />
-              </folding>
+            <state relative-caret-position="498">
+              <caret line="732" column="18" selection-start-line="732" selection-start-column="18" selection-end-line="732" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -189,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file:///usr/local/go/src/database/sql/sql.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="2954" selection-start-line="2954" selection-end-line="2954" />
+            <state relative-caret-position="498">
+              <caret line="1433" selection-start-line="1433" selection-end-line="1433" />
               <folding>
                 <element signature="e#722#797#0" />
                 <element signature="e#1088#1316#0" />
@@ -416,20 +302,7 @@
                 <element signature="e#38590#38612#0" />
                 <element signature="e#38627#38686#0" />
                 <element signature="e#38854#38972#0" />
-                <element signature="e#39286#39391#0" />
-                <element signature="e#39374#39388#0" />
-                <element signature="e#39421#39475#0" />
-                <element signature="e#39680#39744#0" />
-                <element signature="e#39864#39996#0" />
-                <element signature="e#39916#39938#0" />
-                <element signature="e#40135#40917#0" />
-                <element signature="e#40151#40170#0" />
-                <element signature="e#40254#40295#0" />
-                <element signature="e#40303#40671#0" />
-                <element signature="e#40386#40552#0" />
                 <element signature="e#40462#40479#0" />
-                <element signature="e#40581#40668#0" />
-                <element signature="e#40600#40626#0" />
                 <element signature="e#40649#40659#0" />
                 <element signature="e#40714#40766#0" />
                 <element signature="e#40783#40805#0" />
@@ -681,10 +554,80 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/go/src/testing/benchmark.go">
+        <entry file="file:///usr/local/go/src/context/context.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-186">
-              <caret line="240" column="12" selection-start-line="240" selection-start-column="12" selection-end-line="240" selection-end-column="12" />
+            <state relative-caret-position="186">
+              <caret line="206" selection-start-line="206" selection-end-line="206" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="858">
+              <caret line="523" column="5" lean-forward="true" selection-start-line="523" selection-end-line="524" />
+              <folding>
+                <element signature="e#1320#1378#0" />
+                <element signature="e#2425#2442#0" />
+                <element signature="e#2826#2871#0" />
+                <element signature="e#4075#4163#0" />
+                <element signature="e#4133#4159#0" />
+                <element signature="e#4545#4630#0" />
+                <element signature="e#5150#5172#0" />
+                <element signature="e#5365#5453#0" />
+                <element signature="e#5423#5449#0" />
+                <element signature="e#5826#5907#0" />
+                <element signature="e#6421#6443#0" />
+                <element signature="e#6552#6574#0" />
+                <element signature="e#6598#6769#0" />
+                <element signature="e#6678#6766#0" />
+                <element signature="e#6736#6762#0" />
+                <element signature="e#6885#6918#0" />
+                <element signature="e#7182#7222#0" />
+                <element signature="e#7638#7675#0" />
+                <element signature="e#8124#8161#0" />
+                <element signature="e#8315#8347#0" />
+                <element signature="e#8534#8576#0" />
+                <element signature="e#9167#9234#0" />
+                <element signature="e#11284#11310#0" />
+                <element signature="e#11644#11674#0" />
+                <element signature="e#11853#11883#0" />
+                <element signature="e#12937#12954#0" />
+                <element signature="e#13047#13089#1" />
+                <element signature="e#13115#13427#0" />
+                <element signature="e#13179#13198#0" />
+                <element signature="e#13239#13424#0" />
+                <element signature="e#13458#13489#0" />
+                <element signature="e#13863#13886#0" />
+                <element signature="e#16756#16775#0" />
+                <element signature="e#16905#17219#0" />
+                <element signature="e#16934#17198#0" />
+                <element signature="e#17016#17195#0" />
+                <element signature="e#17088#17115#0" />
+                <element signature="e#17133#17160#0" />
+                <element signature="e#17340#17566#0" />
+                <element signature="e#17640#17769#0" />
+                <element signature="e#18351#18975#0" />
+                <element signature="e#18438#18788#0" />
+                <element signature="e#18480#18533#0" />
+                <element signature="e#18563#18638#0" />
+                <element signature="e#18644#18788#0" />
+                <element signature="e#18790#18898#0" />
+                <element signature="e#18900#18972#0" />
+                <element signature="e#19395#19643#0" />
+                <element signature="e#19444#19511#0" />
+                <element signature="e#19517#19643#0" />
+                <element signature="e#19645#19792#0" />
+                <element signature="e#19794#19876#0" />
+                <element signature="e#20156#20868#0" />
+                <element signature="e#20399#20421#0" />
+                <element signature="e#20499#20541#1" />
+                <element signature="e#20592#20774#0" />
+                <element signature="e#20656#20680#0" />
+                <element signature="e#20722#20771#0" />
+                <element signature="e#20805#20841#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -700,8 +643,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ColName</find>
-      <find>.Qualifier</find>
       <find>.Qualifier =</find>
       <find>parse</find>
       <find>Qualifier</find>
@@ -730,6 +671,8 @@
       <find>r = be</find>
       <find>result</find>
       <find>Close</find>
+      <find>?</find>
+      <find>BenchmarkMySQLDatabase_Exec_Write</find>
     </findStrings>
     <replaceStrings>
       <replace>columnString</replace>
@@ -754,6 +697,8 @@
       <replace>colMap := map[string][]string{}</replace>
       <replace>\1</replace>
       <replace>$1</replace>
+      <replace>BenchmarkMySQLPrivateDatabase_Exec_Write</replace>
+      <replace>benchmarkMySQLPrivateDatabaseEvecWriteN</replace>
     </replaceStrings>
   </component>
   <component name="GOROOT" path="/usr/local/go" />
@@ -767,7 +712,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/usecases/image_processing/server/image_recognition/image_recognition.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/server/image_recognition/image-recognition.go" />
         <option value="$PROJECT_DIR$/usecases/image_processing/server/app/server.go" />
         <option value="$PROJECT_DIR$/middleware/privacy_aware_mux.go" />
@@ -816,8 +760,9 @@
         <option value="$PROJECT_DIR$/middleware/http.go" />
         <option value="$PROJECT_DIR$/middleware/private_database.go" />
         <option value="$PROJECT_DIR$/middleware/data_policies.go" />
-        <option value="$PROJECT_DIR$/middleware/private_database_test.go" />
         <option value="$PROJECT_DIR$/middleware/bench_to_csv/bench_to_csv.go" />
+        <option value="$PROJECT_DIR$/middleware/bench_to_csv/sql_rows.go" />
+        <option value="$PROJECT_DIR$/middleware/private_database_test.go" />
       </list>
     </option>
   </component>
@@ -985,7 +930,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build bench_to_csv.go">
+  <component name="RunManager" selected="Go Test.BenchmarkMySQLPrivateDatabase_Exec_Write_25000 in github.com/JacobMoxham/PartIIProjectImplementation/middleware">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="PartIIProjectImplentation" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -1017,17 +962,6 @@
       <output_directory value="$PROJECT_DIR$/../../../../bin" />
       <method v="2" />
     </configuration>
-    <configuration name="BenchmarkMySQLDatabaseQueryRead_400 in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="PartIIProjectImplentation" />
-      <working_directory value="$PROJECT_DIR$/middleware" />
-      <framework value="gobench" />
-      <kind value="PACKAGE" />
-      <package value="github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^BenchmarkMySQLDatabaseQueryRead_400$" />
-      <method v="2" />
-    </configuration>
     <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="PartIIProjectImplentation" />
       <working_directory value="$PROJECT_DIR$/middleware" />
@@ -1050,7 +984,7 @@
       <pattern value="^BenchmarkMySQLPrivateDatabase_Exec_Write$" />
       <method v="2" />
     </configuration>
-    <configuration name="gobench github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="BenchmarkMySQLPrivateDatabase_Exec_Write_100 in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="PartIIProjectImplentation" />
       <working_directory value="$PROJECT_DIR$/middleware" />
       <framework value="gobench" />
@@ -1058,6 +992,18 @@
       <package value="github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^BenchmarkMySQLPrivateDatabase_Exec_Write_100$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="BenchmarkMySQLPrivateDatabase_Exec_Write_25000 in github.com/JacobMoxham/PartIIProjectImplementation/middleware" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="PartIIProjectImplentation" />
+      <working_directory value="$PROJECT_DIR$/middleware" />
+      <framework value="gobench" />
+      <kind value="PACKAGE" />
+      <package value="github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^BenchmarkMySQLPrivateDatabase_Exec_Write_25000$" />
       <method v="2" />
     </configuration>
     <configuration name="aggregate_power_consumption.server: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
@@ -1076,52 +1022,52 @@
     <list>
       <item itemvalue="Docker.aggregate_power_consumption.server: Compose Deployment" />
       <item itemvalue="Go Build.go build data_client.go" />
-      <item itemvalue="Go Test.BenchmarkMySQLDatabaseQueryRead_400 in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
-      <item itemvalue="Go Test.gobench github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
       <item itemvalue="Go Build.go build bench_to_csv.go" />
       <item itemvalue="Go Test.BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
       <item itemvalue="Go Test.BenchmarkMySQLPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <item itemvalue="Go Test.BenchmarkMySQLPrivateDatabase_Exec_Write_100 in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+      <item itemvalue="Go Test.BenchmarkMySQLPrivateDatabase_Exec_Write_25000 in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.BenchmarkMySQLPrivateDatabase_Exec_Write_25000 in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+        <item itemvalue="Go Test.BenchmarkMySQLPrivateDatabase_Exec_Write_100 in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
+        <item itemvalue="Go Test.BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
         <item itemvalue="Go Build.go build bench_to_csv.go" />
         <item itemvalue="Go Test.BenchmarkMySQLPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
-        <item itemvalue="Go Test.BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
-        <item itemvalue="Go Test.gobench github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
-        <item itemvalue="Go Test.BenchmarkMySQLDatabaseQueryRead_400 in github.com/JacobMoxham/PartIIProjectImplementation/middleware" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 18h 30m 54s.xml">
-      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 18h 31m 15s.xml">
-      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.03.15 at 18h 31m 27s.xml">
-      <configuration name="TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="BenchmarkMySQLDatabaseQueryRead_800_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.17 at 17h 23m 37s.xml">
-      <configuration name="BenchmarkMySQLDatabaseQueryRead_800 in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="BenchmarkMySQLDatabaseQueryRead_400_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.17 at 17h 23m 44s.xml">
-      <configuration name="BenchmarkMySQLDatabaseQueryRead_400 in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="gobench_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.17 at 17h 25m 37s.xml">
-      <configuration name="gobench github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 21h 55m 15s.xml">
+    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 23h 21m 30s.xml">
       <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 21h 55m 49s.xml">
+    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 23h 21m 47s.xml">
       <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 21h 56m 40s.xml">
+    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 23h 22m 36s.xml">
       <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="BenchmarkMySQLPrivateDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 21h 57m 04s.xml">
-      <configuration name="BenchmarkMySQLPrivateDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 23h 22m 44s.xml">
+      <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 23h 23m 10s.xml">
+      <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 23h 24m 29s.xml">
+      <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 23h 26m 35s.xml">
+      <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 23h 27m 01s.xml">
+      <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="BenchmarkMySQLDatabase_Exec_Write_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 23h 30m 46s.xml">
+      <configuration name="BenchmarkMySQLDatabase_Exec_Write in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="BenchmarkMySQLPrivateDatabase_Exec_Write_100_in_github_com_JacobMoxham_PartIIProjectImplementation_middleware - 2019.04.19 at 23h 40m 32s.xml">
+      <configuration name="BenchmarkMySQLPrivateDatabase_Exec_Write_100 in github.com/JacobMoxham/PartIIProjectImplementation/middleware" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -1145,7 +1091,7 @@
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32991803" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.49133536" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.36085626" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.29765546" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.3598369" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -1209,17 +1155,22 @@
           <line>94</line>
           <option name="timeStamp" value="65" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file:///usr/local/go/src/database/sql/sql.go</url>
+          <line>1431</line>
+          <properties />
+          <option name="timeStamp" value="93" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/middleware/private_database_test.go</url>
+          <line>576</line>
+          <properties />
+          <option name="timeStamp" value="95" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/usecases/no_mware_image_processing/push-to-docker-hub.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/usecases/no_mware_image_processing/client/vendor/github.com/JacobMoxham/PartIIProjectImplementation/image_recognition/image-recognition.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
@@ -1273,13 +1224,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="22" column="21" lean-forward="true" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/go/src/context/context.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="206" selection-start-line="206" selection-end-line="206" />
         </state>
       </provider>
     </entry>
@@ -1471,10 +1415,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/go/src/gonum.org/v1/gonum/stat/stat.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="1228" column="5" selection-start-line="1228" selection-start-column="5" selection-end-line="1228" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/testing/benchmark.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-186">
+          <caret line="240" column="12" selection-start-line="240" selection-start-column="12" selection-end-line="240" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/os/file.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="281" column="5" selection-start-line="281" selection-start-column="5" selection-end-line="281" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/strconv/ftoa.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="44" column="5" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/dynamic_computation_policy_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/data_policies_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1404">
+          <caret line="95" column="3" selection-start-line="95" selection-start-column="3" selection-end-line="95" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/static_computation_policy.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-127">
+          <caret line="8" column="15" selection-start-line="8" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/bench_to_csv/sql_rows.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/bench_to_csv/bench_to_csv.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-853">
+          <caret line="437" column="40" selection-start-line="437" selection-start-column="40" selection-end-line="437" selection-end-column="40" />
+          <folding>
+            <element signature="e#14#174#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/middleware/private_database.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="405" selection-start-line="405" selection-end-line="405" />
+        <state relative-caret-position="858">
+          <caret line="523" column="5" lean-forward="true" selection-start-line="523" selection-end-line="524" />
           <folding>
             <element signature="e#1320#1378#0" />
             <element signature="e#2425#2442#0" />
@@ -1508,9 +1514,6 @@
             <element signature="e#13239#13424#0" />
             <element signature="e#13458#13489#0" />
             <element signature="e#13863#13886#0" />
-            <element signature="e#15926#15957#0" />
-            <element signature="e#16131#16497#0" />
-            <element signature="e#16368#16391#0" />
             <element signature="e#16756#16775#0" />
             <element signature="e#16905#17219#0" />
             <element signature="e#16934#17198#0" />
@@ -1526,8 +1529,6 @@
             <element signature="e#18644#18788#0" />
             <element signature="e#18790#18898#0" />
             <element signature="e#18900#18972#0" />
-            <element signature="e#19215#19308#1" />
-            <element signature="e#19311#19879#0" />
             <element signature="e#19395#19643#0" />
             <element signature="e#19444#19511#0" />
             <element signature="e#19517#19643#0" />
@@ -1544,38 +1545,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/go/src/gonum.org/v1/gonum/stat/stat.go">
+    <entry file="file:///usr/local/go/src/context/context.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="1228" column="5" selection-start-line="1228" selection-start-column="5" selection-end-line="1228" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/go/src/testing/benchmark.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-186">
-          <caret line="240" column="12" selection-start-line="240" selection-start-column="12" selection-end-line="240" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/go/src/os/file.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="281" column="5" selection-start-line="281" selection-start-column="5" selection-end-line="281" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/go/src/strconv/ftoa.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="44" column="5" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+        <state relative-caret-position="186">
+          <caret line="206" selection-start-line="206" selection-end-line="206" />
         </state>
       </provider>
     </entry>
     <entry file="file:///usr/local/go/src/database/sql/sql.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="2954" selection-start-line="2954" selection-end-line="2954" />
+        <state relative-caret-position="498">
+          <caret line="1433" selection-start-line="1433" selection-end-line="1433" />
           <folding>
             <element signature="e#722#797#0" />
             <element signature="e#1088#1316#0" />
@@ -1801,20 +1781,7 @@
             <element signature="e#38590#38612#0" />
             <element signature="e#38627#38686#0" />
             <element signature="e#38854#38972#0" />
-            <element signature="e#39286#39391#0" />
-            <element signature="e#39374#39388#0" />
-            <element signature="e#39421#39475#0" />
-            <element signature="e#39680#39744#0" />
-            <element signature="e#39864#39996#0" />
-            <element signature="e#39916#39938#0" />
-            <element signature="e#40135#40917#0" />
-            <element signature="e#40151#40170#0" />
-            <element signature="e#40254#40295#0" />
-            <element signature="e#40303#40671#0" />
-            <element signature="e#40386#40552#0" />
             <element signature="e#40462#40479#0" />
-            <element signature="e#40581#40668#0" />
-            <element signature="e#40600#40626#0" />
             <element signature="e#40649#40659#0" />
             <element signature="e#40714#40766#0" />
             <element signature="e#40783#40805#0" />
@@ -2064,41 +2031,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/dynamic_computation_policy_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/static_computation_policy.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-397">
-          <caret line="8" column="15" selection-start-line="8" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/data_policies_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1404">
-          <caret line="95" column="3" selection-start-line="95" selection-start-column="3" selection-end-line="95" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/middleware/private_database_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1782">
-          <caret line="21" column="18" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/bench_to_csv/bench_to_csv.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7866">
-          <caret line="437" column="40" lean-forward="true" selection-start-line="437" selection-start-column="40" selection-end-line="437" selection-end-column="40" />
-          <folding>
-            <element signature="e#14#174#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="498">
+          <caret line="732" column="18" selection-start-line="732" selection-start-column="18" selection-end-line="732" selection-end-column="18" />
         </state>
       </provider>
     </entry>
