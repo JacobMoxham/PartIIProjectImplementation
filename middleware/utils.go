@@ -1,6 +1,9 @@
 package middleware
 
-import "strings"
+import (
+	"strings"
+	"time"
+)
 
 func mergeStringSlice(s1 []string, s2 []string) []string {
 	mergedList := s1
@@ -20,4 +23,8 @@ func contains(stringList []string, element string) bool {
 		}
 	}
 	return false
+}
+
+func timeWithUTCLocation(t time.Time) time.Time {
+	return time.Date(t.Year(), t.Month(), t.Day(), t.Hour(), t.Minute(), t.Second(), t.Nanosecond(), time.UTC)
 }

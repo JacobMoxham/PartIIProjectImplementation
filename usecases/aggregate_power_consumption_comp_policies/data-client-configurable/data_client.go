@@ -54,6 +54,8 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 		return nil, nil, err
 	}
 
+	db.SetMaxIdleConns(100)
+	db.SetMaxOpenConns(100)
 	db.SetConnMaxLifetime(time.Second * 100)
 
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -161,6 +163,10 @@ func createAveragePowerConsumptionHandler() (func(http.ResponseWriter, *http.Req
 	if err != nil {
 		return nil, nil, err
 	}
+
+	db.SetMaxIdleConns(100)
+	db.SetMaxOpenConns(100)
+	db.SetConnMaxLifetime(time.Second * 20)
 
 	return func(w http.ResponseWriter, r *http.Request) {
 			pamRequest, err := middleware.BuildPamRequest(r)

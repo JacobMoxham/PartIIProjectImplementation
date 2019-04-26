@@ -121,5 +121,5 @@ func PrivacyAwareHandler(policy ComputationPolicy) http.HandlerFunc {
 	}
 }
 
-// TODO: add tests for this file
+// TODO: Add tests for this file
 // TODO: check returning HandlerFunc doesn't break anything and that we can chain middlewares

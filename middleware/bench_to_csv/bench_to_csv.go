@@ -396,6 +396,9 @@ func benchmarkMySQLPrivateDatabaseQueryReadNoCaching(b *testing.B, queryString s
 	if err != nil {
 		b.Error(err.Error())
 	}
+	db.SetMaxIdleConns(100)
+	db.SetMaxOpenConns(100)
+	db.SetConnMaxLifetime(time.Second * 20)
 	b.StartTimer()
 
 	var r *sql.Rows
@@ -515,6 +518,10 @@ func benchmarkMySQLPrivateDatabaseQueryReadCaching(b *testing.B, queryString str
 	if err != nil {
 		b.Error(err.Error())
 	}
+	db.SetMaxIdleConns(100)
+	db.SetMaxOpenConns(100)
+	db.SetConnMaxLifetime(time.Second * 20)
+
 	// Make the query once so we know we have a cached version of the table
 	_, err = db.Query(queryString, &middleware.RequestPolicy{"jacob", middleware.Local, true})
 	if err != nil {
@@ -771,6 +778,10 @@ func benchmarkMySQLPrivateDatabaseExecWrite(b *testing.B, execString string, arg
 	if err != nil {
 		b.Error(err.Error())
 	}
+
+	db.SetMaxIdleConns(100)
+	db.SetMaxOpenConns(100)
+	db.SetConnMaxLifetime(time.Second * 20)
 	b.StartTimer()
 
 	_, err = db.Exec(execString,

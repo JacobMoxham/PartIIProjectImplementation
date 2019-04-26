@@ -15,6 +15,11 @@ func TestPrivacyAwareClient_Send_RunLocally(t *testing.T) {
 		w.Write(returnValue)
 	}))
 
+	// Add a raw data handler to ensure we resolve to get the correct handler
+	computationPolicy.Register("/", RawData, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("raw data"))
+	}))
+
 	client := MakePrivacyAwareClient(computationPolicy)
 
 	request, err := http.NewRequest("GET", "http://ip/", nil)

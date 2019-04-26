@@ -75,10 +75,7 @@ func (mspd *MySQLPrivateDatabase) Connect(user, password, databaseName, uri stri
 	if err != nil {
 		return err
 	}
-	// TODO: what are the consequences of changing these? I feel like maybe these should be moved out of this Connect method
-	db.SetMaxIdleConns(100)
-	db.SetMaxOpenConns(100)
-	db.SetConnMaxLifetime(time.Second * 20)
+
 	mspd.database = db
 	mspd.databaseName = databaseName
 	return nil
@@ -241,9 +238,6 @@ func (mspd *MySQLPrivateDatabase) PingContext(ctx context.Context) error {
 	return mspd.database.PingContext(ctx)
 }
 
-// TODO: consider wrapping Conns as well as DBs, also need to work out if Ping breaks our wrapper
-// TODO: consider supporting Prepare and PrepareContext and BeginTx, Begin etc.
-
 func (mspd *MySQLPrivateDatabase) transformQuery(query string, requestPolicy *RequestPolicy) (string, []string, error) {
 	// Parse query
 	stmt, err := sqlparser.Parse(query)
@@ -272,34 +266,11 @@ func (mspd *MySQLPrivateDatabase) transformQuery(query string, requestPolicy *Re
 	queryWrites := false
 
 	for _, s := range statements {
-		// TODO: add a test that this covers all of the statements we need it to
 		switch s.(type) {
 		case *sqlparser.Select:
 			queryReads = true
 		case *sqlparser.Update:
 			queryWrites = true
-			// TODO: decide whether to exclude this completely
-			//// If there is only one table mentioned in the query then this information is not propagated as a qualifier
-			//// for the updated columns
-			//defaultTableName := statement.TableExprs
-			//err = sqlparser.Walk(
-			//	func(node sqlparser.SQLNode) (kcontinue bool, err error) {
-			//		switch node := node.(type) {
-			//		case *sqlparser.UpdateExpr:
-			//			tableName := node.Name.Qualifier.Name.String()
-			//			colName := node.Name.Name.String()
-			//			log.Printf("Updates %s in table %s", colName, tableName)
-			//			//if updatedColumns[tableName] == nil {
-			//			//	updatedColumns[tableName] = make([]string, 1)
-			//			//}
-			//			updatedColumns[tableName] = append(updatedColumns[tableName], colName)
-			//		}
-			//		return true, nil
-			//	}, statement.Exprs)
-			//if err != nil {
-			//	return "", nil, err
-			//}
-
 		case *sqlparser.Insert:
 			queryWrites = true
 		case *sqlparser.Delete:
@@ -454,6 +425,17 @@ func (mspd *MySQLPrivateDatabase) doTransform(tableName string, transformedTable
 		return err
 	}
 
+	// Drop unnecessary columns
+	if len(excludedColumns) > 0 {
+		dropString := "DROP COLUMN " + strings.Join(excludedColumns, ", DROP COLUMN ")
+
+		dropTableString := fmt.Sprintf("ALTER TABLE %s %s;", transformedTableName, dropString)
+		_, err = mspd.database.Exec(dropTableString)
+		if err != nil {
+			return err
+		}
+	}
+
 	// Get necessary columns from database
 	selectedColumnsString := fmt.Sprintf("SELECT %s FROM %s", columnString, tableName)
 	rows, err := mspd.database.Query(selectedColumnsString)
@@ -497,7 +479,7 @@ func (mspd *MySQLPrivateDatabase) doTransform(tableName string, transformedTable
 				rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
 
 				// Write to database and then continue
-				err := mspd.writeToTable(transformedTableName, rowsToWrite, rowArguments)
+				err := mspd.writeToTable(transformedTableName, columnString, rowsToWrite, rowArguments)
 				if err != nil {
 					return err
 				}
@@ -517,7 +499,7 @@ func (mspd *MySQLPrivateDatabase) doTransform(tableName string, transformedTable
 	if rowCount > 0 {
 		// Remove the last comma and space
 		rowsToWrite = strings.TrimSuffix(rowsToWrite, ", ")
-		err := mspd.writeToTable(transformedTableName, rowsToWrite, rowArguments)
+		err := mspd.writeToTable(transformedTableName, columnString, rowsToWrite, rowArguments)
 		if err != nil {
 			return err
 		}
@@ -544,9 +526,9 @@ func applyTransformsToRows(vals *[]interface{}, colsToCopy []string,
 	return false, nil
 }
 
-func (mspd *MySQLPrivateDatabase) writeToTable(tableName string, rowsToWrite string, rowArguments []interface{}) error {
+func (mspd *MySQLPrivateDatabase) writeToTable(tableName string, columns string, rowsToWrite string, rowArguments []interface{}) error {
 	// Write rows to transformed table
-	insertString := fmt.Sprintf("INSERT INTO %s VALUES %s", tableName, rowsToWrite)
+	insertString := fmt.Sprintf("INSERT INTO %s (%s) VALUES %s", tableName, columns, rowsToWrite)
 	_, err := mspd.database.Exec(insertString, rowArguments...)
 	if err != nil {
 		return err
@@ -574,7 +556,7 @@ func (mspd *MySQLPrivateDatabase) isTransformedTableValid(tableName string, tran
 		nullCreateTime       mysql.NullTime
 		nullTimeOfLastUpdate mysql.NullTime
 	)
-	switch err := timeOfLastUpdateRow.Scan(&nullTimeOfLastUpdate, &nullCreateTime); err {
+	switch err := timeOfLastUpdateRow.Scan(&nullCreateTime, &nullTimeOfLastUpdate); err {
 	case nil:
 		if nullTimeOfLastUpdate.Valid {
 			timeOfLastUpdate = nullTimeOfLastUpdate.Time
@@ -618,8 +600,14 @@ func (mspd *MySQLPrivateDatabase) isTransformedTableValid(tableName string, tran
 		log.Printf(err.Error())
 	}
 
+	afterTableUpdate := timeOfTransformCreation.After(timeOfLastUpdate)
+	afterPolicyUpdate := timeOfTransformCreation.After(timeOfLastPolicyUpdate)
+
+	log.Println(timeOfTransformCreation)
+	log.Println(timeOfLastPolicyUpdate)
+
 	// Work out whether the transform is valid
-	return timeOfTransformCreation.After(timeOfLastUpdate) || timeOfTransformCreation.After(timeOfLastPolicyUpdate), nil
+	return afterTableUpdate && afterPolicyUpdate, nil
 }
 
 func (mspd *MySQLPrivateDatabase) getColsToCopy(tableName string, excludedColumns []string) ([]string, error) {
@@ -695,6 +683,8 @@ func getVariablesForRows(rows *sql.Rows) ([]interface{}, []interface{}, error) {
 	return vals, scanArgs, nil
 }
 
+// TODO: do we need this or are we better off offering it as a util so that when writing funnction tranforms people can
+// convert the col type to the correct argument type? Actually this may not work, its all a bit of a caffuffle really
 func appendCorrectArgumentType(vals *[]interface{}, columnType *sql.ColumnType) {
 	databaseTypeName := strings.ToLower(columnType.DatabaseTypeName())
 

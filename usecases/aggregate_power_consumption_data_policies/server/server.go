@@ -46,7 +46,6 @@ func createGetAveragePowerConsumptionHandler(computationPolicy middleware.Comput
 			req.SetParam("endDate", endDate)
 
 			pamResp, err := httpClient.Send(req)
-			// TODO: check if the database failed to connect and error properly (i.e. ping)
 			if err != nil {
 				log.Println("Error:", err)
 				http.Error(w, err.Error(), 500)

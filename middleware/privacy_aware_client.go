@@ -38,7 +38,6 @@ func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
 	// Check if we can process this request locally
 	requestPath := req.HttpRequest.URL.Path
 	computationPolicy := c.computationPolicy
-	// TODO: check if this should be Local or Remote
 	// Pass Remote to resolve so that we get a CanCompute handler if it is available
 	computationLevel, localHandler := computationPolicy.Resolve(requestPath, Remote)
 
@@ -46,7 +45,6 @@ func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
 	allRequiredData := req.Policy.HasAllRequiredData
 
 	if preferLocal && computationLevel != NoComputation && allRequiredData {
-		// TODO: consider whether its good practice to use a testing library in this way
 		// Use the httptest ResponseRecorder to get the globalResult locally
 		responseRecorder := httptest.NewRecorder()
 		localHandler.ServeHTTP(responseRecorder, httpRequest)

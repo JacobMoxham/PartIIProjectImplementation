@@ -43,4 +43,4 @@ func TestDynamicComputationPolicy_Activate(t *testing.T) {
 	require.Equal(t, computationLevel, CanCompute)
 }
 
-// TODO: concurrency protetcion test
+// TODO: concurrency protection test?
