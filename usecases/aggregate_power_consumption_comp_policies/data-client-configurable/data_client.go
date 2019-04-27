@@ -28,8 +28,8 @@ func createPowerConsumptionRawDataHandler() (func(http.ResponseWriter, *http.Req
 	//	}}
 	removedColumnsForEntities := map[string][]string{"CentralServer": {}}
 
-	group := &middleware.PrivacyGroup{Name: "CentralServer", Members: map[string]bool{"server": true}}
-
+	group := middleware.NewPrivacyGroup("CentralServer")
+	group.Add("server")
 	groups := []*middleware.PrivacyGroup{group}
 	transforms := middleware.DataTransforms{group: &middleware.TableOperations{transformsForEntities, removedColumnsForEntities}}
 

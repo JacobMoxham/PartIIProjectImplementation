@@ -66,7 +66,7 @@ func NewStaticDataPolicy(privacyGroups []*PrivacyGroup, transforms DataTransform
 	return &StaticDataPolicy{
 		privacyGroups: privacyGroups,
 		transforms:    transforms,
-		created:       time.Now(),
+		created:       timeWithUTCLocation(time.Now()),
 	}
 }
 

@@ -9,13 +9,13 @@ import (
 
 func TestStaticDataPolicy_Resolve_Success(t *testing.T) {
 	group1 := PrivacyGroup{
-		Name:    "Group1",
-		Members: map[string]bool{"jacob": true},
+		name:    "Group1",
+		members: map[string]bool{"jacob": true},
 	}
 
 	group2 := PrivacyGroup{
-		Name:    "Group2",
-		Members: map[string]bool{"jacob": true},
+		name:    "Group2",
+		members: map[string]bool{"jacob": true},
 	}
 
 	transforms := DataTransforms{
@@ -57,13 +57,13 @@ func TestStaticDataPolicy_Resolve_Success(t *testing.T) {
 
 func TestStaticDataPolicy_Resolve_Fail(t *testing.T) {
 	group1 := PrivacyGroup{
-		Name:    "Group1",
-		Members: map[string]bool{"jacob": true},
+		name:    "Group1",
+		members: map[string]bool{"jacob": true},
 	}
 
 	group2 := PrivacyGroup{
-		Name:    "Group2",
-		Members: map[string]bool{"jacob": true},
+		name:    "Group2",
+		members: map[string]bool{"jacob": true},
 	}
 
 	transforms := DataTransforms{

@@ -26,6 +26,8 @@ func (dcc dynamicComputationCapability) Get(computationLevel ComputationLevel) (
 
 	// Check there was a handler registered
 	if ok {
+		dynamicHandler.Lock()
+		defer dynamicHandler.Unlock()
 		// Check the handler is active
 		if dynamicHandler.active {
 			return dynamicHandler.handler, ok
@@ -78,7 +80,7 @@ func (p *DynamicComputationPolicy) Deactivate(path string, level ComputationLeve
 
 	dynamicCapacity, ok := capability[level]
 	if !ok {
-		return fmt.Errorf("no capacity was registered for path %s at level %s", path, level.ToString())
+		return fmt.Errorf("no handler was registered for path %s at level %s", path, level.ToString())
 	}
 	dynamicCapacity.Lock()
 	dynamicCapacity.active = false

@@ -9,8 +9,8 @@ import (
 	"strings"
 )
 
-// ComputationLevel specifies whether a handler for a http request can compute no result, just provide the raw data or
-// compute a full result
+// ComputationLevel specifies whether a handler for a http request can compute no globalResult, just provide the raw data or
+// compute a full globalResult
 type ComputationLevel int
 
 const (

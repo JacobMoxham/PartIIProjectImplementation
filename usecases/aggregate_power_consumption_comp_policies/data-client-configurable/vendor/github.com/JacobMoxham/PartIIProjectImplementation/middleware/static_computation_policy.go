@@ -7,7 +7,7 @@ import (
 type computationCapability map[ComputationLevel]http.Handler
 
 // StaticComputationPolicy holds a map from http request paths to computation capabilities which dictate which handlers
-// can be used for the request. A handler can be specified for returning a full result (CanCompute) or just the raw data
+// can be used for the request. A handler can be specified for returning a full globalResult (CanCompute) or just the raw data
 // (RawData)
 type StaticComputationPolicy struct {
 	capabilities map[string]computationCapability
