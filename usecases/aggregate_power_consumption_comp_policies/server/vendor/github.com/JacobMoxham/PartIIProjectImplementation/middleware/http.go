@@ -106,10 +106,6 @@ func PolicyAwareHandler(policy ComputationPolicy) http.HandlerFunc {
 
 		switch computationLevel {
 		case NoComputation:
-			// TODO: decide what to do here
-			//// Return 403: FORBIDDEN as we are currently refusing to compute this globalResult
-			//// 404: NOT FOUND may be better in some cases as this is what you get for an unregistered path
-			//http.Error(w, "Cannot compute globalResult", 403)
 			w.Header().Set("computation_level", "NoComputation")
 		case CanCompute:
 			w.Header().Set("computation_level", "CanCompute")

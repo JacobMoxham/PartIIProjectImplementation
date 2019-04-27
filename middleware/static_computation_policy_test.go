@@ -70,4 +70,4 @@ func TestStaticComputationPolicy_UnregisterOne_LeavingOther(t *testing.T) {
 	require.Equal(t, CanCompute, localLevel)
 }
 
-// Resolve is tested in http_test.go via the PolicyAwareHandler privacy_aware_client_test.go via the PolicyAwareClient
+// Resolve is tested in http_test.go via the PolicyAwareHandler policy_aware_client_test.go via the PolicyAwareClient

@@ -377,6 +377,12 @@ func (mspd *MySQLPrivateDatabase) transformTable(tableName string, groupPrefix s
 	transformedTableName := groupPrefix + tableName
 
 	if mspd.CacheTables {
+		// A lock on a table is required while we check if it has a cached transform to avoid two concurrent requests
+		// getting a cache miss and then both attempting to create a transform with the same name simultaneously.
+		mutex := mspd.tableMutexes.GetMutex(tableName)
+		mutex.Lock()
+		defer mutex.Unlock()
+
 		// Check if we have a valid cached table
 		valid, err := mspd.checkCache(tableName, transformedTableName)
 		if err != nil {
@@ -444,8 +450,19 @@ func (mspd *MySQLPrivateDatabase) doTransform(tableName string, transformedTable
 	}
 	defer rows.Close()
 
-	// Create arguments of the correct types to scan values into
-	vals, scanArgs, err := getVariablesForRows(rows)
+	// Create variables to scan values into
+	cols, err := rows.Columns()
+	if err != nil {
+		return err
+	}
+
+	vals := make([]interface{}, len(cols))
+	scanArgs := make([]interface{}, len(vals))
+
+	// Make the scan arguments point at the values
+	for i := range vals {
+		scanArgs[i] = &vals[i]
+	}
 
 	var rowArguments []interface{}
 	rowCount := 0
@@ -603,9 +620,6 @@ func (mspd *MySQLPrivateDatabase) isTransformedTableValid(tableName string, tran
 	afterTableUpdate := timeOfTransformCreation.After(timeOfLastUpdate)
 	afterPolicyUpdate := timeOfTransformCreation.After(timeOfLastPolicyUpdate)
 
-	log.Println(timeOfTransformCreation)
-	log.Println(timeOfLastPolicyUpdate)
-
 	// Work out whether the transform is valid
 	return afterTableUpdate && afterPolicyUpdate, nil
 }
@@ -644,14 +658,6 @@ func (mspd *MySQLPrivateDatabase) getColsToCopy(tableName string, excludedColumn
 }
 
 func (mspd *MySQLPrivateDatabase) checkCache(tableName string, transformedTableName string) (bool, error) {
-	// Take out table lock
-	// TODO: why do we take a lock, this is the only place. Notes said to avoid a race condition "may need a lock between DROP if exists and CREATE"
-	// I think I meant to fix that as a race in the non-caching state but only added it here, should probs look into SQL
-	// table locks instead?? Maybe not as trans vs non trans table
-	mutex := mspd.tableMutexes.GetMutex(tableName)
-	mutex.Lock()
-	defer mutex.Unlock()
-
 	// Check if transform is valid
 	transformValid, err := mspd.isTransformedTableValid(tableName, transformedTableName)
 	if err != nil {
@@ -660,95 +666,4 @@ func (mspd *MySQLPrivateDatabase) checkCache(tableName string, transformedTableN
 
 	// Do not recreate the transform if it is valid
 	return transformValid, nil
-}
-
-func getVariablesForRows(rows *sql.Rows) ([]interface{}, []interface{}, error) {
-	var vals []interface{}
-
-	// Create scan variables of the correct underlying type
-	colTypes, err := rows.ColumnTypes()
-	if err != nil {
-		return nil, nil, err
-	}
-	for _, ct := range colTypes {
-		appendCorrectArgumentType(&vals, ct)
-	}
-
-	scanArgs := make([]interface{}, len(vals))
-	// Make the scan args point at the values
-	for i := range vals {
-		scanArgs[i] = &vals[i]
-	}
-
-	return vals, scanArgs, nil
-}
-
-// TODO: do we need this or are we better off offering it as a util so that when writing funnction tranforms people can
-// convert the col type to the correct argument type? Actually this may not work, its all a bit of a caffuffle really
-func appendCorrectArgumentType(vals *[]interface{}, columnType *sql.ColumnType) {
-	databaseTypeName := strings.ToLower(columnType.DatabaseTypeName())
-
-	// TODO: use these
-	//nullable, hasNullable := columnType.Nullable()
-	//precision, scale, hasPrecisionSclae := columnType.DecimalSize()
-
-	// TODO: this very much needs testing and debugging as well as use of the flags and nullable fields
-	switch databaseTypeName {
-	case "tinyint":
-		// TODO consider flags for unsigned and nullable
-		*vals = append(*vals, *new(int8))
-	case "smallint":
-		fallthrough
-	case "year":
-		// TODO consider flags for unsigned and nullable
-		*vals = append(*vals, *new(int16))
-	case "mediumint":
-		fallthrough
-	case "int":
-		fallthrough
-	case "integer":
-		// TODO consider flags for unsigned and nullable
-		*vals = append(*vals, *new(int32))
-	case "bigint":
-		// TODO consider flags for unsigned and nullable
-		// TODO SERIAL is an alias for BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE
-		*vals = append(*vals, *new(int64))
-	case "float":
-		*vals = append(*vals, *new(float32))
-	case "double":
-		*vals = append(*vals, *new(float64))
-	case "varchar":
-		fallthrough
-	case "text":
-		fallthrough
-	case "longtext":
-		fallthrough
-	case "char":
-		fallthrough
-	case "enum":
-		fallthrough
-	case "set":
-		fallthrough
-	case "blob":
-		fallthrough
-	case "tinyblob":
-		fallthrough
-	case "mediumblob":
-		fallthrough
-	case "longblob":
-		fallthrough
-	case "varbinary":
-		*vals = append(*vals, *new(string))
-	case "date":
-		fallthrough
-	case "datetime":
-		fallthrough
-	case "timestamp":
-		fallthrough
-	case "time":
-		*vals = append(*vals, *new(time.Time))
-	default:
-		log.Println(fmt.Sprintf("Could not find corresponding GO type for %s, using interface{}", databaseTypeName))
-		*vals = append(*vals, *new(interface{}))
-	}
 }
