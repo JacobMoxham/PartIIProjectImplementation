@@ -3,14 +3,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:c0936dc9e828dfbcf74ad8e1dce4564fd66362c5b698ba8ef5f7cf0864a90596"
+  digest = "1:89ef1dfca2f60c81114d0dd90039a6c29657a2df9f7b8bc3b3c3a44ada8f36a2"
   name = "github.com/JacobMoxham/PartIIProjectImplementation"
   packages = [
     "image_recognition",
     "middleware",
   ]
   pruneopts = "UT"
-  revision = "d0fba10c28a7160e5c62888cb76f912dfbe172de"
+  revision = "2084453dbf8dd02d19503f02c44fa7ee30e8a68d"
 
 [[projects]]
   digest = "1:ec6f9bf5e274c833c911923c9193867f3f18788c461f76f05f62bb1510e0ae65"
@@ -19,14 +19,6 @@
   pruneopts = "UT"
   revision = "72cd26f257d44c1114970e19afddcd812016007e"
   version = "v1.4.1"
-
-[[projects]]
-  digest = "1:125aa07b364dc440ebebc8f93a7120c2b309781e53d6cfda543db8bc61a9e858"
-  name = "github.com/tcnksm/go-httpstat"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "ae0d799e7ee65d3dc46d7272368daa830aef6c5a"
-  version = "v0.2.0"
 
 [[projects]]
   digest = "1:9e0bdfdd154584486ba07ba78a4e237389c6ec402fecd4db0d0d84668f17ef57"
@@ -58,8 +50,8 @@
   name = "google.golang.org/appengine"
   packages = ["cloudsql"]
   pruneopts = "UT"
-  revision = "e9657d882bb81064595ca3b56cbe2546bbabf7b1"
-  version = "v1.4.0"
+  revision = "54a98f90d1c46b7731eb8fb305d2a321c30ef610"
+  version = "v1.5.0"
 
 [solve-meta]
   analyzer-name = "dep"
@@ -67,7 +59,6 @@
   input-imports = [
     "github.com/JacobMoxham/PartIIProjectImplementation/image_recognition",
     "github.com/JacobMoxham/PartIIProjectImplementation/middleware",
-    "github.com/tcnksm/go-httpstat",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -87,9 +87,9 @@ func BuildPamResponse(resp *http.Response) (PamResponse, error) {
 	}, nil
 }
 
-// PrivacyAwareHandler returns a http.Handler based on the passed
+// PolicyAwareHandler returns a http.Handler based on the passed
 // ComputationPolicy. It also performs some basic logging of requests received.
-func PrivacyAwareHandler(policy ComputationPolicy) http.HandlerFunc {
+func PolicyAwareHandler(policy ComputationPolicy) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Println("PAM: handling path: ", r.URL.Path)
 
@@ -106,6 +106,7 @@ func PrivacyAwareHandler(policy ComputationPolicy) http.HandlerFunc {
 
 		switch computationLevel {
 		case NoComputation:
+			// TODO: decide what to do here
 			//// Return 403: FORBIDDEN as we are currently refusing to compute this globalResult
 			//// 404: NOT FOUND may be better in some cases as this is what you get for an unregistered path
 			//http.Error(w, "Cannot compute globalResult", 403)
@@ -120,6 +121,3 @@ func PrivacyAwareHandler(policy ComputationPolicy) http.HandlerFunc {
 		log.Println("PAM: finished serving: ", r.URL.Path)
 	}
 }
-
-// TODO: Add tests for this file
-// TODO: check returning HandlerFunc doesn't break anything and that we can chain middlewares

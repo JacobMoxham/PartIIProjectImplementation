@@ -70,7 +70,7 @@ type PamResponse struct {
 // BuildPamResponse takes a pointer to a http response and returns a PamResponse with the ComputationLevel taken from
 // the response header
 func BuildPamResponse(resp *http.Response) (PamResponse, error) {
-	// Query response to see if this is a partial result
+	// Query response to see if this is a partial globalResult
 	computationLevelString := resp.Header.Get("computation_level")
 	if computationLevelString == "" {
 		return PamResponse{}, errors.New("the response did not specify a computation level")
@@ -87,10 +87,10 @@ func BuildPamResponse(resp *http.Response) (PamResponse, error) {
 	}, nil
 }
 
-// PrivacyAwareHandler returns a http.Handler based on the passed
+// PolicyAwareHandler returns a http.Handler based on the passed
 // ComputationPolicy. It also performs some basic logging of requests received.
-func PrivacyAwareHandler(policy ComputationPolicy) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+func PolicyAwareHandler(policy ComputationPolicy) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
 		log.Println("PAM: handling path: ", r.URL.Path)
 
 		// Get preferred processing location
@@ -106,9 +106,10 @@ func PrivacyAwareHandler(policy ComputationPolicy) http.Handler {
 
 		switch computationLevel {
 		case NoComputation:
-			//// Return 403: FORBIDDEN as we are currently refusing to compute this result
+			// TODO: decide what to do here
+			//// Return 403: FORBIDDEN as we are currently refusing to compute this globalResult
 			//// 404: NOT FOUND may be better in some cases as this is what you get for an unregistered path
-			//http.Error(w, "Cannot compute result", 403)
+			//http.Error(w, "Cannot compute globalResult", 403)
 			w.Header().Set("computation_level", "NoComputation")
 		case CanCompute:
 			w.Header().Set("computation_level", "CanCompute")
@@ -118,5 +119,5 @@ func PrivacyAwareHandler(policy ComputationPolicy) http.Handler {
 			handler.ServeHTTP(w, r)
 		}
 		log.Println("PAM: finished serving: ", r.URL.Path)
-	})
+	}
 }

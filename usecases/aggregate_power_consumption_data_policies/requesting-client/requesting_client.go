@@ -10,7 +10,7 @@ import (
 	_ "net/http/pprof"
 )
 
-const DOCKER = false
+const DOCKER = true
 
 func createMakeRequestHandler() func(http.ResponseWriter, *http.Request) {
 	client := middleware.MakePolicyAwareClient(middleware.NewStaticComputationPolicy())

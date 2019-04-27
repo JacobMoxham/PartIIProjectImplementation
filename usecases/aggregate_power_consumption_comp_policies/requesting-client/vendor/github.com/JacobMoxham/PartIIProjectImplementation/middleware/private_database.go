@@ -71,7 +71,7 @@ type MySQLPrivateDatabase struct {
 
 // Connect opens the connection to the MySQL database
 func (mspd *MySQLPrivateDatabase) Connect(user, password, databaseName, uri string, port int) error {
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=UTC", user, password, uri, port, databaseName))
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=UTC&interpolateParams=true", user, password, uri, port, databaseName))
 	if err != nil {
 		return err
 	}
@@ -316,7 +316,7 @@ func (mspd *MySQLPrivateDatabase) transformQuery(query string, requestPolicy *Re
 
 			transformedTableNames = append(transformedTableNames, transformedTableName)
 
-			// Replace table Name with transformed table Name in query
+			// Replace table name with transformed table name in query
 			regexString := fmt.Sprintf("\\b%s\\b", tableName)
 			re := regexp.MustCompile(regexString)
 			query = re.ReplaceAllString(query, transformedTableName)

@@ -12,7 +12,7 @@ import (
 	"strconv"
 )
 
-const DOCKER = false
+const DOCKER = true
 
 func createGetAveragePowerConsumptionHandler(computationPolicy middleware.ComputationPolicy) (func(http.ResponseWriter, *http.Request), error) {
 	policy := middleware.RequestPolicy{
@@ -23,7 +23,7 @@ func createGetAveragePowerConsumptionHandler(computationPolicy middleware.Comput
 
 	var clients []string
 	if DOCKER {
-		clients = []string{"data-client-raw-data"}
+		clients = []string{"data-client"}
 	} else {
 		clients = []string{"127.0.0.1"}
 	}

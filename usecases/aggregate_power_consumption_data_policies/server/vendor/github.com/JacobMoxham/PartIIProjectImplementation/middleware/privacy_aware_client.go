@@ -5,15 +5,15 @@ import (
 	"net/http/httptest"
 )
 
-// PrivacyAwareClient wraps a http client with a ComputationPolicy
-type PrivacyAwareClient struct {
+// PolicyAwareClient wraps a http client with a ComputationPolicy
+type PolicyAwareClient struct {
 	client            *http.Client
 	computationPolicy ComputationPolicy
 }
 
-// MakePrivacyAwareClient returns an PrivacyAwareClient with initialised fields
-func MakePrivacyAwareClient(policy ComputationPolicy) PrivacyAwareClient {
-	return PrivacyAwareClient{
+// MakePolicyAwareClient returns an PolicyAwareClient with initialised fields
+func MakePolicyAwareClient(policy ComputationPolicy) PolicyAwareClient {
+	return PolicyAwareClient{
 		client:            &http.Client{},
 		computationPolicy: policy,
 	}
@@ -23,7 +23,7 @@ func MakePrivacyAwareClient(policy ComputationPolicy) PrivacyAwareClient {
 // contained http client. If the ComputationPolicy has a local handler for the requested path, and the preferred
 // location is local, and all of the data required for a globalResult is contained within the request then the request will
 // instead be handled locally.
-func (c PrivacyAwareClient) Send(req PamRequest) (PamResponse, error) {
+func (c PolicyAwareClient) Send(req PamRequest) (PamResponse, error) {
 	httpRequest := req.HttpRequest
 
 	// Add the query params from the policy

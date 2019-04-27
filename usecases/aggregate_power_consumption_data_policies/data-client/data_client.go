@@ -11,13 +11,13 @@ import (
 	"time"
 )
 
-const DOCKER = false
+const DOCKER = true
 
 func createPowerConsumptionDataHandler() (func(http.ResponseWriter, *http.Request), *middleware.MySQLPrivateDatabase, error) {
 	transformsForEntities := make(map[string]middleware.TableTransform)
 	transformsForEntities["household_power_consumption"] = middleware.TableTransform{
 		"datetime": func(arg interface{}) (interface{}, bool, error) {
-			date, ok := arg.(*time.Time)
+			date, ok := arg.(time.Time)
 
 			if !ok {
 				return nil, true, errors.New("argument could not be asserted as time.Time")

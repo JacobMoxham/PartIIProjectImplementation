@@ -77,3 +77,36 @@ func TestPolicyAwareHandler(t *testing.T) {
 		})
 	}
 }
+
+func validPamRequest(t *testing.T) PamRequest {
+	httpRequest, err := http.NewRequest("GET", "http://127.0.0.1/", nil)
+	require.NoError(t, err)
+	pamReq := PamRequest{
+		HttpRequest: httpRequest,
+		Policy:      &RequestPolicy{},
+	}
+	return pamReq
+}
+
+func TestPamRequest_AddParam(t *testing.T) {
+	pamReq := validPamRequest(t)
+	pamReq.AddParam("p1", "v1")
+	pamReq.AddParam("p1", "v2")
+
+	require.Equal(t, "v1", pamReq.GetParam("p1"))
+}
+
+func TestPamRequest_DelParam(t *testing.T) {
+	pamReq := validPamRequest(t)
+	pamReq.AddParam("p1", "v1")
+	pamReq.DelParam("p1")
+	require.Equal(t, "", pamReq.GetParam("p1"))
+}
+
+func TestPamRequest_SetParam(t *testing.T) {
+	pamReq := validPamRequest(t)
+	pamReq.SetParam("p1", "v1")
+	pamReq.SetParam("p1", "v2")
+
+	require.Equal(t, "v2", pamReq.GetParam("p1"))
+}
