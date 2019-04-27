@@ -28,7 +28,7 @@ func createGetAveragePowerConsumptionHandler(computationPolicy middleware.Comput
 		clients = []string{"127.0.0.1"}
 	}
 
-	httpClient := middleware.MakePrivacyAwareClient(computationPolicy)
+	httpClient := middleware.MakePolicyAwareClient(computationPolicy)
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		pamRequest, err := middleware.BuildPamRequest(r)
@@ -123,7 +123,7 @@ func main() {
 	computationPolicy.Register("/get-average-power-consumption", middleware.CanCompute, handler)
 
 	// Register the composite handler at '/get-average-power-consumption' on port 3002
-	http.Handle("/get-average-power-consumption", middleware.PrivacyAwareHandler(computationPolicy))
+	http.Handle("/get-average-power-consumption", middleware.PolicyAwareHandler(computationPolicy))
 	log.Println("Listening...")
 	err = http.ListenAndServe(":3002", nil)
 	if err != nil {

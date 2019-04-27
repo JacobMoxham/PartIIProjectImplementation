@@ -87,9 +87,9 @@ func BuildPamResponse(resp *http.Response) (PamResponse, error) {
 	}, nil
 }
 
-// PrivacyAwareHandler returns a http.Handler based on the passed
+// PolicyAwareHandler returns a http.Handler based on the passed
 // ComputationPolicy. It also performs some basic logging of requests received.
-func PrivacyAwareHandler(policy ComputationPolicy) http.HandlerFunc {
+func PolicyAwareHandler(policy ComputationPolicy) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Println("PAM: handling path: ", r.URL.Path)
 

@@ -32,7 +32,7 @@ func imageProcessingHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func createMakeRequestHandler(computationPolicy middleware.ComputationPolicy) func(http.ResponseWriter, *http.Request) {
-	client := middleware.MakePrivacyAwareClient(computationPolicy)
+	client := middleware.MakePolicyAwareClient(computationPolicy)
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		// Get local/remote preference from request

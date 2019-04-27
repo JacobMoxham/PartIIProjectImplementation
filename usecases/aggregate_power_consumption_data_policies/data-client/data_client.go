@@ -117,7 +117,7 @@ func main() {
 	computationPolicy.Register("/", middleware.CanCompute, handler)
 
 	// Register the composite handler at '/' on port 3001
-	http.Handle("/", middleware.PrivacyAwareHandler(computationPolicy))
+	http.Handle("/", middleware.PolicyAwareHandler(computationPolicy))
 	log.Println("Listening...")
 	err = http.ListenAndServe(":3001", nil)
 	if err != nil {

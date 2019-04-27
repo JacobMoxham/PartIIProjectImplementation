@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestPrivacyAwareClient_Send_RunLocally(t *testing.T) {
+func TestPolicyAwareClient_Send_RunLocally(t *testing.T) {
 	returnValue := []byte("Computed Locally")
 
 	computationPolicy := NewStaticComputationPolicy()
@@ -20,7 +20,7 @@ func TestPrivacyAwareClient_Send_RunLocally(t *testing.T) {
 		w.Write([]byte("raw data"))
 	}))
 
-	client := MakePrivacyAwareClient(computationPolicy)
+	client := MakePolicyAwareClient(computationPolicy)
 
 	request, err := http.NewRequest("GET", "http://ip/", nil)
 	require.NoError(t, err)

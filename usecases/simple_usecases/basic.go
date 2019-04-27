@@ -35,13 +35,13 @@ func basicServer() {
 	computationPolicy.Register("/", middleware.CanCompute, handlers)
 
 	// Register the composite handler at '/' on port 3000
-	http.Handle("/", middleware.PrivacyAwareHandler(computationPolicy))
+	http.Handle("/", middleware.PolicyAwareHandler(computationPolicy))
 	log.Println("Listening...")
 	http.ListenAndServe(":3007", nil)
 }
 
 func basicClient() {
-	client := middleware.MakePrivacyAwareClient(middleware.NewStaticComputationPolicy())
+	client := middleware.MakePolicyAwareClient(middleware.NewStaticComputationPolicy())
 
 	for i := 0; i < 10; i++ {
 		policy := middleware.RequestPolicy{

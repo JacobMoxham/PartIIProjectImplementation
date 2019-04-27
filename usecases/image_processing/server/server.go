@@ -32,7 +32,7 @@ func main() {
 	computationPolicy.Register("/", middleware.CanCompute, finalHandler)
 
 	// Chain together "other" middlewares
-	handler := middleware.PrivacyAwareHandler(computationPolicy)
+	handler := middleware.PolicyAwareHandler(computationPolicy)
 
 	// Register the composite handler at '/' on port 3000
 	http.Handle("/", handler)

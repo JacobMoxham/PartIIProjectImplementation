@@ -21,10 +21,10 @@ func privHandler(local, remote bool) http.HandlerFunc {
 			w.Write([]byte("remote"))
 		}))
 	}
-	return PrivacyAwareHandler(policy)
+	return PolicyAwareHandler(policy)
 }
 
-func TestPrivacyAwareHandler(t *testing.T) {
+func TestPolicyAwareHandler(t *testing.T) {
 	testCases := []struct {
 		localHandler      bool
 		remoteHandler     bool
