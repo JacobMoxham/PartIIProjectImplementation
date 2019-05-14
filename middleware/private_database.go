@@ -360,7 +360,7 @@ func (mspd *MySQLPrivateDatabase) checkForExcludedColumns(tableName string, excl
 		if contains(excludedColumns, colName) {
 			// return an error if we access an excluded column but do not reveal the reason so we don't reveal
 			// information through error messages
-			return errors.New("query failed")
+			return fmt.Errorf("ERROR 1054 (42S22): Unknown column '%s'", colName)
 		}
 	}
 

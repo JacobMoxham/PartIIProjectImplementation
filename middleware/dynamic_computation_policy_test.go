@@ -42,3 +42,51 @@ func TestDynamicComputationPolicy_Activate(t *testing.T) {
 	computationLevel, _ := dynamicComputationPolicy.Resolve("/", Local)
 	require.Equal(t, computationLevel, CanCompute)
 }
+
+func TestDynamicComputationPolicy_UnregisterAll(t *testing.T) {
+	compPol := NewStaticComputationPolicy()
+	compPol.Register("/", RawData, rawDataHandler)
+	compPol.Register("/", CanCompute, canComputeHandler)
+
+	// We just check the levels here to ensure that a handler is registered
+	localLevel, _ := compPol.Resolve("/", Local)
+	require.Equal(t, RawData, localLevel)
+	remoteLevel, _ := compPol.Resolve("/", Remote)
+	require.Equal(t, CanCompute, remoteLevel)
+
+	compPol.UnregisterAll("/")
+	localLevel, _ = compPol.Resolve("/", Local)
+	require.Equal(t, NoComputation, localLevel)
+	remoteLevel, _ = compPol.Resolve("/", Remote)
+	require.Equal(t, NoComputation, remoteLevel)
+}
+
+func TestDynamicComputationPolicy_UnregisterOne_NoComputation(t *testing.T) {
+	compPol := NewDynamicComputationPolicy()
+	compPol.Register("/", RawData, rawDataHandler)
+
+	// We just check the levels here to ensure that a handler is registered
+	localLevel, _ := compPol.Resolve("/", Local)
+	require.Equal(t, RawData, localLevel)
+
+	compPol.UnregisterOne("/", RawData)
+	localLevel, _ = compPol.Resolve("/", Local)
+	require.Equal(t, NoComputation, localLevel)
+}
+
+func TestDynamicComputationPolicy_UnregisterOne_LeavingOther(t *testing.T) {
+	compPol := NewDynamicComputationPolicy()
+	compPol.Register("/", RawData, rawDataHandler)
+	compPol.Register("/", CanCompute, canComputeHandler)
+
+	// We just check the levels here to ensure that a handler is registered
+	localLevel, _ := compPol.Resolve("/", Local)
+	require.Equal(t, RawData, localLevel)
+
+	compPol.UnregisterOne("/", RawData)
+	localLevel, _ = compPol.Resolve("/", Local)
+	require.Equal(t, CanCompute, localLevel)
+
+	localLevel, _ = compPol.Resolve("/", Remote)
+	require.Equal(t, CanCompute, localLevel)
+}

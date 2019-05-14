@@ -12,26 +12,26 @@ func TestPrivacyGroup_Name(t *testing.T) {
 
 func TestPrivacyGroup_Add(t *testing.T) {
 	pg := NewPrivacyGroup("g1")
-	require.False(t, pg.contains("jacob"))
+	require.False(t, pg.contains("alice"))
 
-	pg.Add("jacob")
-	require.True(t, pg.contains("jacob"))
+	pg.Add("alice")
+	require.True(t, pg.contains("alice"))
 }
 
 func TestPrivacyGroup_AddMany(t *testing.T) {
 	pg := NewPrivacyGroup("g1")
-	require.False(t, pg.contains("jacob"))
+	require.False(t, pg.contains("alice"))
 
-	pg.AddMany([]string{"jacob1", "jacob2"})
-	require.True(t, pg.contains("jacob1"))
-	require.True(t, pg.contains("jacob2"))
+	pg.AddMany([]string{"alice1", "alice2"})
+	require.True(t, pg.contains("alice1"))
+	require.True(t, pg.contains("alice2"))
 }
 
 func TestPrivacyGroup_Remove(t *testing.T) {
 	pg := NewPrivacyGroup("g1")
-	pg.Add("jacob")
-	require.True(t, pg.contains("jacob"))
+	pg.Add("alice")
+	require.True(t, pg.contains("alice"))
 
-	pg.Remove("jacob")
-	require.False(t, pg.contains("jacob"))
+	pg.Remove("alice")
+	require.False(t, pg.contains("alice"))
 }

@@ -60,7 +60,7 @@ func TestMySqlPrivateDatabase_Query_NoCaching(t *testing.T) {
 	db.SetMaxIdleConns(100)
 	db.SetMaxOpenConns(100)
 	db.SetConnMaxLifetime(time.Second * 20)
-	_, err = db.Query("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	_, err = db.Query("SELECT * from people", &RequestPolicy{"alice", Local, true})
 	require.NoError(t, err)
 }
 
@@ -74,10 +74,10 @@ func TestMySqlPrivateDatabase_Query_Caching(t *testing.T) {
 	db.SetConnMaxLifetime(time.Second * 20)
 
 	// Make sure the query has been run before
-	_, err = db.Query("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	_, err = db.Query("SELECT * from people", &RequestPolicy{"alice", Local, true})
 	require.NoError(t, err)
 	// Make the query again
-	_, err = db.Query("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	_, err = db.Query("SELECT * from people", &RequestPolicy{"alice", Local, true})
 	require.NoError(t, err)
 }
 
@@ -86,7 +86,7 @@ func TestMySQLPrivateDatabase_Query_Excluded_Row(t *testing.T) {
 	funcMap := validEmptyFuncMap()
 	colMap := map[string][]string{"people": {"dob"}}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -101,7 +101,7 @@ func TestMySQLPrivateDatabase_Query_Excluded_Row(t *testing.T) {
 	db.SetMaxOpenConns(100)
 	db.SetConnMaxLifetime(time.Second * 20)
 
-	_, err = db.Query("SELECT name, dob from people", &RequestPolicy{"jacob", Local, true})
+	_, err = db.Query("SELECT name, dob from people", &RequestPolicy{"alice", Local, true})
 
 	// We get an error as the column does not exist
 	require.EqualError(t, err, `Error 1054: Unknown column 'dob' in 'field list'`)
@@ -112,7 +112,7 @@ func TestMySQLPrivateDatabase_Query_All_Excluded_Row(t *testing.T) {
 	funcMap := validEmptyFuncMap()
 	colMap := map[string][]string{"people": {"dob"}}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -128,7 +128,7 @@ func TestMySQLPrivateDatabase_Query_All_Excluded_Row(t *testing.T) {
 	db.SetMaxOpenConns(100)
 	db.SetConnMaxLifetime(time.Second * 20)
 
-	row, err := db.QueryRow("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	row, err := db.QueryRow("SELECT * from people", &RequestPolicy{"alice", Local, true})
 	require.NoError(t, err)
 
 	var (
@@ -145,7 +145,7 @@ func TestTransforms(t *testing.T) {
 	funcMap := validFuncMap()
 	colMap := map[string][]string{}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -161,8 +161,8 @@ func TestTransforms(t *testing.T) {
 	db.SetMaxOpenConns(100)
 	db.SetConnMaxLifetime(time.Second * 20)
 
-	// Write (id, jacob, 1997-11-01 in the database) to the database using unwrapped database
-	result, err := db.database.Exec(`INSERT INTO people (name, dob) VALUES ('jacob', '1997-11-01')`)
+	// Write (id, alice, 1997-11-01 in the database) to the database using unwrapped database
+	result, err := db.database.Exec(`INSERT INTO people (name, dob) VALUES ('alice', '1997-11-01')`)
 	require.NoError(t, err)
 
 	writeID, err := result.LastInsertId()
@@ -170,7 +170,7 @@ func TestTransforms(t *testing.T) {
 
 	// Query the database
 	row, err := db.QueryRow("SELECT name, dob from people WHERE id=?",
-		&RequestPolicy{"jacob", Local, true}, writeID)
+		&RequestPolicy{"alice", Local, true}, writeID)
 	require.NoError(t, err)
 
 	var (
@@ -180,47 +180,47 @@ func TestTransforms(t *testing.T) {
 	err = row.Scan(&name, &dob)
 	require.NoError(t, err)
 
-	require.Equal(t, name, "jac**")
+	require.Equal(t, name, "ali**")
 	require.Equal(t, dob, time.Date(1997, 1, 1, 0, 0, 0, 0, time.UTC))
 }
 
 func TestMySqlPrivateDatabase_QueryRow_No_Caching(t *testing.T) {
 	db := validPrivateDBConnection(t, "store1", false)
-	_, err := db.QueryRow("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	_, err := db.QueryRow("SELECT * from people", &RequestPolicy{"alice", Local, true})
 	require.NoError(t, err)
 }
 
 func TestMySqlPrivateDatabase_QueryRow_Caching(t *testing.T) {
 	db := validPrivateDBConnection(t, "store1", true)
 	// Make sure the query has been run before
-	_, err := db.QueryRow("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	_, err := db.QueryRow("SELECT * from people", &RequestPolicy{"alice", Local, true})
 	require.NoError(t, err)
 	// Make the query again
-	_, err = db.QueryRow("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	_, err = db.QueryRow("SELECT * from people", &RequestPolicy{"alice", Local, true})
 	require.NoError(t, err)
 }
 
 func TestMySqlPrivateDatabase_Exec_Read_No_Caching(t *testing.T) {
 	db := validPrivateDBConnection(t, "store1", false)
 
-	_, err := db.Exec("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	_, err := db.Exec("SELECT * from people", &RequestPolicy{"alice", Local, true})
 	require.NoError(t, err)
 }
 
 func TestMySqlPrivateDatabase_Exec_Read_Caching(t *testing.T) {
 	db := validPrivateDBConnection(t, "store1", true)
 	// Make sure the query has been run before
-	_, err := db.Exec("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	_, err := db.Exec("SELECT * from people", &RequestPolicy{"alice", Local, true})
 	require.NoError(t, err)
 	// Make the query again
-	_, err = db.Exec("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	_, err = db.Exec("SELECT * from people", &RequestPolicy{"alice", Local, true})
 	require.NoError(t, err)
 }
 
 func TestMySqlPrivateDatabase_Exec_Write(t *testing.T) {
 	db := validPrivateDBConnection(t, "store1", true)
 
-	requestPolicy := &RequestPolicy{"jacob", Local, true}
+	requestPolicy := &RequestPolicy{"alice", Local, true}
 
 	// Write a record
 	result, err := db.Exec(`INSERT INTO people (name, dob) VALUES ('steve', '1996-02-07')`,
@@ -254,7 +254,7 @@ func TestMySqlPrivateDatabase_Exec_Write_To_Excluded_Col(t *testing.T) {
 	funcMap := validEmptyFuncMap()
 	colMap := map[string][]string{"people": {"dob"}}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -269,14 +269,14 @@ func TestMySqlPrivateDatabase_Exec_Write_To_Excluded_Col(t *testing.T) {
 	db.SetMaxOpenConns(100)
 	db.SetConnMaxLifetime(time.Second * 20)
 
-	// Write (id, jacob, 1997-11-01 in the database) to the database using unwrapped database
-	_, err = db.database.Exec(`INSERT INTO people (name, dob) VALUES ('jacob', '1997-11-01')`)
+	// Write (id, alice, 1997-11-01 in the database) to the database using unwrapped database
+	_, err = db.database.Exec(`INSERT INTO people (name, dob) VALUES ('alice', '1997-11-01')`)
 	require.NoError(t, err)
 
-	// Attempt to update the dob column (we assume the existence of (id, jacob, 1997-11-01 in the database)
-	_, err = db.Exec(`UPDATE people SET dob = '1996-02-07' WHERE name = jacob`,
-		&RequestPolicy{"jacob", Local, true})
-	require.EqualError(t, err, "query failed")
+	// Attempt to update the dob column (we assume the existence of (id, alice, 1997-11-01 in the database)
+	_, err = db.Exec(`UPDATE people SET dob = '1996-02-07' WHERE name = alice`,
+		&RequestPolicy{"alice", Local, true})
+	require.EqualError(t, err, "ERROR 1054 (42S22): Unknown column 'dob'")
 }
 
 func TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col(t *testing.T) {
@@ -284,7 +284,7 @@ func TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col(t *testing.T) {
 	funcMap := validEmptyFuncMap()
 	colMap := map[string][]string{"people": {"dob"}}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -300,25 +300,25 @@ func TestMySqlPrivateDatabase_Exec_Write_Not_To_Excluded_Col(t *testing.T) {
 	db.SetMaxOpenConns(100)
 	db.SetConnMaxLifetime(time.Second * 20)
 
-	// Write (id, jacob, 1997-11-01 in the database) to the database using unwrapped database
-	_, err = db.database.Exec(`INSERT INTO people (name, dob) VALUES ('jacob', '1997-11-01')`)
+	// Write (id, alice, 1997-11-01 in the database) to the database using unwrapped database
+	_, err = db.database.Exec(`INSERT INTO people (name, dob) VALUES ('alice', '1997-11-01')`)
 	require.NoError(t, err)
 
-	requestPolicy := &RequestPolicy{"jacob", Local, true}
+	requestPolicy := &RequestPolicy{"alice", Local, true}
 
 	// Update the name column
-	_, err = db.Exec(`UPDATE people SET name = 'William' WHERE name = jacob`, requestPolicy)
+	_, err = db.Exec(`UPDATE people SET name = 'William' WHERE name = alice`, requestPolicy)
 
 	// It was considered whether to not you should be able to update columns from a table where some are excluded from
 	// you as long as you don't rely on any of these columns. However it was decided that as the parser does not always
 	// make it clear which table a column is from this would not be possible.
-	require.EqualError(t, err, "query failed")
+	require.EqualError(t, err, "ERROR 1054 (42S22): Unknown column 'dob'")
 }
 
 func TestMySqlPrivateDatabase_Exec_Delete(t *testing.T) {
 	db := validPrivateDBConnection(t, "store1", false)
 
-	requestPolicy := &RequestPolicy{"jacob", Local, true}
+	requestPolicy := &RequestPolicy{"alice", Local, true}
 
 	// Write a record
 	result, err := db.Exec(`INSERT INTO people (name, dob) VALUES ('steve', '1996-02-07')`,
@@ -349,7 +349,7 @@ func TestMySqlPrivateDatabase_Exec_Delete_With_Excluded_Col(t *testing.T) {
 	funcMap := validEmptyFuncMap()
 	colMap := map[string][]string{"people": {"dob"}}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -358,20 +358,20 @@ func TestMySqlPrivateDatabase_Exec_Delete_With_Excluded_Col(t *testing.T) {
 		DataPolicy: staticDataPolicy,
 	}
 
-	requestPolicy := &RequestPolicy{"jacob", Local, true}
+	requestPolicy := &RequestPolicy{"alice", Local, true}
 
 	err := db.Connect("demouser", "demopassword", "store1", "127.0.0.1", 3306)
 	require.NoError(t, err)
 
-	// Write (id, jacob, 1997-11-01 in the database) to the database using unwrapped database
-	result, err := db.database.Exec(`INSERT INTO people (name, dob) VALUES ('jacob', '1997-11-01')`)
+	// Write (id, alice, 1997-11-01 in the database) to the database using unwrapped database
+	result, err := db.database.Exec(`INSERT INTO people (name, dob) VALUES ('alice', '1997-11-01')`)
 	require.NoError(t, err)
 
 	writeID, err := result.LastInsertId()
 	require.NoError(t, err)
 
 	_, err = db.Exec(`DELETE FROM people WHERE id=?`, requestPolicy, writeID)
-	require.EqualError(t, err, `query failed`)
+	require.EqualError(t, err, `ERROR 1054 (42S22): Unknown column 'dob'`)
 }
 
 func validEmptyFuncMap() map[string]TableTransform {
@@ -420,7 +420,7 @@ func validPrivateDBConnection(t *testing.T, databaseName string, cacheTables boo
 	funcMap := validEmptyFuncMap()
 	colMap := map[string][]string{}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -444,7 +444,7 @@ func TestIsTransformedTableValidTrue(t *testing.T) {
 	funcMap := validFuncMap()
 	colMap := map[string][]string{}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -464,10 +464,10 @@ func TestIsTransformedTableValidTrue(t *testing.T) {
 
 	// Allow for slight clock skew between the database and Go time.Time
 	time.Sleep(1 * time.Second)
-	_, err = db.Query("SELECT * from people", &RequestPolicy{"jacob", Local, true})
+	_, err = db.Query("SELECT * from people", &RequestPolicy{"alice", Local, true})
 	require.NoError(t, err)
 
-	valid, err := db.isTransformedTableValid("people", "transformed_jacob_people")
+	valid, err := db.isTransformedTableValid("people", "transformed_alice_people")
 	require.NoError(t, err)
 
 	// Check that the transformed table is valid
@@ -478,7 +478,7 @@ func TestIsTransformedTableValidFalseTableUpdated(t *testing.T) {
 	funcMap := validEmptyFuncMap()
 	colMap := map[string][]string{}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -496,7 +496,7 @@ func TestIsTransformedTableValidFalseTableUpdated(t *testing.T) {
 	db.SetMaxOpenConns(100)
 	db.SetConnMaxLifetime(time.Second * 20)
 
-	requestPolicy := &RequestPolicy{"jacob", Local, true}
+	requestPolicy := &RequestPolicy{"alice", Local, true}
 
 	// Ensure a transform exists
 	_, err = db.Query("SELECT * from people", requestPolicy)
@@ -507,7 +507,7 @@ func TestIsTransformedTableValidFalseTableUpdated(t *testing.T) {
 		requestPolicy)
 	require.NoError(t, err)
 
-	valid, err := db.isTransformedTableValid("people", "transformed_jacob_people")
+	valid, err := db.isTransformedTableValid("people", "transformed_alice_people")
 	require.NoError(t, err)
 
 	// Check that the transformed table is valid
@@ -518,7 +518,7 @@ func TestIsTransformedTableValidFalsePolicyUpdated(t *testing.T) {
 	funcMap := validEmptyFuncMap()
 	colMap := map[string][]string{}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -536,7 +536,7 @@ func TestIsTransformedTableValidFalsePolicyUpdated(t *testing.T) {
 	db.SetMaxOpenConns(100)
 	db.SetConnMaxLifetime(time.Second * 20)
 
-	requestPolicy := &RequestPolicy{"jacob", Local, true}
+	requestPolicy := &RequestPolicy{"alice", Local, true}
 
 	// Ensure a transform exists
 	_, err = db.Query("SELECT * from people", requestPolicy)
@@ -545,7 +545,7 @@ func TestIsTransformedTableValidFalsePolicyUpdated(t *testing.T) {
 	// Updated the created time for the data policy so that it is more recent than the transform
 	staticDataPolicy.created = timeWithUTCLocation(time.Now())
 
-	valid, err := db.isTransformedTableValid("people", "transformed_jacob_people")
+	valid, err := db.isTransformedTableValid("people", "transformed_alice_people")
 	require.NoError(t, err)
 
 	// Check that the transformed table is valid
@@ -676,7 +676,7 @@ func benchmarkMySQLPrivateDatabaseQueryReadNoCaching(b *testing.B, queryString s
 	funcMap := validEmptyFuncMap()
 	colMap := map[string][]string{}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -790,7 +790,7 @@ func BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_25000(b *testing.B) {
 }
 
 func benchmarkMySQLPrivateDatabaseQuery(b *testing.B, db MySQLPrivateDatabase, queryString string) *sql.Rows {
-	r, err := db.Query(queryString, &RequestPolicy{"jacob", Local, true})
+	r, err := db.Query(queryString, &RequestPolicy{"alice", Local, true})
 	if err != nil {
 		b.Error(err.Error())
 	}
@@ -802,7 +802,7 @@ func benchmarkMySQLPrivateDatabaseQueryReadCaching(b *testing.B, queryString str
 	funcMap := validEmptyFuncMap()
 	colMap := map[string][]string{}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -820,7 +820,7 @@ func benchmarkMySQLPrivateDatabaseQueryReadCaching(b *testing.B, queryString str
 	db.SetConnMaxLifetime(time.Second * 20)
 
 	// Make the query once so we know we have a cached version of the table
-	_, err = db.Query(queryString, &RequestPolicy{"jacob", Local, true})
+	_, err = db.Query(queryString, &RequestPolicy{"alice", Local, true})
 	if err != nil {
 		b.Error(err.Error())
 	}
@@ -1065,7 +1065,7 @@ func benchmarkMySQLPrivateDatabaseExecWrite(b *testing.B, execString string, arg
 	funcMap := validEmptyFuncMap()
 	colMap := map[string][]string{}
 
-	group := &PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := NewStaticDataPolicy([]*PrivacyGroup{group},
 		DataTransforms{group: &TableOperations{funcMap, colMap}})
@@ -1085,7 +1085,7 @@ func benchmarkMySQLPrivateDatabaseExecWrite(b *testing.B, execString string, arg
 	b.StartTimer()
 
 	_, err = db.Exec(execString,
-		&RequestPolicy{"jacob", Local, true},
+		&RequestPolicy{"alice", Local, true},
 		args...)
 	if err != nil {
 		b.Error(err.Error())

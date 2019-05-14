@@ -10,12 +10,12 @@ import (
 func TestStaticDataPolicy_Resolve_Success(t *testing.T) {
 	group1 := PrivacyGroup{
 		name:    "Group1",
-		members: map[string]bool{"jacob": true},
+		members: map[string]bool{"alice": true},
 	}
 
 	group2 := PrivacyGroup{
 		name:    "Group2",
-		members: map[string]bool{"jacob": true},
+		members: map[string]bool{"alice": true},
 	}
 
 	transforms := DataTransforms{
@@ -39,7 +39,7 @@ func TestStaticDataPolicy_Resolve_Success(t *testing.T) {
 		transforms: transforms,
 	}
 
-	policy, err := dataPolicy.Resolve("jacob")
+	policy, err := dataPolicy.Resolve("alice")
 	require.NoError(t, err)
 
 	assert.True(t, reflect.DeepEqual(policy.ExcludedCols["table1"], []string{"col1", "col2", "col3", "col4", "col5"}))
@@ -58,12 +58,12 @@ func TestStaticDataPolicy_Resolve_Success(t *testing.T) {
 func TestStaticDataPolicy_Resolve_Fail(t *testing.T) {
 	group1 := PrivacyGroup{
 		name:    "Group1",
-		members: map[string]bool{"jacob": true},
+		members: map[string]bool{"alice": true},
 	}
 
 	group2 := PrivacyGroup{
 		name:    "Group2",
-		members: map[string]bool{"jacob": true},
+		members: map[string]bool{"alice": true},
 	}
 
 	transforms := DataTransforms{
@@ -89,6 +89,6 @@ func TestStaticDataPolicy_Resolve_Fail(t *testing.T) {
 		transforms: transforms,
 	}
 
-	_, err := dataPolicy.Resolve("jacob")
+	_, err := dataPolicy.Resolve("alice")
 	require.EqualError(t, err, "multiple data policies with different transforms for the same table apply, cannot resolve")
 }

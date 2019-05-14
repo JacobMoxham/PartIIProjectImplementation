@@ -9,6 +9,14 @@ import (
 	"strings"
 )
 
+// ComputationPolicy stores the computation capabilities of a node
+type ComputationPolicy interface {
+	Register(string, ComputationLevel, http.Handler)
+	UnregisterAll(string)
+	UnregisterOne(string, ComputationLevel)
+	Resolve(string, ProcessingLocation) (ComputationLevel, http.Handler)
+}
+
 // ComputationLevel specifies whether a handler for a http request can compute no globalResult, just provide the raw data or
 // compute a full globalResult
 type ComputationLevel int
@@ -128,12 +136,4 @@ func BuildRequestPolicy(req *http.Request) (*RequestPolicy, error) {
 		PreferredProcessingLocation: preferredProcessingLocationEnum,
 		HasAllRequiredData:          hasAllRequiredDataBool,
 	}, nil
-}
-
-// ComputationPolicy stores the computation capabilities of a node
-type ComputationPolicy interface {
-	Register(string, ComputationLevel, http.Handler)
-	UnregisterAll(string)
-	UnregisterOne(string, ComputationLevel)
-	Resolve(string, ProcessingLocation) (ComputationLevel, http.Handler)
 }

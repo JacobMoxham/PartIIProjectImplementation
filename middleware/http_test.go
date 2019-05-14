@@ -54,7 +54,7 @@ func TestPolicyAwareHandler(t *testing.T) {
 				HttpRequest: request,
 				Policy: &RequestPolicy{
 					PreferredProcessingLocation: tc.preferredLocation,
-					RequesterID:                 "Jacob",
+					RequesterID:                 "alice",
 				},
 			}
 

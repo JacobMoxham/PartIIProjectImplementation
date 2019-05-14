@@ -7,55 +7,55 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.01'
-          memory: 50M
+          cpus: '0.1'
+          memory: 20M
         reservations:
-          cpus: '0.01'
-          memory: 50M
+          cpus: '0.1'
+          memory: 20M
   data-client-2:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
     command: -can-compute database-2
     deploy:
       resources:
         limits:
-          cpus: '0.01'
-          memory: 50M
+          cpus: '0.1'
+          memory: 20M
         reservations:
-          cpus: '0.01'
-          memory: 50M
+          cpus: '0.1'
+          memory: 20M
   data-client-3:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
     command: -can-compute database-3
     deploy:
       resources:
         limits:
-          cpus: '0.01'
-          memory: 50M
+          cpus: '0.1'
+          memory: 20M
         reservations:
-          cpus: '0.01'
-          memory: 50M
+          cpus: '0.1'
+          memory: 20M
   data-client-4:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
     command: -can-compute database-4
     deploy:
       resources:
         limits:
-          cpus: '0.01'
-          memory: 50M
+          cpus: '0.1'
+          memory: 20M
         reservations:
-          cpus: '0.01'
-          memory: 50M
+          cpus: '0.1'
+          memory: 20M
   data-client-5:
     image: jacobmoxham2/part_ii_project_implementation:data-configurable
     command: -can-compute database-5
     deploy:
       resources:
         limits:
-          cpus: '0.01'
-          memory: 50M
+          cpus: '0.1'
+          memory: 20M
         reservations:
-          cpus: '0.01'
-          memory: 50M
+          cpus: '0.1'
+          memory: 20M
   database-1:
     image: mysql
     command: mysqld --user=root --verbose

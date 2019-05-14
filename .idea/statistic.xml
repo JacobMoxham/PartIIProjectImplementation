@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Statistic">
+    <option name="excludedDirectories">
+      <list>
+        <option value="$PROJECT_DIR$/usecases/no_mware_image_processing/server/vendor" />
+        <option value="$PROJECT_DIR$/usecases/no_mware_image_processing/client/vendor" />
+        <option value="$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/server/vendor" />
+        <option value="$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/requesting-client/vendor" />
+        <option value="$PROJECT_DIR$/usecases/no_mware_aggregate_power_consumption/data-client/vendor" />
+        <option value="$PROJECT_DIR$/usecases/image_processing/server/vendor" />
+        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/data-client/vendor" />
+        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/requesting-client/vendor" />
+        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_data_policies/server/vendor" />
+        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/data-client-configurable/vendor" />
+        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/vendor" />
+        <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/vendor" />
+        <option value="$PROJECT_DIR$/usecases/image_processing/client/vendor" />
+      </list>
+    </option>
+  </component>
+</project>

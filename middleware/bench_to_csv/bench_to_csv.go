@@ -383,7 +383,7 @@ func benchmarkMySQLPrivateDatabaseQueryReadNoCaching(b *testing.B, queryString s
 	funcMap := validFuncMap()
 	colMap := map[string][]string{"TestGroup": {}}
 
-	group := &middleware.PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &middleware.PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := middleware.NewStaticDataPolicy([]*middleware.PrivacyGroup{group},
 		middleware.DataTransforms{group: &middleware.TableOperations{funcMap, colMap}})
@@ -493,7 +493,7 @@ func BenchmarkMySQLPrivateDatabase_Query_Read_No_Caching_25000(b *testing.B) {
 }
 
 func benchmarkMySQLPrivateDatabaseQuery(b *testing.B, db middleware.MySQLPrivateDatabase, queryString string) *sql.Rows {
-	r, err := db.Query(queryString, &middleware.RequestPolicy{"jacob", middleware.Local, true})
+	r, err := db.Query(queryString, &middleware.RequestPolicy{"alice", middleware.Local, true})
 	if err != nil {
 		b.Error(err.Error())
 	}
@@ -505,7 +505,7 @@ func benchmarkMySQLPrivateDatabaseQueryReadCaching(b *testing.B, queryString str
 	funcMap := validFuncMap()
 	colMap := map[string][]string{"TestGroup": {}}
 
-	group := &middleware.PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &middleware.PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := middleware.NewStaticDataPolicy([]*middleware.PrivacyGroup{group},
 		middleware.DataTransforms{group: &middleware.TableOperations{funcMap, colMap}})
@@ -523,7 +523,7 @@ func benchmarkMySQLPrivateDatabaseQueryReadCaching(b *testing.B, queryString str
 	db.SetConnMaxLifetime(time.Second * 20)
 
 	// Make the query once so we know we have a cached version of the table
-	_, err = db.Query(queryString, &middleware.RequestPolicy{"jacob", middleware.Local, true})
+	_, err = db.Query(queryString, &middleware.RequestPolicy{"alice", middleware.Local, true})
 	if err != nil {
 		b.Error(err.Error())
 	}
@@ -765,7 +765,7 @@ func benchmarkMySQLPrivateDatabaseExecWrite(b *testing.B, execString string, arg
 	funcMap := validFuncMap()
 	colMap := map[string][]string{}
 
-	group := &middleware.PrivacyGroup{"TestGroup", map[string]bool{"jacob": true}}
+	group := &middleware.PrivacyGroup{"TestGroup", map[string]bool{"alice": true}}
 
 	staticDataPolicy := middleware.NewStaticDataPolicy([]*middleware.PrivacyGroup{group},
 		middleware.DataTransforms{group: &middleware.TableOperations{funcMap, colMap}})
@@ -785,7 +785,7 @@ func benchmarkMySQLPrivateDatabaseExecWrite(b *testing.B, execString string, arg
 	b.StartTimer()
 
 	_, err = db.Exec(execString,
-		&middleware.RequestPolicy{"jacob", middleware.Local, true},
+		&middleware.RequestPolicy{"alice", middleware.Local, true},
 		args...)
 	if err != nil {
 		b.Error(err.Error())
