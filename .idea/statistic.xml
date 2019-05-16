@@ -16,6 +16,7 @@
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/requesting-client/vendor" />
         <option value="$PROJECT_DIR$/usecases/aggregate_power_consumption_comp_policies/server/vendor" />
         <option value="$PROJECT_DIR$/usecases/image_processing/client/vendor" />
+        <option value="$PROJECT_DIR$/image_recognition" />
       </list>
     </option>
   </component>
